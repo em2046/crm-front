@@ -1,0 +1,14 @@
+<mat-sidenav-container id="everything">
+  <mat-sidenav #sidenav id="side" mode="side">
+    <app-menu></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content id="layout">
+    <header id="header">
+      <app-header (toggle)="sidenav.toggle()"></app-header>
+    </header>
+    <main id="main"></main>
+    <footer id="footer">
+      <app-footer></app-footer>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
