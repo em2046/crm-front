@@ -1,18 +1,22 @@
-<section id="login">
-  <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>客户关系管理系统</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="login-form">
-      <mat-form-field>
-        <input matInput placeholder="用户名" />
+<div class="login">
+  <mat-icon class="login-logo">headset_mic</mat-icon>
+  <h1 class="login-title">客户关系管理系统</h1>
+  <p class="login-desc">上海交通大学本科毕业论文</p>
+  <div class="login-card">
+    <form class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>用户名或邮箱地址</mat-label>
+        <input matInput placeholder="username" />
+        <mat-icon matSuffix class="">person_outline</mat-icon>
       </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="密码" type="password" />
+      <mat-form-field appearance="outline">
+        <mat-label>密码</mat-label>
+        <input matInput placeholder="password" />
+        <mat-icon matSuffix class="">fingerprint</mat-icon>
+        <mat-hint align="end"><a>忘记密码</a></mat-hint>
       </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions>
-      <button color="primary" mat-flat-button>登录</button>
-    </mat-card-actions>
-  </mat-card>
-</section>
+      <button class="login-submit" mat-flat-button color="primary">登录</button>
+    </form>
+  </div>
+  <div class="login-card">新客服？<a>注册一个账号</a></div>
+</div>
