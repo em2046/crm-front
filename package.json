@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --deployUrl=//cfs.em2046.com/",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "avatar-generator": "node ./scripts/avatar-generator.js"
   },
   "private": true,
   "dependencies": {
