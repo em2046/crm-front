@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import Utils from '../../../utils/utils';
 import { AvatarsComponent } from '../avatars/avatars.component';
 
 @Component({
@@ -8,21 +9,23 @@ import { AvatarsComponent } from '../avatars/avatars.component';
   styleUrls: ['../login.less', './register.component.less'],
 })
 export class RegisterComponent implements OnInit {
-  animal: string;
-  name: string;
+  Utils = Utils;
+  avatar: number;
+
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AvatarsComponent, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal },
+      width: '75vw',
+      minWidth: '400px',
+      data: { animal: this.avatar },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(code => {
       console.log('The dialog was closed');
-      this.animal = result;
+      this.avatar = code;
     });
   }
 }

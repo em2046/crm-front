@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import Utils from '../../../utils/utils';
 import { AvatarsService } from './avatars.service';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  code: string;
 }
 
 @Component({
@@ -13,6 +13,7 @@ export interface DialogData {
   styleUrls: ['./avatars.component.less'],
 })
 export class AvatarsComponent implements OnInit {
+  Utils = Utils;
   avatars;
 
   constructor(
@@ -23,12 +24,12 @@ export class AvatarsComponent implements OnInit {
     this.avatars = avatarsService.getAvatars();
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  selectAvatar(code) {
+    this.data.code = code;
   }
 
-  codeToEmoji(code) {
-    return String.fromCodePoint(code);
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   ngOnInit(): void {}

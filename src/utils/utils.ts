@@ -16,4 +16,15 @@ export default class Utils {
   static randomSelect(...item) {
     return item[Math.floor(Math.random() * item.length)];
   }
+
+  /**
+   * 代码转emoji表情
+   * @param code emoji对应的代码
+   */
+  static codeToEmoji(code?: number): string {
+    if (!code) {
+      return '';
+    }
+    return String.fromCodePoint(code);
+  }
 }

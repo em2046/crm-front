@@ -28,8 +28,29 @@
         <mat-icon matSuffix class="">fingerprint</mat-icon>
         <mat-hint align="end"></mat-hint>
       </mat-form-field>
-      <button mat-stroked-button color="accent" type="button" (click)="openDialog()">选择头像</button>
-      <button class="login-submit" mat-flat-button color="primary">注册</button>
+      <div class="login-box">
+        <div
+          class="login-avatar"
+          (click)="openDialog()"
+          matTooltip="选择头像"
+          matTooltipPosition="after"
+        >
+          <div class="login-icon" *ngIf="!avatar">
+            <mat-icon>face</mat-icon>
+          </div>
+          <div class="login-icon" *ngIf="avatar">
+            {{ Utils.codeToEmoji(avatar) }}
+          </div>
+        </div>
+      </div>
+      <button
+        class="login-submit"
+        mat-flat-button
+        color="primary"
+        routerLink="/login"
+      >
+        注册
+      </button>
     </form>
   </div>
   <div class="login-card">已有账号？<a routerLink="/login">返回登录</a></div>
