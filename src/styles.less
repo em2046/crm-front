@@ -1,4 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #333;
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+a {
+  color: #29e;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    border-bottom: 1px solid currentColor;
+  }
+}
+
+.mat-mini-fab .mat-button-wrapper {
+  .mat-icon {
+    vertical-align: top;
+  }
+}
+
+button.mat-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  cursor: text;
+}
+
+.mat-form-field-prefix,
+.mat-form-field-suffix {
+  user-select: none;
+}
+
+.mat-dialog-actions {
+  .mat-flat-button + .mat-flat-button {
+    margin-left: 8px;
+  }
+}

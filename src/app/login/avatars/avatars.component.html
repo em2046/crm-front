@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>选择头像</h1>
+<div mat-dialog-content>
+  <div class="avatars-list">
+    <div
+      class="avatars-item"
+      [ngClass]="{ active: avatar.code === data.code }"
+      (click)="selectAvatar(avatar.code)"
+      *ngFor="let avatar of avatars | async"
+    >
+      <div class="avatars-icon">{{ Utils.codeToEmoji(avatar.code) }}</div>
+      <div class="avatars-title">{{ avatar.name }}</div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="onNoClick()">取消</button>
+  <button mat-flat-button [mat-dialog-close]="data.code" color="primary">
+    确定
+  </button>
+</div>

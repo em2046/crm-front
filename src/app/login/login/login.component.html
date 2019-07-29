@@ -1,0 +1,32 @@
+<app-background></app-background>
+<div class="login">
+  <mat-icon class="login-logo">headset_mic</mat-icon>
+  <h1 class="login-title">客户关系管理系统</h1>
+  <p class="login-desc">上海交通大学本科毕业论文</p>
+  <div class="login-card">
+    <form class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>用户名或邮箱地址</mat-label>
+        <input matInput placeholder="username" />
+        <mat-icon matSuffix class="">person_outline</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>密码</mat-label>
+        <input matInput placeholder="password" />
+        <mat-icon matSuffix class="">fingerprint</mat-icon>
+        <mat-hint align="end"><a>忘记密码</a></mat-hint>
+      </mat-form-field>
+      <button
+        class="login-submit"
+        mat-flat-button
+        color="primary"
+        routerLink="/"
+      >
+        登录
+      </button>
+    </form>
+  </div>
+  <div class="login-card">
+    新客服？<a routerLink="/register">注册一个账号</a>
+  </div>
+</div>
