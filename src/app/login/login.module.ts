@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from '../material/material.module';
@@ -16,6 +16,6 @@ import { AvatarsComponent } from './avatars/avatars.component';
     AvatarsComponent,
   ],
   entryComponents: [AvatarsComponent],
-  imports: [CommonModule, LoginRoutingModule, MaterialModule, FormsModule],
+  imports: [CommonModule, LoginRoutingModule, MaterialModule, FormsModule, ReactiveFormsModule],
 })
 export class LoginModule {}

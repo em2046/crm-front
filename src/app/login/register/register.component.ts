@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import Utils from '../../../utils/utils';
 import { AvatarsComponent } from '../avatars/avatars.component';
@@ -11,8 +12,21 @@ import { AvatarsComponent } from '../avatars/avatars.component';
 export class RegisterComponent implements OnInit {
   Utils = Utils;
   avatar: number;
+  registerForm;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private formBuilder: FormBuilder) {
+    this.registerForm = this.formBuilder.group({
+      name: '',
+      email: '',
+      password: '',
+      verifyPassword: '',
+    });
+  }
+
+  onSubmit(userData) {
+    console.log(userData);
+    console.log(this.avatar);
+  }
 
   ngOnInit() {}
 
