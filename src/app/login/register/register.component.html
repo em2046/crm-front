@@ -20,7 +20,11 @@
         />
         <mat-icon matSuffix class="">person_outline</mat-icon>
         <mat-hint align="end">4-200个字符</mat-hint>
+        <mat-error *ngIf="name.invalid">
+          {{ getErrorMessage(name, '用户名') }}
+        </mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>邮箱地址</mat-label>
         <input
@@ -32,7 +36,11 @@
           required
         />
         <mat-icon matSuffix class="">mail_outline</mat-icon>
+        <mat-error *ngIf="email.invalid">
+          {{ getErrorMessage(email, '邮箱地址') }}
+        </mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>密码</mat-label>
         <input
@@ -44,7 +52,11 @@
         />
         <mat-icon matSuffix class="">fingerprint</mat-icon>
         <mat-hint align="end">4-200个字符</mat-hint>
+        <mat-error *ngIf="password.invalid">
+          {{ getErrorMessage(password, '密码') }}
+        </mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>重复密码</mat-label>
         <input
@@ -56,7 +68,11 @@
         />
         <mat-icon matSuffix class="">fingerprint</mat-icon>
         <mat-hint align="end"></mat-hint>
+        <mat-error *ngIf="verifyPassword.invalid">
+          {{ getErrorMessage(verifyPassword, '重复密码') }}
+        </mat-error>
       </mat-form-field>
+
       <div class="login-box">
         <div
           class="login-avatar"
@@ -72,6 +88,7 @@
           </div>
         </div>
       </div>
+
       <button
         class="login-submit"
         mat-flat-button
