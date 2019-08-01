@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +17,13 @@ import { AvatarsComponent } from './avatars/avatars.component';
     AvatarsComponent,
   ],
   entryComponents: [AvatarsComponent],
-  imports: [CommonModule, LoginRoutingModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    LoginRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
 })
 export class LoginModule {}

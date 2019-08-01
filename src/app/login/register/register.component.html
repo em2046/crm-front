@@ -36,6 +36,7 @@
           required
         />
         <mat-icon matSuffix class="">mail_outline</mat-icon>
+        <mat-hint align="end">请输入可以接受邮件的邮箱</mat-hint>
         <mat-error *ngIf="email.invalid">
           {{ getErrorMessage(email, '邮箱地址') }}
         </mat-error>
@@ -57,21 +58,34 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>重复密码</mat-label>
-        <input
-          type="password"
-          required
-          matInput
-          placeholder="Verify password"
-          formControlName="verifyPassword"
-        />
-        <mat-icon matSuffix class="">fingerprint</mat-icon>
-        <mat-hint align="end"></mat-hint>
-        <mat-error *ngIf="verifyPassword.invalid">
-          {{ getErrorMessage(verifyPassword, '重复密码') }}
-        </mat-error>
-      </mat-form-field>
+      <div
+        class="form-group"
+        [ngClass]="{ 'form-group-error': registerForm.errors?.verifyPassword }"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>重复密码</mat-label>
+          <input
+            type="password"
+            required
+            matInput
+            placeholder="Verify password"
+            formControlName="verifyPassword"
+          />
+          <mat-icon matSuffix class="">fingerprint</mat-icon>
+          <mat-hint align="end">再次输入相同密码</mat-hint>
+          <mat-error *ngIf="verifyPassword.invalid">
+            {{ getErrorMessage(verifyPassword, '重复密码') }}
+          </mat-error>
+        </mat-form-field>
+        <div
+          class="form-group-error-box"
+          *ngIf="!verifyPassword.invalid && registerForm.errors?.verifyPassword"
+        >
+          <div class="form-group-error-text">
+            密码与重复密码必须相同
+          </div>
+        </div>
+      </div>
 
       <div class="login-box">
         <div

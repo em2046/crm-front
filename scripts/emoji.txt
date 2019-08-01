@@ -1,50 +1,47 @@
-👨:Man
-👩:Woman
-🦸:Superhero
-🦹:Supervillain
-🧙:Mage
-🧚:Fairy
-🧛:Vampire
-🧜:Merperson
-🧝:Elf
-🧞:Genie
-🐭:Mouse Face
-🐮:Cow Face
-🐯:Tiger Face
-🐰:Rabbit Face
-🐲:Dragon Face
-🐍:Snake
-🐴:Horse Face
-🐐:Goat
-🐵:Monkey Face
-🐔:Chicken
-🐶:Dog Face
-🐷:Pig Face
-🦁:Lion Face
-🐱:Cat Face
-🦄:Unicorn Face
-🦓:Zebra
-🐫:Two-Hump Camel
-🦒:Giraffe
-🐘:Elephant
-🐼:Panda Face
-🦘:Kangaroo
-🐤:Baby Chick
-🐧:Penguin
-🐸:Frog Face
-🐢:Turtle
-🦕:Sauropod
-🐳:Spouting Whale
-🐠:Tropical Fish
-🐌:Snail
-🦋:Butterfly
-🐛:Bug
-🐜:Ant
-🐝:Honeybee
-🐞:Lady Beetle
-🌲:Evergreen Tree
-🌵:Cactus
-🍀:Four Leaf Clover
-🍁:Maple Leaf
-🍂:Fallen Leaf
-🍄:Mushroom
+😀:笑脸
+🙂:微笑
+🦸:超级英雄
+🧙:魔法师
+🧚:小精灵
+🧜:人鱼
+🧝:精灵
+🐭:鼠
+🐮:牛
+🐯:虎
+🐰:兔
+🐲:龙
+🐍:蛇
+🐴:马
+🐐:羊
+🐵:猴
+🐔:鸡
+🐶:狗
+🐷:猪
+🦁:狮子
+🐱:猫
+🦄:独角兽
+🦓:斑马
+🐫:骆驼
+🦒:长颈鹿
+🐘:大象
+🐼:熊猫
+🦘:袋鼠
+🐤:小鸡
+🐧:企鹅
+🐸:青蛙
+🐢:乌龟
+🦕:蜥脚龙
+🐳:鲸鱼
+🐠:热带鱼
+🐌:蜗牛
+🦋:蝴蝶
+🐛:毛毛虫
+🐜:蚂蚁
+🐝:蜜蜂
+🐞:瓢虫
+🌲:常青树
+🌵:仙人掌
+🍀:四叶草
+🍁:枫叶
+🍂:落叶
+🍄:蘑菇
