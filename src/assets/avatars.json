@@ -1,52 +1,190 @@
 [
-  { "code": 128104, "name": "Man" },
-  { "code": 128105, "name": "Woman" },
-  { "code": 129464, "name": "Superhero" },
-  { "code": 129465, "name": "Supervillain" },
-  { "code": 129497, "name": "Mage" },
-  { "code": 129498, "name": "Fairy" },
-  { "code": 129499, "name": "Vampire" },
-  { "code": 129500, "name": "Merperson" },
-  { "code": 129501, "name": "Elf" },
-  { "code": 129502, "name": "Genie" },
-  { "code": 128045, "name": "Mouse Face" },
-  { "code": 128046, "name": "Cow Face" },
-  { "code": 128047, "name": "Tiger Face" },
-  { "code": 128048, "name": "Rabbit Face" },
-  { "code": 128050, "name": "Dragon Face" },
-  { "code": 128013, "name": "Snake" },
-  { "code": 128052, "name": "Horse Face" },
-  { "code": 128016, "name": "Goat" },
-  { "code": 128053, "name": "Monkey Face" },
-  { "code": 128020, "name": "Chicken" },
-  { "code": 128054, "name": "Dog Face" },
-  { "code": 128055, "name": "Pig Face" },
-  { "code": 129409, "name": "Lion Face" },
-  { "code": 128049, "name": "Cat Face" },
-  { "code": 129412, "name": "Unicorn Face" },
-  { "code": 129427, "name": "Zebra" },
-  { "code": 128043, "name": "Two-Hump Camel" },
-  { "code": 129426, "name": "Giraffe" },
-  { "code": 128024, "name": "Elephant" },
-  { "code": 128060, "name": "Panda Face" },
-  { "code": 129432, "name": "Kangaroo" },
-  { "code": 128036, "name": "Baby Chick" },
-  { "code": 128039, "name": "Penguin" },
-  { "code": 128056, "name": "Frog Face" },
-  { "code": 128034, "name": "Turtle" },
-  { "code": 129429, "name": "Sauropod" },
-  { "code": 128051, "name": "Spouting Whale" },
-  { "code": 128032, "name": "Tropical Fish" },
-  { "code": 128012, "name": "Snail" },
-  { "code": 129419, "name": "Butterfly" },
-  { "code": 128027, "name": "Bug" },
-  { "code": 128028, "name": "Ant" },
-  { "code": 128029, "name": "Honeybee" },
-  { "code": 128030, "name": "Lady Beetle" },
-  { "code": 127794, "name": "Evergreen Tree" },
-  { "code": 127797, "name": "Cactus" },
-  { "code": 127808, "name": "Four Leaf Clover" },
-  { "code": 127809, "name": "Maple Leaf" },
-  { "code": 127810, "name": "Fallen Leaf" },
-  { "code": 127812, "name": "Mushroom" }
+  {
+    "code": 128512,
+    "name": "笑脸"
+  },
+  {
+    "code": 128578,
+    "name": "微笑"
+  },
+  {
+    "code": 129464,
+    "name": "超级英雄"
+  },
+  {
+    "code": 129497,
+    "name": "魔法师"
+  },
+  {
+    "code": 129498,
+    "name": "小精灵"
+  },
+  {
+    "code": 129500,
+    "name": "人鱼"
+  },
+  {
+    "code": 129501,
+    "name": "精灵"
+  },
+  {
+    "code": 128045,
+    "name": "鼠"
+  },
+  {
+    "code": 128046,
+    "name": "牛"
+  },
+  {
+    "code": 128047,
+    "name": "虎"
+  },
+  {
+    "code": 128048,
+    "name": "兔"
+  },
+  {
+    "code": 128050,
+    "name": "龙"
+  },
+  {
+    "code": 128013,
+    "name": "蛇"
+  },
+  {
+    "code": 128052,
+    "name": "马"
+  },
+  {
+    "code": 128016,
+    "name": "羊"
+  },
+  {
+    "code": 128053,
+    "name": "猴"
+  },
+  {
+    "code": 128020,
+    "name": "鸡"
+  },
+  {
+    "code": 128054,
+    "name": "狗"
+  },
+  {
+    "code": 128055,
+    "name": "猪"
+  },
+  {
+    "code": 129409,
+    "name": "狮子"
+  },
+  {
+    "code": 128049,
+    "name": "猫"
+  },
+  {
+    "code": 129412,
+    "name": "独角兽"
+  },
+  {
+    "code": 129427,
+    "name": "斑马"
+  },
+  {
+    "code": 128043,
+    "name": "骆驼"
+  },
+  {
+    "code": 129426,
+    "name": "长颈鹿"
+  },
+  {
+    "code": 128024,
+    "name": "大象"
+  },
+  {
+    "code": 128060,
+    "name": "熊猫"
+  },
+  {
+    "code": 129432,
+    "name": "袋鼠"
+  },
+  {
+    "code": 128036,
+    "name": "小鸡"
+  },
+  {
+    "code": 128039,
+    "name": "企鹅"
+  },
+  {
+    "code": 128056,
+    "name": "青蛙"
+  },
+  {
+    "code": 128034,
+    "name": "乌龟"
+  },
+  {
+    "code": 129429,
+    "name": "蜥脚龙"
+  },
+  {
+    "code": 128051,
+    "name": "鲸鱼"
+  },
+  {
+    "code": 128032,
+    "name": "热带鱼"
+  },
+  {
+    "code": 128012,
+    "name": "蜗牛"
+  },
+  {
+    "code": 129419,
+    "name": "蝴蝶"
+  },
+  {
+    "code": 128027,
+    "name": "毛毛虫"
+  },
+  {
+    "code": 128028,
+    "name": "蚂蚁"
+  },
+  {
+    "code": 128029,
+    "name": "蜜蜂"
+  },
+  {
+    "code": 128030,
+    "name": "瓢虫"
+  },
+  {
+    "code": 127794,
+    "name": "常青树"
+  },
+  {
+    "code": 127797,
+    "name": "仙人掌"
+  },
+  {
+    "code": 127808,
+    "name": "四叶草"
+  },
+  {
+    "code": 127809,
+    "name": "枫叶"
+  },
+  {
+    "code": 127810,
+    "name": "落叶"
+  },
+  {
+    "code": 127812,
+    "name": "蘑菇"
+  }
 ]

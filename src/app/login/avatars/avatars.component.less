@@ -1,6 +1,8 @@
 .avatars-list {
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 128px);
 }
 
 .avatars-item {
@@ -24,6 +26,7 @@
 }
 
 .avatars-icon {
+  user-select: none;
   display: flex;
   font-size: 64px;
   justify-content: center;

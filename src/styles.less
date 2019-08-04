@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.32);
+}
 
+::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+//region element
 html,
 body {
   height: 100%;
@@ -21,6 +34,9 @@ a {
   }
 }
 
+//endregion
+
+//region material
 .mat-mini-fab .mat-button-wrapper {
   .mat-icon {
     vertical-align: top;
@@ -46,3 +62,50 @@ button.mat-menu-item {
     margin-left: 8px;
   }
 }
+
+//endregion
+
+//region global
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  &.form-group-error {
+    color: #f44336;
+
+    .mat-form-field .mat-form-field-label,
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: #f44336;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline-start,
+    .mat-form-field-appearance-outline .mat-form-field-outline-gap,
+    .mat-form-field-appearance-outline .mat-form-field-outline-end {
+      border-width: 2px;
+    }
+  }
+}
+
+.form-group-error-box {
+  margin: 0.25em 0;
+  padding-bottom: 1.34375em;
+  position: relative;
+}
+
+.form-group-error-text {
+  padding: 0 1em;
+  text-align: left;
+  color: #f44336;
+  font-size: 75%;
+  margin-top: 0.66667em;
+  top: calc(100% - 1.79167em);
+
+  .mat-icon {
+    width: 1em;
+    height: 1em;
+    font-size: inherit;
+    vertical-align: baseline;
+  }
+}
+
+//endregion

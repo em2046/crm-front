@@ -4,23 +4,45 @@
   <h1 class="login-title">客户关系管理系统</h1>
   <p class="login-desc">上海交通大学本科毕业论文</p>
   <div class="login-card">
-    <form class="login-form">
+    <form
+      class="login-form"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit(loginForm.value)"
+    >
       <mat-form-field appearance="outline">
         <mat-label>用户名或邮箱地址</mat-label>
-        <input matInput placeholder="username" />
+        <input
+          matInput
+          placeholder="Username"
+          formControlName="name"
+          name="username"
+          required
+        />
         <mat-icon matSuffix class="">person_outline</mat-icon>
+        <mat-error *ngIf="name.invalid">
+          {{ Utils.getValidateMessage(name, '用户名') }}
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>密码</mat-label>
-        <input matInput placeholder="password" />
+        <input
+          type="password"
+          matInput
+          placeholder="Password"
+          formControlName="password"
+          required
+        />
         <mat-icon matSuffix class="">fingerprint</mat-icon>
         <mat-hint align="end"><a>忘记密码</a></mat-hint>
+        <mat-error *ngIf="password.invalid">
+          {{ Utils.getValidateMessage(password, '密码') }}
+        </mat-error>
       </mat-form-field>
       <button
         class="login-submit"
         mat-flat-button
         color="primary"
-        routerLink="/"
+        type="submit"
       >
         登录
       </button>
