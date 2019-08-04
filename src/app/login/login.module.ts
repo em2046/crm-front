@@ -26,4 +26,5 @@ import { AvatarsComponent } from './avatars/avatars.component';
     HttpClientModule,
   ],
 })
-export class LoginModule {}
+export class LoginModule {
+}

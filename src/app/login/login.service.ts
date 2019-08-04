@@ -1,41 +1,46 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from '../domain/user.model';
+import Api from '../../utils/api';
+import Utils from '../../utils/utils';
+import { HttpResult } from '../dto/http-result';
+import { User } from '../dto/user.model';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-  }),
-};
+export enum UserCreateCode {
+  SUCCESS = 0,
+  NAME_ALREADY_EXISTS = 1,
+  EMAIL_ALREADY_EXISTS = 2,
+}
+
+export enum UserLoginCode {
+  SUCCESS = 0,
+  NAME_OR_PASSWORD_INCORRECT = 1,
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  userUrl = '//localhost:3000/user';
-
   constructor(private http: HttpClient) {}
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`,
-      );
-    }
-    return throwError('Something bad happened; please try again later.');
+  addUser(user: User): Observable<HttpResult<UserCreateCode, User>> {
+    return this.http
+      .post<HttpResult<UserCreateCode, User>>(
+        Api.user.create,
+        user,
+        Utils.httpOptions,
+      )
+      .pipe(catchError(Utils.handleError));
   }
 
-  addUser(user: User): Observable<User> {
+  loginUser(user: User): Observable<HttpResult<UserLoginCode, User>> {
     return this.http
-      .post<User>(this.userUrl, user, httpOptions)
-      .pipe(catchError(this.handleError));
+      .post<HttpResult<UserLoginCode, User>>(
+        Api.user.login,
+        user,
+        Utils.httpOptions,
+      )
+      .pipe(catchError(Utils.handleError));
   }
 }

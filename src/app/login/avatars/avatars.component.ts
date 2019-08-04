@@ -32,5 +32,6 @@ export class AvatarsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 }

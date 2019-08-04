@@ -6,11 +6,12 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import Utils from '../../../utils/utils';
-import { User } from '../../domain/user.model';
+import { User } from '../../dto/user.model';
 import { AvatarsComponent } from '../avatars/avatars.component';
-import { LoginService } from '../login.service';
+import { LoginService, UserCreateCode } from '../login.service';
+import { AlertService } from 'src/app/alert.service';
 
 const verifyPasswordValidator: ValidatorFn = (
   control: FormGroup,
@@ -36,7 +37,7 @@ export class RegisterComponent implements OnInit {
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    public snackBar: MatSnackBar,
+    public alertService: AlertService,
   ) {
     this.registerForm = this.formBuilder.group(
       {
@@ -104,12 +105,23 @@ export class RegisterComponent implements OnInit {
       avatar,
     };
 
-    this.loginService.addUser(newUser).subscribe(() => {
-      this.snackBar.open('注册成功');
+    this.loginService.addUser(newUser).subscribe(res => {
+      switch (res.code) {
+        case UserCreateCode.SUCCESS:
+          this.alertService.alert('注册成功');
+          break;
+        case UserCreateCode.NAME_ALREADY_EXISTS:
+          this.alertService.alert('用户名已经存在');
+          break;
+        case UserCreateCode.EMAIL_ALREADY_EXISTS:
+          this.alertService.alert('邮箱地址已经存在');
+          break;
+      }
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AvatarsComponent, {
@@ -123,19 +135,5 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  getErrorMessage(field, label) {
-    if (field.errors.required) {
-      return `${label}必须填写`;
-    }
-    if (field.errors.email) {
-      return `必须填写正确的邮箱地址`;
-    }
-    if (field.errors.minlength) {
-      return `${label}不能少于${field.errors.minlength.requiredLength}个字符`;
-    }
-    if (field.errors.maxlength) {
-      return `${label}不能多于${field.errors.maxlength.requiredLength}个字符`;
-    }
-    return '';
-  }
+
 }
