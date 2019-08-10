@@ -5,20 +5,20 @@
   <p class="login-desc">上海交通大学本科毕业论文</p>
   <div class="login-card">
     <form
-      class="login-form"
-      [formGroup]="registerForm"
       (ngSubmit)="onSubmit(registerForm.value)"
+      [formGroup]="registerForm"
+      class="login-form"
     >
       <mat-form-field appearance="outline">
         <mat-label>用户名</mat-label>
         <input
-          matInput
-          placeholder="Username"
           formControlName="name"
+          matInput
           name="username"
+          placeholder="Username"
           required
         />
-        <mat-icon matSuffix class="">person_outline</mat-icon>
+        <mat-icon class="" matSuffix>person_outline</mat-icon>
         <mat-hint align="end">4-200个字符</mat-hint>
         <mat-error *ngIf="name.invalid">
           {{ Utils.getValidateMessage(name, '用户名') }}
@@ -28,14 +28,14 @@
       <mat-form-field appearance="outline">
         <mat-label>邮箱地址</mat-label>
         <input
-          type="email"
-          matInput
-          placeholder="Email"
-          name="email"
           formControlName="email"
+          matInput
+          name="email"
+          placeholder="Email"
           required
+          type="email"
         />
-        <mat-icon matSuffix class="">mail_outline</mat-icon>
+        <mat-icon class="" matSuffix>mail_outline</mat-icon>
         <mat-hint align="end">请输入可以接受邮件的邮箱</mat-hint>
         <mat-error *ngIf="email.invalid">
           {{ Utils.getValidateMessage(email, '邮箱地址') }}
@@ -45,13 +45,13 @@
       <mat-form-field appearance="outline">
         <mat-label>密码</mat-label>
         <input
-          type="password"
+          formControlName="password"
           matInput
           placeholder="Password"
-          formControlName="password"
           required
+          type="password"
         />
-        <mat-icon matSuffix class="">fingerprint</mat-icon>
+        <mat-icon class="" matSuffix>fingerprint</mat-icon>
         <mat-hint align="end">4-200个字符</mat-hint>
         <mat-error *ngIf="password.invalid">
           {{ Utils.getValidateMessage(password, '密码') }}
@@ -59,27 +59,27 @@
       </mat-form-field>
 
       <div
-        class="form-group"
         [ngClass]="{ 'form-group-error': registerForm.errors?.verifyPassword }"
+        class="form-group"
       >
         <mat-form-field appearance="outline">
           <mat-label>重复密码</mat-label>
           <input
-            type="password"
-            required
+            formControlName="verifyPassword"
             matInput
             placeholder="Verify password"
-            formControlName="verifyPassword"
+            required
+            type="password"
           />
-          <mat-icon matSuffix class="">fingerprint</mat-icon>
+          <mat-icon class="" matSuffix>fingerprint</mat-icon>
           <mat-hint align="end">再次输入相同密码</mat-hint>
           <mat-error *ngIf="verifyPassword.invalid">
             {{ Utils.getValidateMessage(verifyPassword, '重复密码') }}
           </mat-error>
         </mat-form-field>
         <div
-          class="form-group-error-box"
           *ngIf="!verifyPassword.invalid && registerForm.errors?.verifyPassword"
+          class="form-group-error-box"
         >
           <div class="form-group-error-text">
             密码与重复密码必须相同
@@ -89,15 +89,15 @@
 
       <div class="login-box">
         <div
-          class="login-avatar"
           (click)="openDialog()"
+          class="login-avatar"
           matTooltip="选择头像"
           matTooltipPosition="after"
         >
-          <div class="login-icon" *ngIf="!avatar">
+          <div *ngIf="!avatar" class="login-icon">
             <mat-icon>face</mat-icon>
           </div>
-          <div class="login-icon" *ngIf="avatar">
+          <div *ngIf="avatar" class="login-icon">
             {{ Utils.codeToEmoji(avatar) }}
           </div>
         </div>
@@ -105,8 +105,8 @@
 
       <button
         class="login-submit"
-        mat-flat-button
         color="primary"
+        mat-flat-button
         type="submit"
       >
         注册

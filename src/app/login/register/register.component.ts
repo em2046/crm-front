@@ -7,11 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { AlertService } from 'src/app/alert.service';
 import Utils from '../../../utils/utils';
+import { HttpError } from '../../dto/http-error';
 import { User } from '../../dto/user.model';
 import { AvatarsComponent } from '../avatars/avatars.component';
-import { LoginService, UserCreateCode } from '../login.service';
-import { AlertService } from 'src/app/alert.service';
+import { LoginService } from '../login.service';
 
 const verifyPasswordValidator: ValidatorFn = (
   control: FormGroup,
@@ -105,23 +106,17 @@ export class RegisterComponent implements OnInit {
       avatar,
     };
 
-    this.loginService.addUser(newUser).subscribe(res => {
-      switch (res.code) {
-        case UserCreateCode.SUCCESS:
-          this.alertService.alert('注册成功');
-          break;
-        case UserCreateCode.NAME_ALREADY_EXISTS:
-          this.alertService.alert('用户名已经存在');
-          break;
-        case UserCreateCode.EMAIL_ALREADY_EXISTS:
-          this.alertService.alert('邮箱地址已经存在');
-          break;
-      }
-    });
+    this.loginService
+      .addUser(newUser)
+      .pipe()
+      .subscribe(res => {
+        if (res instanceof HttpError && res.statusCode) {
+          this.alertService.alert(res.message);
+        }
+      });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AvatarsComponent, {
@@ -134,6 +129,4 @@ export class RegisterComponent implements OnInit {
       this.avatar = code;
     });
   }
-
-
 }

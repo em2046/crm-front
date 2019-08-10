@@ -2,10 +2,10 @@
 <div mat-dialog-content>
   <div class="avatars-list">
     <div
-      class="avatars-item"
-      [ngClass]="{ active: avatar.code === data.code }"
       (click)="selectAvatar(avatar.code)"
       *ngFor="let avatar of avatars | async"
+      [ngClass]="{ active: avatar.code === data.code }"
+      class="avatars-item"
     >
       <div class="avatars-icon">{{ Utils.codeToEmoji(avatar.code) }}</div>
       <div class="avatars-title">{{ avatar.name }}</div>
@@ -13,8 +13,8 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-flat-button (click)="onNoClick()">取消</button>
-  <button mat-flat-button [mat-dialog-close]="data.code" color="primary">
+  <button (click)="onNoClick()" mat-flat-button>取消</button>
+  <button [mat-dialog-close]="data.code" color="primary" mat-flat-button>
     确定
   </button>
 </div>

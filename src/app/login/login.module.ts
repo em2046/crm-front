@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material/material.module';
+import { AvatarsComponent } from './avatars/avatars.component';
+import { BackgroundComponent } from './background/background.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
-import { MaterialModule } from '../material/material.module';
 import { RegisterComponent } from './register/register.component';
-import { BackgroundComponent } from './background/background.component';
-import { AvatarsComponent } from './avatars/avatars.component';
 
 @NgModule({
   declarations: [
@@ -26,5 +26,4 @@ import { AvatarsComponent } from './avatars/avatars.component';
     HttpClientModule,
   ],
 })
-export class LoginModule {
-}
+export class LoginModule {}

@@ -5,20 +5,20 @@
   <p class="login-desc">上海交通大学本科毕业论文</p>
   <div class="login-card">
     <form
-      class="login-form"
-      [formGroup]="loginForm"
       (ngSubmit)="onSubmit(loginForm.value)"
+      [formGroup]="loginForm"
+      class="login-form"
     >
       <mat-form-field appearance="outline">
         <mat-label>用户名或邮箱地址</mat-label>
         <input
-          matInput
-          placeholder="Username"
           formControlName="name"
+          matInput
           name="username"
+          placeholder="Username"
           required
         />
-        <mat-icon matSuffix class="">person_outline</mat-icon>
+        <mat-icon class="" matSuffix>person_outline</mat-icon>
         <mat-error *ngIf="name.invalid">
           {{ Utils.getValidateMessage(name, '用户名') }}
         </mat-error>
@@ -26,13 +26,13 @@
       <mat-form-field appearance="outline">
         <mat-label>密码</mat-label>
         <input
-          type="password"
+          formControlName="password"
           matInput
           placeholder="Password"
-          formControlName="password"
           required
+          type="password"
         />
-        <mat-icon matSuffix class="">fingerprint</mat-icon>
+        <mat-icon class="" matSuffix>fingerprint</mat-icon>
         <mat-hint align="end"><a>忘记密码</a></mat-hint>
         <mat-error *ngIf="password.invalid">
           {{ Utils.getValidateMessage(password, '密码') }}
@@ -40,8 +40,8 @@
       </mat-form-field>
       <button
         class="login-submit"
-        mat-flat-button
         color="primary"
+        mat-flat-button
         type="submit"
       >
         登录

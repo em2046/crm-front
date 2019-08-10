@@ -10,8 +10,7 @@ export class BackgroundComponent implements OnInit {
   icons;
   iconStyles;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.icons = [
