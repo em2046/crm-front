@@ -10,7 +10,7 @@ export class AlertService {
 
   alert(message) {
     this.snackBar.open(message, '关闭', {
-      duration: 3000,
+      duration: 1000,
     });
   }
 }

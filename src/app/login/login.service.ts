@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Api from '../../utils/api';
 import Utils from '../../utils/utils';
-import { HttpError } from '../dto/http-error';
+import { AccessToken } from '../dto/access-token';
 import { User } from '../dto/user.model';
 
 @Injectable({
@@ -13,15 +13,15 @@ import { User } from '../dto/user.model';
 export class LoginService {
   constructor(private http: HttpClient) {}
 
-  addUser(user: User): Observable<User | HttpError> {
+  addUser(user: User, handleError): Observable<User> {
     return this.http
       .post<User>(Api.user.create, user, Utils.httpOptions)
-      .pipe(catchError(Utils.handleError()));
+      .pipe(catchError(Utils.handleError(handleError)));
   }
 
-  loginUser(user: User): Observable<User | HttpError> {
+  loginUser(user, handleError): Observable<AccessToken> {
     return this.http
-      .post<User>(Api.user.login, user, Utils.httpOptions)
-      .pipe(catchError(Utils.handleError()));
+      .post<AccessToken>(Api.user.login, user, Utils.httpOptions)
+      .pipe(catchError(Utils.handleError(handleError)));
   }
 }

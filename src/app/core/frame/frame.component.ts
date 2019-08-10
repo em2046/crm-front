@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-frame',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./frame.component.less'],
 })
 export class FrameComponent implements OnInit {
-  constructor() {}
+  constructor(private readonly router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const accessToken = sessionStorage.getItem('access_token');
+    if (!accessToken) {
+      this.router.navigate(['/login']);
+    }
+  }
 }

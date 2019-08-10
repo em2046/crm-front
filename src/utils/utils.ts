@@ -1,6 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { HttpError } from '../app/dto/http-error';
+import { throwError } from 'rxjs';
 
 export default class Utils {
   /**
@@ -65,11 +64,11 @@ export default class Utils {
   /**
    * 错误处理
    */
-  static handleError() {
-    return (error: any): Observable<HttpError> => {
+  static handleError(handleError) {
+    return (error: any) => {
       console.error(error);
-
-      return of(new HttpError(error.error));
+      handleError(error.error);
+      return throwError(error.error.message);
     };
   }
 }

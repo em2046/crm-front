@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/alert.service';
 import Utils from '../../../utils/utils';
-import { HttpError } from '../../dto/http-error';
 import { User } from '../../dto/user.model';
 import { AvatarsComponent } from '../avatars/avatars.component';
 import { LoginService } from '../login.service';
@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
   registerForm;
 
   constructor(
+    private readonly router: Router,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
@@ -107,12 +108,12 @@ export class RegisterComponent implements OnInit {
     };
 
     this.loginService
-      .addUser(newUser)
-      .pipe()
-      .subscribe(res => {
-        if (res instanceof HttpError && res.statusCode) {
-          this.alertService.alert(res.message);
-        }
+      .addUser(newUser, error => {
+        this.alertService.alert(error.message);
+      })
+      .subscribe(() => {
+        this.alertService.alert('注册成功');
+        this.router.navigate(['/login']);
       });
   }
 

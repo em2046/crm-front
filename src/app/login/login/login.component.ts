@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Utils from 'src/utils/utils';
 import { AlertService } from '../../alert.service';
-import { HttpError } from '../../dto/http-error';
-import { User } from '../../dto/user.model';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -16,6 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm;
 
   constructor(
+    private readonly router: Router,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     public alertService: AlertService,
@@ -53,17 +53,23 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const loginUser: User = {
-      name: userData.name,
+    const loginUser = {
+      username: userData.name,
       password: userData.password,
     };
 
-    this.loginService.loginUser(loginUser).subscribe(res => {
-      if (res instanceof HttpError && res.statusCode) {
-        this.alertService.alert(res.message);
-      }
-    });
+    this.loginService
+      .loginUser(loginUser, error => {
+        this.alertService.alert(error.message);
+      })
+      .subscribe(res => {
+        this.alertService.alert('登录成功');
+        sessionStorage.setItem('access_token', res.access_token);
+        this.router.navigate(['/']);
+      });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    sessionStorage.removeItem('access_token');
+  }
 }
