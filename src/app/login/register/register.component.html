@@ -19,7 +19,7 @@
           placeholder="Username"
           required
         />
-        <mat-icon class="" matSuffix>person_outline</mat-icon>
+        <mat-icon matSuffix>person</mat-icon>
         <mat-hint align="end">4-200个字符</mat-hint>
         <mat-error *ngIf="name.invalid">
           {{ Utils.getValidateMessage(name, '用户名') }}
@@ -36,7 +36,7 @@
           required
           type="password"
         />
-        <mat-icon class="" matSuffix>fingerprint</mat-icon>
+        <mat-icon matSuffix>lock</mat-icon>
         <mat-hint align="end">4-200个字符</mat-hint>
         <mat-error *ngIf="password.invalid">
           {{ Utils.getValidateMessage(password, '密码') }}
@@ -57,7 +57,7 @@
             required
             type="password"
           />
-          <mat-icon class="" matSuffix>fingerprint</mat-icon>
+          <mat-icon matSuffix>lock</mat-icon>
           <mat-hint align="end">再次输入相同密码</mat-hint>
           <mat-error *ngIf="verifyPassword.invalid">
             {{ Utils.getValidateMessage(verifyPassword, '重复密码') }}
@@ -84,7 +84,7 @@
           required
           type="email"
         />
-        <mat-icon class="" matSuffix>mail_outline</mat-icon>
+        <mat-icon matSuffix>mail</mat-icon>
         <mat-hint align="end">请输入可以接受邮件的邮箱</mat-hint>
         <mat-error *ngIf="email.invalid">
           {{ Utils.getValidateMessage(email, '邮箱地址') }}

@@ -1,14 +1,33 @@
-<mat-sidenav-container id="everything">
-  <mat-sidenav #sidenav id="side" mode="side">
-    <app-menu></app-menu>
-  </mat-sidenav>
-  <mat-sidenav-content id="layout">
-    <header id="header">
-      <app-header (toggle)="sidenav.toggle()"></app-header>
-    </header>
-    <main id="main"></main>
-    <footer id="footer">
-      <app-footer></app-footer>
-    </footer>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<article id="everything">
+  <header id="header">
+    <app-header></app-header>
+  </header>
+  <section id="layout">
+    <aside id="side">
+      <app-menu (opened)="handleOpen($event)"></app-menu>
+    </aside>
+    <main id="main">
+      <mat-tab-group
+        animationDuration="0ms"
+        [selectedIndex]="selected.value"
+        *ngIf="tabs.length"
+      >
+        <mat-tab *ngFor="let tab of tabs; let i = index">
+          <ng-template mat-tab-label>
+            <mat-icon class="tab-icon" *ngIf="tab.icon">
+              {{ tab.icon }}
+            </mat-icon>
+            <span class="tab-title">{{ tab.title }}</span>
+            <mat-icon class="tab-close" (click)="handleClose(i)"
+              >close</mat-icon
+            >
+          </ng-template>
+          <app-pane [tab]="tab" id="pane"></app-pane>
+        </mat-tab>
+      </mat-tab-group>
+    </main>
+  </section>
+  <footer id="footer">
+    <app-footer></app-footer>
+  </footer>
+</article>

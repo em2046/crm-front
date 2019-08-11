@@ -19,7 +19,7 @@
           placeholder="Username"
           required
         />
-        <mat-icon class="" matSuffix>person_outline</mat-icon>
+        <mat-icon matSuffix>person</mat-icon>
         <mat-error *ngIf="name.invalid">
           {{ Utils.getValidateMessage(name, '用户名') }}
         </mat-error>
@@ -34,8 +34,8 @@
           required
           type="password"
         />
-        <mat-icon class="" matSuffix>fingerprint</mat-icon>
-        <mat-hint align="end"><a>忘记密码</a></mat-hint>
+        <mat-icon matSuffix>lock</mat-icon>
+        <mat-hint align="end"><a (click)="handleForgetPassword()">忘记密码</a></mat-hint>
         <mat-error *ngIf="password.invalid">
           {{ Utils.getValidateMessage(password, '密码') }}
         </mat-error>
@@ -45,8 +45,10 @@
         color="primary"
         mat-flat-button
         type="submit"
+        [disabled]="loginLoading"
       >
-        登录
+        <span>登录</span>
+        <mat-spinner *ngIf="loginLoading" color="primary"></mat-spinner>
       </button>
     </form>
   </div>

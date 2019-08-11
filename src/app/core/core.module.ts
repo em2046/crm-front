@@ -6,6 +6,8 @@ import { FooterComponent } from './footer/footer.component';
 import { FrameComponent } from './frame/frame.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
+import { PaneDirective } from './pane/pane.directive';
+import { PaneComponent } from './pane/pane.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { MenuComponent } from './menu/menu.component';
     HeaderComponent,
     FooterComponent,
     MenuComponent,
+    PaneDirective,
+    PaneComponent,
   ],
   imports: [CommonModule, RouterModule, MaterialModule],
   exports: [HeaderComponent, FooterComponent, MenuComponent],

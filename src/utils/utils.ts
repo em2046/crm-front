@@ -67,7 +67,15 @@ export default class Utils {
   static handleError(handleError) {
     return (error: any) => {
       console.error(error);
-      handleError(error.error);
+      if (error.status === 0) {
+        handleError({
+          statusCode: 500,
+          message: '服务器错误',
+        });
+      } else {
+        handleError(error.error);
+      }
+
       return throwError(error.error.message);
     };
   }

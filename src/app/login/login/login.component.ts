@@ -13,6 +13,7 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
   Utils = Utils;
   loginForm;
+  loginLoading = false;
 
   constructor(
     private readonly router: Router,
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(userData) {
-    if (!this.loginForm.valid) {
+    if (!this.loginForm.valid || this.loginLoading === true) {
       return;
     }
 
@@ -58,11 +59,14 @@ export class LoginComponent implements OnInit {
       password: userData.password,
     };
 
+    this.loginLoading = true;
     this.loginService
       .loginUser(loginUser, error => {
+        this.loginLoading = false;
         this.alertService.alert(error.message);
       })
       .subscribe(res => {
+        this.loginLoading = false;
         this.alertService.alert('登录成功');
         sessionStorage.setItem('access_token', res.access_token);
         this.router.navigate(['/']);
@@ -71,5 +75,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     sessionStorage.removeItem('access_token');
+  }
+
+  handleForgetPassword() {
+    this.alertService.alert('请与管理员联系');
   }
 }
