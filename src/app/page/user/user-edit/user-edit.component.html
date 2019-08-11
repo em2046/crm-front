@@ -1,0 +1,8 @@
+<p>{{ data.name }}</p>
+<p>{{ data.email }}</p>
+<p>{{ data.realName }}</p>
+<mat-chip-list>
+  <mat-chip (click)="handleClickRole(role)" *ngFor="let role of roles">{{
+    role.title
+  }}</mat-chip>
+</mat-chip-list>

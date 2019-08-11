@@ -1,1 +1,25 @@
-<p>role-list works!</p>
+<article class="page">
+  <h2>角色列表</h2>
+  <table mat-table [dataSource]="users">
+    <ng-container matColumnDef="name">
+      <mat-header-cell class="col-name" mat-header-cell *matHeaderCellDef>
+        名称
+      </mat-header-cell>
+      <mat-cell class="col-name" *matCellDef="let element">
+        {{ element.name }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell class="col-title" mat-header-cell *matHeaderCellDef>
+        显示名称
+      </mat-header-cell>
+      <mat-cell class="col-title" *matCellDef="let element">
+        {{ element.title }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
+</article>

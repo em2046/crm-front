@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../../../alert.service';
+import { Role } from '../../../dto/role.model';
 import { User } from '../../../dto/user.model';
 import { PageComponent } from '../../page.component';
-import { RoleService } from '../role.service';
-import Utils from '../../../../utils/utils';
+import { RoleService } from '../../role/role.service';
 
 @Component({
-  selector: 'app-role-list',
-  templateUrl: './role-list.component.html',
-  styleUrls: ['./role-list.component.less'],
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.less'],
 })
-export class RoleListComponent implements OnInit, PageComponent {
-  data: any;
-  Utils = Utils;
-  users: User[];
-  displayedColumns: string[] = ['name', 'title'];
+export class UserEditComponent implements OnInit, PageComponent {
+  roles: Role[] = [];
+  data: User;
 
   constructor(
-    private roleService: RoleService,
+    public roleService: RoleService,
     public alertService: AlertService,
   ) {}
 
@@ -31,7 +29,11 @@ export class RoleListComponent implements OnInit, PageComponent {
         this.alertService.alert(error.message);
       })
       .subscribe(res => {
-        this.users = res;
+        this.roles = res;
       });
+  }
+
+  handleClickRole(role: Role) {
+    console.log(role);
   }
 }

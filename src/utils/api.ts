@@ -8,7 +8,7 @@ export default class Api {
   };
 
   static role = {
-    findAll: host + '/role/findAll',
+    findAll: host + '/role',
   };
 
   static permission = {

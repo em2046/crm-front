@@ -4,12 +4,13 @@
   </header>
   <section id="layout">
     <aside id="side">
-      <app-menu (opened)="handleOpen($event)"></app-menu>
+      <app-menu></app-menu>
     </aside>
     <main id="main">
       <mat-tab-group
         animationDuration="0ms"
         [selectedIndex]="selected.value"
+        (selectedIndexChange)="selected.setValue($event)"
         *ngIf="tabs.length"
       >
         <mat-tab *ngFor="let tab of tabs; let i = index">
@@ -18,9 +19,9 @@
               {{ tab.icon }}
             </mat-icon>
             <span class="tab-title">{{ tab.title }}</span>
-            <mat-icon class="tab-close" (click)="handleClose(i)"
-              >close</mat-icon
-            >
+            <mat-icon class="tab-close" (click)="handleClose(i)">
+              close
+            </mat-icon>
           </ng-template>
           <app-pane [tab]="tab" id="pane"></app-pane>
         </mat-tab>

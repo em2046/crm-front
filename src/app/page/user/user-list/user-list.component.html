@@ -1,5 +1,5 @@
 <article class="page">
-  <h2>用户管理</h2>
+  <h2>用户列表</h2>
   <table mat-table [dataSource]="users">
     <ng-container matColumnDef="avatar">
       <mat-header-cell class="col-avatar" mat-header-cell *matHeaderCellDef>
@@ -19,6 +19,19 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="roles">
+      <mat-header-cell class="col-roles" mat-header-cell *matHeaderCellDef>
+        角色
+      </mat-header-cell>
+      <mat-cell class="col-roles" *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip *ngFor="let role of element.roles">{{
+            role.title
+          }}</mat-chip>
+        </mat-chip-list>
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="email">
       <mat-header-cell class="col-email" mat-header-cell *matHeaderCellDef>
         邮箱地址
@@ -34,6 +47,22 @@
       </mat-header-cell>
       <mat-cell class="col-real-name" *matCellDef="let element">
         {{ element.realName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="operation">
+      <mat-header-cell
+        class="col-real-operation"
+        mat-header-cell
+        *matHeaderCellDef
+      >
+        操作
+      </mat-header-cell>
+      <mat-cell class="col-real-operation" *matCellDef="let element">
+        <button mat-flat-button (click)="handleEdit(element)">
+          <mat-icon>edit</mat-icon>
+          编辑
+        </button>
       </mat-cell>
     </ng-container>
 

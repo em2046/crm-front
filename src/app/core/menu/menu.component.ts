@@ -3,6 +3,7 @@ import { Page } from '../../page/page';
 import { PermissionListComponent } from '../../page/permission/permission-list/permission-list.component';
 import { RoleListComponent } from '../../page/role/role-list/role-list.component';
 import { UserListComponent } from '../../page/user/user-list/user-list.component';
+import { TabService } from '../../tab.service';
 import { Tab } from '../tab';
 
 @Component({
@@ -11,14 +12,14 @@ import { Tab } from '../tab';
   styleUrls: ['./menu.component.less'],
 })
 export class MenuComponent implements OnInit {
-  constructor() {}
+  constructor(public tabService: TabService) {}
 
   @Output() opened = new EventEmitter();
 
   ngOnInit() {}
 
   handleOpenUser() {
-    this.opened.emit(
+    this.tabService.mission(
       new Tab({
         title: '用户管理',
         icon: 'person',
@@ -29,7 +30,7 @@ export class MenuComponent implements OnInit {
   }
 
   handleOpenRole() {
-    this.opened.emit(
+    this.tabService.mission(
       new Tab({
         title: '角色管理',
         icon: 'face',
@@ -40,7 +41,7 @@ export class MenuComponent implements OnInit {
   }
 
   handleOpenPermission() {
-    this.opened.emit(
+    this.tabService.mission(
       new Tab({
         title: '权限管理',
         icon: 'vpn_key',

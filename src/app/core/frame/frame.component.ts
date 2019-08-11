@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TabService } from '../../tab.service';
 import { Tab } from '../tab';
 
 @Component({
@@ -12,7 +13,11 @@ export class FrameComponent implements OnInit {
   tabs: Tab[] = [];
   selected = new FormControl(0);
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router, public tabService: TabService) {
+    tabService.mission$.subscribe(msg => {
+      this.handleOpen(msg);
+    });
+  }
 
   ngOnInit() {
     const accessToken = sessionStorage.getItem('access_token');
