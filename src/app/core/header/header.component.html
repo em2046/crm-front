@@ -1,12 +1,9 @@
 <mat-toolbar class="toolbar" color="primary">
   <section>
-    <button (click)="toggleNavSide()" mat-mini-fab>
-      <mat-icon>menu</mat-icon>
-    </button>
     <h1>客户关系管理系统</h1>
   </section>
   <section>
-    <button mat-button [matMenuTriggerFor]="menu">Jiang Sheng</button>
+    <button [matMenuTriggerFor]="menu" mat-button>Jiang Sheng</button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>person</mat-icon>

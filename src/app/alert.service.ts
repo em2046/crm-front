@@ -5,12 +5,11 @@ import { MatSnackBar } from '@angular/material';
   providedIn: 'root',
 })
 export class AlertService {
-  constructor(public snackBar: MatSnackBar) {
-  }
+  constructor(public snackBar: MatSnackBar) {}
 
   alert(message) {
     this.snackBar.open(message, '关闭', {
-      duration: 3000,
+      duration: 1000,
     });
   }
 }

@@ -24,6 +24,40 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+h4 {
+  font-size: 14px;
+}
+
+h5 {
+  font-size: 12px;
+}
+
+h6 {
+  font-size: 10px;
+}
+
 a {
   color: #29e;
   cursor: pointer;
@@ -37,19 +71,54 @@ a {
 //endregion
 
 //region material
+//region fab
 .mat-mini-fab .mat-button-wrapper {
   .mat-icon {
     vertical-align: top;
   }
 }
 
+//endregion
+
+//region menu
 button.mat-menu-item {
   display: flex;
   align-items: center;
 }
 
+//endregion
+
+//region button
+.mat-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .mat-progress-spinner {
+    margin-left: 0.25em;
+    width: 1em !important;
+    height: 1em !important;
+
+    svg {
+      width: 1em !important;
+      height: 1em !important;
+    }
+  }
+}
+
+//endregion
+
+//region form
 .mat-form-field-appearance-outline .mat-form-field-infix {
   cursor: text;
+}
+
+.mat-form-field-autofilled .mat-form-field-outline {
+  .mat-form-field-outline-start,
+  .mat-form-field-outline-gap,
+  .mat-form-field-outline-end {
+    background-color: rgb(232, 240, 254) !important;
+  }
 }
 
 .mat-form-field-prefix,
@@ -57,6 +126,9 @@ button.mat-menu-item {
   user-select: none;
 }
 
+//endregion
+
+//region dialog
 .mat-dialog-actions {
   .mat-flat-button + .mat-flat-button {
     margin-left: 8px;
@@ -65,12 +137,30 @@ button.mat-menu-item {
 
 //endregion
 
+//region table
+.mat-table {
+  width: 100%;
+}
+
+//endregion
+
+//region chip
+.mat-chip-list {
+  .mat-chip-list-wrapper {
+    margin: 0;
+  }
+}
+
+//endregion
+//endregion
+
 //region global
 .form-group {
   display: flex;
   flex-direction: column;
 
   &.form-group-error {
+    position: relative;
     color: #f44336;
 
     .mat-form-field .mat-form-field-label,
@@ -87,9 +177,10 @@ button.mat-menu-item {
 }
 
 .form-group-error-box {
-  margin: 0.25em 0;
   padding-bottom: 1.34375em;
-  position: relative;
+  position: absolute;
+  width: 100%;
+  margin-top: 4em;
 }
 
 .form-group-error-text {
@@ -98,6 +189,7 @@ button.mat-menu-item {
   color: #f44336;
   font-size: 75%;
   margin-top: 0.66667em;
+  line-height: 1.125;
   top: calc(100% - 1.79167em);
 
   .mat-icon {
@@ -106,6 +198,10 @@ button.mat-menu-item {
     font-size: inherit;
     vertical-align: baseline;
   }
+}
+
+.page {
+  padding: 10px;
 }
 
 //endregion

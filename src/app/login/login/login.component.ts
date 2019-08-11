@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Utils from 'src/utils/utils';
 import { AlertService } from '../../alert.service';
-import { User } from '../../dto/user.model';
-import { LoginService, UserLoginCode } from '../login.service';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +13,10 @@ import { LoginService, UserLoginCode } from '../login.service';
 export class LoginComponent implements OnInit {
   Utils = Utils;
   loginForm;
+  loginLoading = false;
 
   constructor(
+    private readonly router: Router,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     public alertService: AlertService,
@@ -39,27 +41,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit(userData) {
-    if (!this.loginForm.valid) {
-      return;
-    }
-
-    const loginUser: User = {
-      name: userData.name,
-      password: userData.password,
-    };
-
-    this.loginService.loginUser(loginUser).subscribe(res => {
-      switch (res.code) {
-        case UserLoginCode.SUCCESS:
-          this.alertService.alert('登录成功');
-          break;
-        case UserLoginCode.NAME_OR_PASSWORD_INCORRECT:
-          this.alertService.alert('用户名或密码错误');
-      }
-    });
-  }
-
   get name() {
     return this.loginForm.get('name');
   }
@@ -68,6 +49,35 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
+  onSubmit(userData) {
+    if (!this.loginForm.valid || this.loginLoading === true) {
+      return;
+    }
+
+    const loginUser = {
+      username: userData.name,
+      password: userData.password,
+    };
+
+    this.loginLoading = true;
+    this.loginService
+      .loginUser(loginUser, error => {
+        this.loginLoading = false;
+        this.alertService.alert(error.message);
+      })
+      .subscribe(res => {
+        this.loginLoading = false;
+        this.alertService.alert('登录成功');
+        sessionStorage.setItem('access_token', res.access_token);
+        this.router.navigate(['/']);
+      });
+  }
+
   ngOnInit() {
+    sessionStorage.removeItem('access_token');
+  }
+
+  handleForgetPassword() {
+    this.alertService.alert('请与管理员联系');
   }
 }

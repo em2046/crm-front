@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
 
 export default class Utils {
@@ -63,16 +63,20 @@ export default class Utils {
 
   /**
    * 错误处理
-   * @param error 错误对象
    */
-  static handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`,
-      );
-    }
-    return throwError('Something bad happened; please try again later.');
+  static handleError(handleError) {
+    return (error: any) => {
+      console.error(error);
+      if (error.status === 0) {
+        handleError({
+          statusCode: 500,
+          message: '服务器错误',
+        });
+      } else {
+        handleError(error.error);
+      }
+
+      return throwError(error.error.message);
+    };
   }
 }

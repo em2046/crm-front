@@ -1,11 +1,5 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      This is the expansion title
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <mat-nav-list>
-    <mat-list-item>Test</mat-list-item>
-    <mat-list-item>Test</mat-list-item>
-  </mat-nav-list>
-</mat-expansion-panel>
+<mat-nav-list>
+  <mat-list-item (click)="handleOpenUser()">用户管理</mat-list-item>
+  <mat-list-item (click)="handleOpenRole()">角色管理</mat-list-item>
+  <mat-list-item (click)="handleOpenPermission()">权限管理</mat-list-item>
+</mat-nav-list>
