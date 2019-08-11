@@ -35,7 +35,9 @@
           type="password"
         />
         <mat-icon matSuffix>lock</mat-icon>
-        <mat-hint align="end"><a (click)="handleForgetPassword()">忘记密码</a></mat-hint>
+        <mat-hint align="end"
+          ><a (click)="handleForgetPassword()">忘记密码</a></mat-hint
+        >
         <mat-error *ngIf="password.invalid">
           {{ Utils.getValidateMessage(password, '密码') }}
         </mat-error>
