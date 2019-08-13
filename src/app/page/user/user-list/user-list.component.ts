@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../../alert.service';
 import { Tab } from '../../../core/tab';
 import { User } from '../../../dto/user.model';
-import { TabService } from '../../../tab.service';
+import { TabService } from '../../../common/tab.service';
 import { Page } from '../../page';
 import { PageComponent } from '../../page.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
@@ -29,7 +28,6 @@ export class UserListComponent implements OnInit, PageComponent {
 
   constructor(
     private userService: UserService,
-    public alertService: AlertService,
     public tabService: TabService,
   ) {}
 
@@ -39,20 +37,18 @@ export class UserListComponent implements OnInit, PageComponent {
 
   getUsers() {
     this.userService
-      .getUsers(error => {
-        this.alertService.alert(error.message);
-      })
+      .getUsers()
       .subscribe(res => {
         this.users = res;
       });
   }
 
-  handleEdit(element: User) {
+  handleEdit(user: User) {
     this.tabService.mission(
       new Tab({
         title: '用户编辑',
-        name: `user-edit#${element.uuid}`,
-        page: new Page(UserEditComponent, element),
+        name: `user-edit#${user.uuid}`,
+        page: new Page(UserEditComponent, user),
       }),
     );
   }

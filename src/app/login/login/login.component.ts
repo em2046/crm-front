@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Utils from 'src/utils/utils';
-import { AlertService } from '../../alert.service';
+import { AlertService } from '../../common/alert.service';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -61,10 +61,7 @@ export class LoginComponent implements OnInit {
 
     this.loginLoading = true;
     this.loginService
-      .loginUser(loginUser, error => {
-        this.loginLoading = false;
-        this.alertService.alert(error.message);
-      })
+      .loginUser(loginUser)
       .subscribe(res => {
         this.loginLoading = false;
         this.alertService.alert('登录成功');

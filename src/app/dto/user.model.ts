@@ -1,3 +1,5 @@
+import { Role } from './role.model';
+
 export interface User {
   uuid?: string;
   name: string;
@@ -5,4 +7,5 @@ export interface User {
   email?: string;
   password?: string;
   avatar?: string;
+  roles?: Role[];
 }

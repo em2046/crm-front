@@ -1,5 +1,4 @@
 import { HttpHeaders } from '@angular/common/http';
-import { throwError } from 'rxjs';
 
 export default class Utils {
   /**
@@ -61,22 +60,5 @@ export default class Utils {
     return '';
   }
 
-  /**
-   * 错误处理
-   */
-  static handleError(handleError) {
-    return (error: any) => {
-      console.error(error);
-      if (error.status === 0) {
-        handleError({
-          statusCode: 500,
-          message: '服务器错误',
-        });
-      } else {
-        handleError(error.error);
-      }
 
-      return throwError(error.error.message);
-    };
-  }
 }

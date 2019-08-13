@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../../alert.service';
 import { User } from '../../../dto/user.model';
 import { PageComponent } from '../../page.component';
 import { RoleService } from '../role.service';
@@ -16,22 +15,15 @@ export class RoleListComponent implements OnInit, PageComponent {
   users: User[];
   displayedColumns: string[] = ['name', 'title'];
 
-  constructor(
-    private roleService: RoleService,
-    public alertService: AlertService,
-  ) {}
+  constructor(private roleService: RoleService) {}
 
   ngOnInit() {
     this.getRoles();
   }
 
   getRoles() {
-    this.roleService
-      .getRoles(error => {
-        this.alertService.alert(error.message);
-      })
-      .subscribe(res => {
-        this.users = res;
-      });
+    this.roleService.getRoles().subscribe(res => {
+      this.users = res;
+    });
   }
 }

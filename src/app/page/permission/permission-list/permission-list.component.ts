@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../../alert.service';
 import { User } from '../../../dto/user.model';
 import Utils from '../../../../utils/utils';
 import { PageComponent } from '../../page.component';
@@ -16,22 +15,15 @@ export class PermissionListComponent implements OnInit, PageComponent {
   users: User[];
   displayedColumns: string[] = ['name', 'title'];
 
-  constructor(
-    private permissionService: PermissionService,
-    public alertService: AlertService,
-  ) {}
+  constructor(private permissionService: PermissionService) {}
 
   ngOnInit() {
     this.getPermission();
   }
 
   getPermission() {
-    this.permissionService
-      .getPermissions(error => {
-        this.alertService.alert(error.message);
-      })
-      .subscribe(res => {
-        this.users = res;
-      });
+    this.permissionService.getPermissions().subscribe(res => {
+      this.users = res;
+    });
   }
 }

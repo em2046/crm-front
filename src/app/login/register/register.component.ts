@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { AlertService } from 'src/app/alert.service';
+import { AlertService } from 'src/app/common/alert.service';
 import Utils from '../../../utils/utils';
 import { User } from '../../dto/user.model';
 import { AvatarsComponent } from '../avatars/avatars.component';
@@ -108,9 +108,7 @@ export class RegisterComponent implements OnInit {
     };
 
     this.loginService
-      .addUser(newUser, error => {
-        this.alertService.alert(error.message);
-      })
+      .addUser(newUser)
       .subscribe(() => {
         this.alertService.alert('注册成功');
         this.router.navigate(['/login']);

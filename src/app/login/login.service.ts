@@ -6,22 +6,23 @@ import Api from '../../utils/api';
 import Utils from '../../utils/utils';
 import { AccessToken } from '../dto/access-token';
 import { User } from '../dto/user.model';
+import { ErrorService } from '../common/error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private errorService: ErrorService) {}
 
-  addUser(user: User, handleError): Observable<User> {
+  addUser(user: User): Observable<User> {
     return this.http
-      .post<User>(Api.user.create, user, Utils.httpOptions)
-      .pipe(catchError(Utils.handleError(handleError)));
+      .post<User>(Api.user.base, user, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
   }
 
-  loginUser(user, handleError): Observable<AccessToken> {
+  loginUser(user): Observable<AccessToken> {
     return this.http
-      .post<AccessToken>(Api.user.login, user, Utils.httpOptions)
-      .pipe(catchError(Utils.handleError(handleError)));
+      .post<AccessToken>(Api.auth.login, user, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
   }
 }
