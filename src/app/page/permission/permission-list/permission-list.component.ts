@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Permission } from '../../../dto/permission.model';
 import { User } from '../../../dto/user.model';
 import Utils from '../../../../utils/utils';
 import { PageComponent } from '../../page.component';
@@ -12,7 +13,7 @@ import { PermissionService } from '../permission.service';
 export class PermissionListComponent implements OnInit, PageComponent {
   data: any;
   Utils = Utils;
-  users: User[];
+  permission: Permission[];
   displayedColumns: string[] = ['name', 'title'];
 
   constructor(private permissionService: PermissionService) {}
@@ -23,7 +24,7 @@ export class PermissionListComponent implements OnInit, PageComponent {
 
   getPermission() {
     this.permissionService.getPermissions().subscribe(res => {
-      this.users = res;
+      this.permission = res;
     });
   }
 }
