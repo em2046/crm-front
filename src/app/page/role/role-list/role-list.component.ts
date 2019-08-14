@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Role } from '../../../dto/role.model';
-import { User } from '../../../dto/user.model';
 import { PageComponent } from '../../page.component';
 import { RoleService } from '../role.service';
 import Utils from '../../../../utils/utils';
@@ -14,7 +13,7 @@ export class RoleListComponent implements OnInit, PageComponent {
   data: any;
   Utils = Utils;
   roles: Role[];
-  displayedColumns: string[] = ['name', 'title'];
+  displayedColumns: string[] = ['name', 'title', 'permissions'];
 
   constructor(private roleService: RoleService) {}
 

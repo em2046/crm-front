@@ -107,12 +107,10 @@ export class RegisterComponent implements OnInit {
       avatar,
     };
 
-    this.loginService
-      .addUser(newUser)
-      .subscribe(() => {
-        this.alertService.alert('注册成功');
-        this.router.navigate(['/login']);
-      });
+    this.loginService.addUser(newUser).subscribe(() => {
+      this.alertService.alert('注册成功');
+      this.router.navigate(['/login']);
+    });
   }
 
   ngOnInit() {}

@@ -19,6 +19,19 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="permissions">
+      <mat-header-cell class="col-permissions" mat-header-cell *matHeaderCellDef>
+        权限
+      </mat-header-cell>
+      <mat-cell class="col-permissions" *matCellDef="let element">
+        <mat-chip-list>
+          <mat-chip *ngFor="let permission of element.permissions">
+            {{ permission.title }}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </table>
