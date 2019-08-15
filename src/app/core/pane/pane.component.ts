@@ -1,4 +1,10 @@
-import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { PageComponent } from '../../page/page.component';
 import { PaneDirective } from './pane.directive';
 
@@ -24,7 +30,9 @@ export class PaneComponent implements OnInit {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       page.component,
     );
-    const componentRef = this.appPanePage.viewContainerRef.createComponent(componentFactory);
+    const componentRef = this.appPanePage.viewContainerRef.createComponent(
+      componentFactory,
+    );
     (componentRef.instance as PageComponent).data = page.data;
   }
 }

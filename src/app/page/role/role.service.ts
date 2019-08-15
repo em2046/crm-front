@@ -5,16 +5,20 @@ import { catchError } from 'rxjs/operators';
 import Api from '../../../utils/api';
 import Utils from '../../../utils/utils';
 import { Role } from '../../dto/role.model';
+import { ErrorService } from '../../common/error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private readonly errorService: ErrorService,
+  ) {}
 
-  getRoles(handleError): Observable<Role[]> {
+  getRoles(): Observable<Role[]> {
     return this.http
-      .get<Role[]>(Api.role.findAll, Utils.httpOptions)
-      .pipe(catchError(Utils.handleError(handleError)));
+      .get<Role[]>(Api.role.base, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
   }
 }

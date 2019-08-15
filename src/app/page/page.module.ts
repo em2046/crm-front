@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { RoleListComponent } from './role/role-list/role-list.component';
@@ -19,6 +20,6 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
     PermissionListComponent,
     UserEditComponent,
   ],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
 })
 export class PageModule {}

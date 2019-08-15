@@ -1,17 +1,22 @@
-const host = '//localhost:3000';
+import { environment } from '../environments/environment';
+
+const host = environment.apiUrl;
 
 export default class Api {
-  static user = {
-    findAll: host + '/user',
-    create: host + '/user',
+  static auth = {
     login: host + '/auth/login',
   };
 
+  static user = {
+    base: host + '/user',
+    uuid: uuid => host + '/user/' + uuid,
+  };
+
   static role = {
-    findAll: host + '/role',
+    base: host + '/role',
   };
 
   static permission = {
-    findAll: host + '/permission',
+    base: host + '/permission',
   };
 }

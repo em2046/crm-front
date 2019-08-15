@@ -5,16 +5,17 @@ import { catchError } from 'rxjs/operators';
 import Api from '../../../utils/api';
 import Utils from '../../../utils/utils';
 import { Permission } from '../../dto/permission.model';
+import { ErrorService } from '../../common/error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PermissionService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private readonly errorService: ErrorService) {}
 
-  getPermissions(handleError): Observable<Permission[]> {
+  getPermissions(): Observable<Permission[]> {
     return this.http
-      .get<Permission[]>(Api.permission.findAll, Utils.httpOptions)
-      .pipe(catchError(Utils.handleError(handleError)));
+      .get<Permission[]>(Api.permission.base, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
   }
 }

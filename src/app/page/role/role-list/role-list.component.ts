@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../../../alert.service';
-import { User } from '../../../dto/user.model';
+import { Role } from '../../../dto/role.model';
 import { PageComponent } from '../../page.component';
 import { RoleService } from '../role.service';
 import Utils from '../../../../utils/utils';
@@ -13,25 +12,18 @@ import Utils from '../../../../utils/utils';
 export class RoleListComponent implements OnInit, PageComponent {
   data: any;
   Utils = Utils;
-  users: User[];
-  displayedColumns: string[] = ['name', 'title'];
+  roles: Role[];
+  displayedColumns: string[] = ['name', 'title', 'permissions'];
 
-  constructor(
-    private roleService: RoleService,
-    public alertService: AlertService,
-  ) {}
+  constructor(private roleService: RoleService) {}
 
   ngOnInit() {
     this.getRoles();
   }
 
   getRoles() {
-    this.roleService
-      .getRoles(error => {
-        this.alertService.alert(error.message);
-      })
-      .subscribe(res => {
-        this.users = res;
-      });
+    this.roleService.getRoles().subscribe(res => {
+      this.roles = res;
+    });
   }
 }

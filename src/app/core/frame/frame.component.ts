@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TabService } from '../../tab.service';
+import { TabService } from '../../common/tab.service';
 import { Tab } from '../tab';
 
 @Component({

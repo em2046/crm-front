@@ -25,9 +25,9 @@
       </mat-header-cell>
       <mat-cell class="col-roles" *matCellDef="let element">
         <mat-chip-list>
-          <mat-chip *ngFor="let role of element.roles">{{
-            role.title
-          }}</mat-chip>
+          <mat-chip *ngFor="let role of element.roles">
+            {{ role.title }}
+          </mat-chip>
         </mat-chip-list>
       </mat-cell>
     </ng-container>

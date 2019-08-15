@@ -3,7 +3,7 @@ import { Page } from '../../page/page';
 import { PermissionListComponent } from '../../page/permission/permission-list/permission-list.component';
 import { RoleListComponent } from '../../page/role/role-list/role-list.component';
 import { UserListComponent } from '../../page/user/user-list/user-list.component';
-import { TabService } from '../../tab.service';
+import { TabService } from '../../common/tab.service';
 import { Tab } from '../tab';
 
 @Component({
