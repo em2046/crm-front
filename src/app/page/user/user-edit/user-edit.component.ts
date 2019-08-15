@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AlertService } from '../../../common/alert.service';
 import { Role } from '../../../dto/role.model';
 import { User } from '../../../dto/user.model';
 import { PageComponent } from '../../page.component';
@@ -13,7 +14,7 @@ import {
   MatAutocompleteSelectedEvent,
   MatAutocomplete,
 } from '@angular/material/autocomplete';
-import { map, startWith } from 'rxjs/operators';
+import { finalize, map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
@@ -26,11 +27,19 @@ export class UserEditComponent implements OnInit, PageComponent {
     public roleService: RoleService,
     public userService: UserService,
     private formBuilder: FormBuilder,
+    private readonly alertService: AlertService,
   ) {
     this.initFilter();
 
     this.editForm = this.formBuilder.group({
-      name: ['', [Validators.minLength(4), Validators.maxLength(200)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(200),
+        ],
+      ],
       email: [
         '',
         [Validators.required, Validators.maxLength(512), Validators.email],
@@ -65,6 +74,8 @@ export class UserEditComponent implements OnInit, PageComponent {
   filteredRoles: Observable<Role[]>;
   selectedRoles: Role[] = [];
   allRoles: Role[] = [];
+
+  saveLoading = false;
 
   @ViewChild('roleInput', { static: false })
   roleInput: ElementRef<HTMLInputElement>;
@@ -132,13 +143,18 @@ export class UserEditComponent implements OnInit, PageComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedRoles.push(this.find(event.option.viewValue));
+    const role = this.find(event.option.viewValue);
+    const alreadySelected = this.selectedRoles.find(selected => {
+      return selected.name === role.name;
+    });
+    if (!alreadySelected) {
+      this.selectedRoles.push(role);
+    }
     this.roleInput.nativeElement.value = '';
     this.rolesCtrl.setValue(null);
   }
 
   private _filter(title: string): Role[] {
-    console.log(title);
     const filterValue = title.toLowerCase();
 
     return this.allRoles.filter(r => {
@@ -168,5 +184,21 @@ export class UserEditComponent implements OnInit, PageComponent {
       this.allRoles = res;
       this.refreshFilter();
     });
+  }
+
+  onSubmit(userData: User) {
+    userData.roles = this.selectedRoles;
+
+    this.saveLoading = true;
+    this.userService
+      .updateUser(this.data.uuid, userData)
+      .pipe(
+        finalize(() => {
+          this.saveLoading = false;
+        }),
+      )
+      .subscribe(() => {
+        this.alertService.alert('保存成功');
+      });
   }
 }

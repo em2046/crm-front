@@ -1,6 +1,6 @@
 <article class="page">
   <h2>用户列表</h2>
-  <table mat-table [dataSource]="users">
+  <table mat-table [dataSource]="users" class="list-table">
     <ng-container matColumnDef="avatar">
       <mat-header-cell class="col-avatar" mat-header-cell *matHeaderCellDef>
         头像
@@ -59,9 +59,21 @@
         操作
       </mat-header-cell>
       <mat-cell class="col-real-operation" *matCellDef="let element">
-        <button mat-flat-button (click)="handleEdit(element)">
+        <button
+          mat-flat-button
+          (click)="handleEdit(element)"
+          [disabled]="element.name === 'admin'"
+        >
           <mat-icon>edit</mat-icon>
           编辑
+        </button>
+        <button
+          mat-flat-button
+          (click)="handleDelete(element)"
+          [disabled]="element.name === 'admin'"
+        >
+          <mat-icon>delete_forever</mat-icon>
+          删除
         </button>
       </mat-cell>
     </ng-container>

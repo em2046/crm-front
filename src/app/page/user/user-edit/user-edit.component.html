@@ -1,6 +1,10 @@
 <article class="page">
-  <p>{{ data.uuid }}</p>
-  <form class="edit-from" [formGroup]="editForm">
+  <form class="edit-from" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+    <mat-form-field>
+      <mat-label>编号</mat-label>
+      <input matInput placeholder="Username" [value]="data.uuid" disabled />
+    </mat-form-field>
+
     <mat-form-field>
       <mat-label>用户名</mat-label>
       <input formControlName="name" matInput placeholder="Username" />
@@ -21,15 +25,14 @@
       />
       <mat-icon matSuffix>email</mat-icon>
       <mat-hint align="end">请输入可以接受邮件的邮箱</mat-hint>
-      <mat-error *ngIf="name.invalid">
-        {{ Utils.getValidateMessage(name, '邮箱地址') }}
+      <mat-error *ngIf="email.invalid">
+        {{ Utils.getValidateMessage(email, '邮箱地址') }}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>真实姓名</mat-label>
       <input formControlName="realName" matInput placeholder="Real name" />
-      <mat-icon matSuffix>perm_identity</mat-icon>
       <mat-hint align="end">请输入中文名</mat-hint>
       <mat-error *ngIf="realName.invalid">
         {{ Utils.getValidateMessage(realName, '真实姓名') }}
@@ -57,6 +60,7 @@
           [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)"
         />
+        <mat-icon matSuffix>face</mat-icon>
       </mat-chip-list>
       <mat-autocomplete
         #auto="matAutocomplete"
@@ -67,5 +71,11 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">
+      <mat-icon>save</mat-icon>
+      <span>保存</span>
+      <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
+    </button>
   </form>
 </article>

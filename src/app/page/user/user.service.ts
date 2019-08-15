@@ -27,4 +27,10 @@ export class UserService {
       .get<User>(Api.user.uuid(uuid), Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
+
+  updateUser(uuid, user): Observable<User> {
+    return this.http
+      .patch<User>(Api.user.uuid(uuid), user, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
 }

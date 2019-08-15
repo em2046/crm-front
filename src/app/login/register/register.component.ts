@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { AlertService } from 'src/app/common/alert.service';
 import Utils from '../../../utils/utils';
 import { User } from '../../dto/user.model';
@@ -33,6 +34,7 @@ export class RegisterComponent implements OnInit {
   Utils = Utils;
   avatar: number;
   registerForm;
+  registerLoading = false;
 
   constructor(
     private readonly router: Router,
@@ -107,10 +109,18 @@ export class RegisterComponent implements OnInit {
       avatar,
     };
 
-    this.loginService.addUser(newUser).subscribe(() => {
-      this.alertService.alert('注册成功');
-      this.router.navigate(['/login']);
-    });
+    this.registerLoading = true;
+    this.loginService
+      .addUser(newUser)
+      .pipe(
+        finalize(() => {
+          this.registerLoading = false;
+        }),
+      )
+      .subscribe(() => {
+        this.alertService.alert('注册成功');
+        this.router.navigate(['/login']);
+      });
   }
 
   ngOnInit() {}

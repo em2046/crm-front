@@ -13,7 +13,7 @@ export class ErrorService {
    */
   handleError() {
     return error => {
-      if (error.error instanceof ErrorEvent) {
+      if (error.error.statusCode) {
         console.error('出错了', error.error.message);
         this.alertService.alert(error.error.message);
       } else {
