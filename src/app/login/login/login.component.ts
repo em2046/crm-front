@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(userData) {
-    if (!this.loginForm.valid || this.loginLoading === true) {
+    if (!this.loginForm.valid || this.loginLoading) {
       return;
     }
 

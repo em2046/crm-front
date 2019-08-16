@@ -1,5 +1,9 @@
 <article class="page">
-  <form class="edit-from" [formGroup]="editForm" (ngSubmit)="onSubmit(editForm.value)">
+  <form
+    class="edit-from"
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit(editForm.value)"
+  >
     <mat-form-field>
       <mat-label>编号</mat-label>
       <input matInput placeholder="Username" [value]="data.uuid" disabled />
@@ -72,10 +76,19 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" type="submit">
-      <mat-icon>save</mat-icon>
-      <span>保存</span>
-      <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
-    </button>
+    <section>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="saveLoading"
+      >
+        <span>保存</span>
+        <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
+      </button>
+      <button mat-flat-button type="button" (click)="resetForm()">
+        <span>重置</span>
+      </button>
+    </section>
   </form>
 </article>

@@ -16,13 +16,13 @@ export class LoginService {
 
   addUser(user: User): Observable<User> {
     return this.http
-      .post<User>(Api.user.base, user, Utils.httpOptions)
+      .post<User>(Api.user.base, user, Utils.httpOptionsWithoutAuth)
       .pipe(catchError(this.errorService.handleError()));
   }
 
   loginUser(user): Observable<AccessToken> {
     return this.http
-      .post<AccessToken>(Api.auth.login, user, Utils.httpOptions)
+      .post<AccessToken>(Api.auth.login, user, Utils.httpOptionsWithoutAuth)
       .pipe(catchError(this.errorService.handleError()));
   }
 }

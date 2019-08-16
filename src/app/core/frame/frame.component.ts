@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import Utils from '../../../utils/utils';
 import { TabService } from '../../common/tab.service';
+import { User } from '../../dto/user.model';
+import { UserService } from '../../common/user.service';
 import { Tab } from '../tab';
 
 @Component({
@@ -12,18 +15,25 @@ import { Tab } from '../tab';
 export class FrameComponent implements OnInit {
   tabs: Tab[] = [];
   selected = new FormControl(0);
+  user: User;
 
-  constructor(private readonly router: Router, public tabService: TabService) {
+  constructor(
+    private readonly router: Router,
+    public tabService: TabService,
+    private readonly userService: UserService,
+  ) {
+    Utils.updateAuth();
     tabService.mission$.subscribe(msg => {
       this.handleOpen(msg);
     });
   }
 
   ngOnInit() {
-    const accessToken = sessionStorage.getItem('access_token');
-    if (!accessToken) {
+    if (!Utils.accessToken) {
       this.router.navigate(['/login']);
     }
+
+    this.getUserInfo();
   }
 
   handleOpen(newTab) {
@@ -40,5 +50,12 @@ export class FrameComponent implements OnInit {
 
   handleClose(i: number) {
     this.tabs.splice(i, 1);
+  }
+
+  private getUserInfo() {
+    this.userService.getUserByToken().subscribe(res => {
+      this.user = res;
+      sessionStorage.setItem('user', JSON.stringify(res));
+    });
   }
 }

@@ -2,13 +2,44 @@ import { HttpHeaders } from '@angular/common/http';
 
 export default class Utils {
   /**
-   * HTTP请求参数
+   * HTTP请求不含认证数据
    */
-  static httpOptions = {
+  static httpOptionsWithoutAuth = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
   };
+
+  /**
+   * HTTP请求参数含认证
+   */
+  static httpOptions = Utils.getHeaders();
+
+  /**
+   * 获取认证信息
+   */
+  private static getHeaders() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + Utils.accessToken(),
+      }),
+    };
+  }
+
+  /**
+   * 更新认证信息
+   */
+  static updateAuth() {
+    Utils.httpOptions = Utils.getHeaders();
+  }
+
+  /**
+   * 获取身份信息
+   */
+  static accessToken() {
+    return sessionStorage.getItem('access_token');
+  }
 
   /**
    * 生成区间随机数
@@ -59,6 +90,4 @@ export default class Utils {
     }
     return '';
   }
-
-
 }

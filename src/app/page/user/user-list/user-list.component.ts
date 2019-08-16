@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from '../../../common/alert.service';
 import { Tab } from '../../../core/tab';
+import { HttpResult } from '../../../dto/http-result';
 import { User } from '../../../dto/user.model';
 import { TabService } from '../../../common/tab.service';
 import { Page } from '../../page';
 import { PageComponent } from '../../page.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
-import { UserService } from '../user.service';
+import { UserService } from '../../../common/user.service';
 import Utils from '../../../../utils/utils';
 
 @Component({
@@ -17,6 +19,7 @@ export class UserListComponent implements OnInit, PageComponent {
   data: any;
   Utils = Utils;
   users: User[];
+  waitDeleteIndex = {};
   displayedColumns: string[] = [
     'avatar',
     'name',
@@ -29,6 +32,7 @@ export class UserListComponent implements OnInit, PageComponent {
   constructor(
     private userService: UserService,
     public tabService: TabService,
+    private readonly alertService: AlertService,
   ) {}
 
   ngOnInit() {
@@ -36,11 +40,9 @@ export class UserListComponent implements OnInit, PageComponent {
   }
 
   getUsers() {
-    this.userService
-      .getUsers()
-      .subscribe(res => {
-        this.users = res;
-      });
+    this.userService.getUsers().subscribe(res => {
+      this.users = res;
+    });
   }
 
   handleEdit(user: User) {
@@ -55,6 +57,21 @@ export class UserListComponent implements OnInit, PageComponent {
 
   // TODO
   handleDelete(user: User) {
+    if (this.waitDeleteIndex[user.uuid]) {
+      this.userService.remove(user.uuid).subscribe((res: HttpResult) => {
+        if (res.statusCode === 0) {
+          this.users = this.users.filter(u => {
+            return u.uuid !== user.uuid;
+          });
+        }
+        this.alertService.alert(res.message);
+      });
+      return;
+    }
 
+    this.waitDeleteIndex[user.uuid] = true;
+    setTimeout(() => {
+      this.waitDeleteIndex[user.uuid] = false;
+    }, 3000);
   }
 }

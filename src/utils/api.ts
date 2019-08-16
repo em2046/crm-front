@@ -5,6 +5,7 @@ const host = environment.apiUrl;
 export default class Api {
   static auth = {
     login: host + '/auth/login',
+    me: host + '/auth/me',
   };
 
   static user = {

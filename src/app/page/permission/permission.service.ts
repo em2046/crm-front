@@ -11,7 +11,10 @@ import { ErrorService } from '../../common/error.service';
   providedIn: 'root',
 })
 export class PermissionService {
-  constructor(private http: HttpClient, private readonly errorService: ErrorService) {}
+  constructor(
+    private http: HttpClient,
+    private readonly errorService: ErrorService,
+  ) {}
 
   getPermissions(): Observable<Permission[]> {
     return this.http

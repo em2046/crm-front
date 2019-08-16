@@ -97,7 +97,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(userData) {
-    if (!this.registerForm.valid) {
+    if (!this.registerForm.valid || this.registerLoading) {
       return;
     }
 

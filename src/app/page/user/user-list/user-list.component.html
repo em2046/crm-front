@@ -70,9 +70,12 @@
         <button
           mat-flat-button
           (click)="handleDelete(element)"
+          [color]="waitDeleteIndex[element.uuid] ? 'warn' : null"
           [disabled]="element.name === 'admin'"
         >
-          <mat-icon>delete_forever</mat-icon>
+          <mat-icon>
+            {{ waitDeleteIndex[element.uuid] ? 'delete_forever' : 'delete' }}
+          </mat-icon>
           删除
         </button>
       </mat-cell>

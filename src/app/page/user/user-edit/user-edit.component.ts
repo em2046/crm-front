@@ -5,7 +5,7 @@ import { Role } from '../../../dto/role.model';
 import { User } from '../../../dto/user.model';
 import { PageComponent } from '../../page.component';
 import { RoleService } from '../../role/role.service';
-import { UserService } from '../user.service';
+import { UserService } from '../../../common/user.service';
 import Utils from 'src/utils/utils';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
@@ -23,6 +23,8 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrls: ['../../edit.less', './user-edit.component.less'],
 })
 export class UserEditComponent implements OnInit, PageComponent {
+  private userDefaultValue: User = { name: '', email: '', realName: '' };
+
   constructor(
     public roleService: RoleService,
     public userService: UserService,
@@ -171,6 +173,8 @@ export class UserEditComponent implements OnInit, PageComponent {
 
   getUser(uuid) {
     this.userService.getUser(uuid).subscribe(res => {
+      this.userDefaultValue = res;
+
       this.user = res;
       this.selectedRoles = res.roles;
       this.name.setValue(res.name);
@@ -187,6 +191,9 @@ export class UserEditComponent implements OnInit, PageComponent {
   }
 
   onSubmit(userData: User) {
+    if (!this.editForm.valid || this.saveLoading) {
+      return;
+    }
     userData.roles = this.selectedRoles;
 
     this.saveLoading = true;
@@ -200,5 +207,13 @@ export class UserEditComponent implements OnInit, PageComponent {
       .subscribe(() => {
         this.alertService.alert('保存成功');
       });
+  }
+
+  resetForm() {
+    const userDefaultValue = this.userDefaultValue;
+    this.selectedRoles = userDefaultValue.roles.slice();
+    this.name.setValue(userDefaultValue.name);
+    this.email.setValue(userDefaultValue.email);
+    this.realName.setValue(userDefaultValue.realName);
   }
 }
