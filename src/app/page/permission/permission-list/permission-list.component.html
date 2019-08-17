@@ -1,5 +1,11 @@
 <article class="page">
-  <h2>权限列表</h2>
+  <header class="page-header">
+    <h2>权限列表</h2>
+    <button mat-flat-button color="primary" (click)="refreshPage()">
+      <mat-icon>refresh</mat-icon>
+      <span>刷新</span>
+    </button>
+  </header>
   <div class="table-box">
     <mat-table [dataSource]="permission" class="list-table">
       <ng-container matColumnDef="name">

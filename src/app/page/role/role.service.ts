@@ -16,9 +16,21 @@ export class RoleService {
     private readonly errorService: ErrorService,
   ) {}
 
+  /**
+   * 获取角色
+   */
   getRoles(): Observable<Role[]> {
     return this.http
       .get<Role[]>(Api.role.base, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  /**
+   * 获取角色并附带权限
+   */
+  getRolesJoinPermissions(): Observable<Role[]> {
+    return this.http
+      .get<Role[]>(Api.role.joinPermissions, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 }

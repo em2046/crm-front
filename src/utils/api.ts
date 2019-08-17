@@ -15,6 +15,7 @@ export default class Api {
 
   static role = {
     base: host + '/role',
+    joinPermissions: host + '/role?join=permissions',
   };
 
   static permission = {

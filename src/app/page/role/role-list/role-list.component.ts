@@ -22,8 +22,12 @@ export class RoleListComponent implements OnInit, PageComponent {
   }
 
   getRoles() {
-    this.roleService.getRoles().subscribe(res => {
+    this.roleService.getRolesJoinPermissions().subscribe(res => {
       this.roles = res;
     });
+  }
+
+  refreshPage() {
+    this.ngOnInit();
   }
 }

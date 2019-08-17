@@ -45,4 +45,10 @@ export class UserService {
       .delete(Api.user.uuid(uuid), Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
+
+  create(user) {
+    return this.http
+      .post<User>(Api.user.base, user, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
 }

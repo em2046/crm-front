@@ -22,8 +22,8 @@ export class UserListComponent implements OnInit, PageComponent {
   waitDeleteIndex = {};
   displayedColumns: string[] = [
     'name',
-    'roles',
     'realName',
+    'roles',
     'avatar',
     'email',
     'operation',
@@ -45,17 +45,32 @@ export class UserListComponent implements OnInit, PageComponent {
     });
   }
 
+  handleAdd() {
+    this.tabService.mission(
+      new Tab({
+        title: '用户新增',
+        name: 'user-add',
+        page: new Page(UserEditComponent, {
+          type: 'NEW',
+          user: {},
+        }),
+      }),
+    );
+  }
+
   handleEdit(user: User) {
     this.tabService.mission(
       new Tab({
         title: '用户编辑',
         name: `user-edit#${user.uuid}`,
-        page: new Page(UserEditComponent, user),
+        page: new Page(UserEditComponent, {
+          type: 'EDIT',
+          user,
+        }),
       }),
     );
   }
 
-  // TODO
   handleDelete(user: User) {
     if (this.waitDeleteIndex[user.uuid]) {
       this.userService.remove(user.uuid).subscribe((res: HttpResult) => {
@@ -73,5 +88,9 @@ export class UserListComponent implements OnInit, PageComponent {
     setTimeout(() => {
       this.waitDeleteIndex[user.uuid] = false;
     }, 3000);
+  }
+
+  refreshPage() {
+    this.ngOnInit();
   }
 }

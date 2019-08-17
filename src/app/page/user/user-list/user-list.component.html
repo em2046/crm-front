@@ -1,5 +1,17 @@
 <article class="page">
-  <h2>用户列表</h2>
+  <header class="page-header">
+    <h2>用户列表</h2>
+    <section class="button-group">
+      <button mat-flat-button (click)="handleAdd()">
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>新增</span>
+      </button>
+      <button mat-flat-button color="primary" (click)="refreshPage()">
+        <mat-icon>refresh</mat-icon>
+        <span>刷新</span>
+      </button>
+    </section>
+  </header>
   <div class="table-box">
     <mat-table [dataSource]="users" class="list-table">
       <ng-container matColumnDef="name">
@@ -8,19 +20,6 @@
         </mat-header-cell>
         <mat-cell class="col-name" *matCellDef="let element">
           {{ element.name }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="roles">
-        <mat-header-cell class="col-roles" mat-header-cell *matHeaderCellDef>
-          角色
-        </mat-header-cell>
-        <mat-cell class="col-roles" *matCellDef="let element">
-          <mat-chip-list>
-            <mat-chip *ngFor="let role of element.roles">
-              {{ role.title }}
-            </mat-chip>
-          </mat-chip-list>
         </mat-cell>
       </ng-container>
 
@@ -34,6 +33,19 @@
         </mat-header-cell>
         <mat-cell class="col-real-name" *matCellDef="let element">
           {{ element.realName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="roles">
+        <mat-header-cell class="col-roles" mat-header-cell *matHeaderCellDef>
+          角色
+        </mat-header-cell>
+        <mat-cell class="col-roles" *matCellDef="let element">
+          <mat-chip-list>
+            <mat-chip *ngFor="let role of element.roles">
+              {{ role.title }}
+            </mat-chip>
+          </mat-chip-list>
         </mat-cell>
       </ng-container>
 
@@ -72,7 +84,7 @@
             [disabled]="element.name === 'admin'"
           >
             <mat-icon>edit</mat-icon>
-            编辑
+            <span>编辑</span>
           </button>
           <button
             mat-flat-button
@@ -83,7 +95,7 @@
             <mat-icon>
               {{ waitDeleteIndex[element.uuid] ? 'delete_forever' : 'delete' }}
             </mat-icon>
-            删除
+            <span>删除</span>
           </button>
         </mat-cell>
       </ng-container>

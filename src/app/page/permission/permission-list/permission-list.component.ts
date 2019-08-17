@@ -26,4 +26,8 @@ export class PermissionListComponent implements OnInit, PageComponent {
       this.permission = res;
     });
   }
+
+  refreshPage() {
+    this.ngOnInit();
+  }
 }

@@ -1,5 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { AlertService } from '../../../common/alert.service';
 import { Role } from '../../../dto/role.model';
 import { User } from '../../../dto/user.model';
@@ -23,8 +28,6 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrls: ['../../edit.less', './user-edit.component.less'],
 })
 export class UserEditComponent implements OnInit, PageComponent {
-  private userDefaultValue: User = { name: '', email: '', realName: '' };
-
   constructor(
     public roleService: RoleService,
     public userService: UserService,
@@ -42,6 +45,14 @@ export class UserEditComponent implements OnInit, PageComponent {
           Validators.maxLength(200),
         ],
       ],
+      password: [
+        '',
+        [
+          this.passwordValidator(),
+          Validators.minLength(4),
+          Validators.maxLength(200),
+        ],
+      ],
       email: [
         '',
         [Validators.required, Validators.maxLength(512), Validators.email],
@@ -54,6 +65,10 @@ export class UserEditComponent implements OnInit, PageComponent {
     return this.editForm.get('name');
   }
 
+  get password() {
+    return this.editForm.get('password');
+  }
+
   get email() {
     return this.editForm.get('email');
   }
@@ -62,9 +77,15 @@ export class UserEditComponent implements OnInit, PageComponent {
     return this.editForm.get('realName');
   }
 
+  private userDefaultValue: User = { name: '', email: '', realName: '' };
+
   Utils = Utils;
-  data: User;
-  user: User;
+  data: {
+    type: string;
+    user: User;
+  };
+  isEdit = false;
+  user: User = { name: '' };
   editForm;
 
   visible = true;
@@ -84,6 +105,19 @@ export class UserEditComponent implements OnInit, PageComponent {
 
   @ViewChild('auto', { static: false })
   matAutocomplete: MatAutocomplete;
+
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isEdit = this.isEdit;
+      if (isEdit) {
+        return null;
+      }
+      if (control.value !== '') {
+        return null;
+      }
+      return { required: { value: control.value } };
+    };
+  }
 
   private initFilter() {
     this.refreshFilter();
@@ -167,8 +201,11 @@ export class UserEditComponent implements OnInit, PageComponent {
   }
 
   ngOnInit() {
+    this.isEdit = this.data.type === 'EDIT';
     this.getRoles();
-    this.getUser(this.data.uuid);
+    if (this.isEdit) {
+      this.getUser(this.data.user.uuid);
+    }
   }
 
   getUser(uuid) {
@@ -194,26 +231,78 @@ export class UserEditComponent implements OnInit, PageComponent {
     if (!this.editForm.valid || this.saveLoading) {
       return;
     }
-    userData.roles = this.selectedRoles;
+    userData.roles = this.selectedRoles.map(role => {
+      return {
+        uuid: role.uuid,
+      };
+    });
+
+    const user = this.data.user;
 
     this.saveLoading = true;
+
+    if (this.isEdit) {
+      userData.password = null;
+      this.saveEdit(user, {
+        name: userData.name,
+        email: userData.email,
+        realName: userData.realName,
+        roles: userData.roles,
+      });
+    } else {
+      this.saveNew(userData);
+    }
+  }
+
+  private saveNew(userData: User) {
     this.userService
-      .updateUser(this.data.uuid, userData)
+      .create(userData)
       .pipe(
         finalize(() => {
           this.saveLoading = false;
         }),
       )
-      .subscribe(() => {
+      .subscribe(res => {
+        console.log(res);
+        this.alertService.alert('保存成功');
+      });
+  }
+
+  private saveEdit(user, userData: User) {
+    this.userService
+      .updateUser(user.uuid, userData)
+      .pipe(
+        finalize(() => {
+          this.saveLoading = false;
+        }),
+      )
+      .subscribe(res => {
+        console.log(res);
         this.alertService.alert('保存成功');
       });
   }
 
   resetForm() {
+    if (this.isEdit) {
+      this.resetEdit();
+    } else {
+      this.resetNew();
+    }
+  }
+
+  private resetNew() {
+    this.name.setValue('');
+    this.password.setValue('');
+    this.email.setValue('');
+    this.realName.setValue('');
+    this.selectedRoles = [];
+  }
+
+  private resetEdit() {
     const userDefaultValue = this.userDefaultValue;
-    this.selectedRoles = userDefaultValue.roles.slice();
     this.name.setValue(userDefaultValue.name);
     this.email.setValue(userDefaultValue.email);
     this.realName.setValue(userDefaultValue.realName);
+    this.selectedRoles = userDefaultValue.roles.slice();
   }
 }

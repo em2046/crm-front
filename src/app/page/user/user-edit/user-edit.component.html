@@ -4,14 +4,21 @@
     [formGroup]="editForm"
     (ngSubmit)="onSubmit(editForm.value)"
   >
-    <mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="isEdit">
       <mat-label>编号</mat-label>
-      <input matInput placeholder="Username" [value]="data.uuid" disabled />
+      <input matInput placeholder="Username" [value]="user.uuid" disabled />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>用户名</mat-label>
-      <input formControlName="name" matInput placeholder="Username" />
+      <input
+        formControlName="name"
+        matInput
+        placeholder="Username"
+        name="username"
+        required
+        autocomplete="username"
+      />
       <mat-icon matSuffix>person</mat-icon>
       <mat-hint align="end">4-200个字符</mat-hint>
       <mat-error *ngIf="name.invalid">
@@ -19,13 +26,32 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="!isEdit">
+      <mat-label>密码</mat-label>
+      <input
+        autocomplete="new-password"
+        formControlName="password"
+        matInput
+        placeholder="Password"
+        type="password"
+      />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-hint align="end">4-200个字符</mat-hint>
+      <mat-error *ngIf="password.invalid">
+        {{ Utils.getValidateMessage(password, '密码') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>邮箱地址</mat-label>
       <input
         formControlName="email"
         matInput
         placeholder="Email"
         type="email"
+        name="email"
+        required
+        autocomplete="email"
       />
       <mat-icon matSuffix>email</mat-icon>
       <mat-hint align="end">请输入可以接受邮件的邮箱</mat-hint>
@@ -34,16 +60,23 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>真实姓名</mat-label>
-      <input formControlName="realName" matInput placeholder="Real name" />
+      <input
+        formControlName="realName"
+        matInput
+        placeholder="Real name"
+        autocomplete="name"
+        name="name"
+      />
       <mat-hint align="end">请输入中文名</mat-hint>
       <mat-error *ngIf="realName.invalid">
         {{ Utils.getValidateMessage(realName, '真实姓名') }}
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>角色</mat-label>
       <mat-chip-list #chipList aria-label="角色选择器">
         <mat-chip
           *ngFor="let role of selectedRoles"
@@ -55,7 +88,7 @@
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
         <input
-          placeholder="角色..."
+          placeholder="Roles..."
           #roleInput
           [formControl]="rolesCtrl"
           [matAutocomplete]="auto"
@@ -64,8 +97,8 @@
           [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)"
         />
-        <mat-icon matSuffix>face</mat-icon>
       </mat-chip-list>
+      <mat-icon matSuffix>face</mat-icon>
       <mat-autocomplete
         #auto="matAutocomplete"
         (optionSelected)="selected($event)"
