@@ -1,7 +1,7 @@
 <article class="page">
   <h2>角色列表</h2>
   <div class="table-box">
-    <table mat-table [dataSource]="roles">
+    <mat-table [dataSource]="roles" class="list-table">
       <ng-container matColumnDef="name">
         <mat-header-cell class="col-name" mat-header-cell *matHeaderCellDef>
           名称
@@ -39,6 +39,6 @@
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </table>
+    </mat-table>
   </div>
 </article>

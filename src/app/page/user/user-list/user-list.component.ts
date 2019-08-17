@@ -24,8 +24,8 @@ export class UserListComponent implements OnInit, PageComponent {
     'name',
     'roles',
     'realName',
-    'email',
     'avatar',
+    'email',
     'operation',
   ];
 

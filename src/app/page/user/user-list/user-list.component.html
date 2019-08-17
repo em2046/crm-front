@@ -1,7 +1,7 @@
 <article class="page">
   <h2>用户列表</h2>
   <div class="table-box">
-    <table mat-table [dataSource]="users" class="list-table">
+    <mat-table [dataSource]="users" class="list-table">
       <ng-container matColumnDef="name">
         <mat-header-cell class="col-name" mat-header-cell *matHeaderCellDef>
           用户名
@@ -24,15 +24,6 @@
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="email">
-        <mat-header-cell class="col-email" mat-header-cell *matHeaderCellDef>
-          邮箱地址
-        </mat-header-cell>
-        <mat-cell class="col-email" *matCellDef="let element">
-          {{ element.email }}
-        </mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="realName">
         <mat-header-cell
           class="col-real-name"
@@ -51,7 +42,18 @@
           头像
         </mat-header-cell>
         <mat-cell class="col-avatar" *matCellDef="let element">
-          <span class="crm-small-avatar">{{ Utils.codeToEmoji(element.avatar) }}</span>
+          <span class="crm-small-avatar">{{
+            Utils.codeToEmoji(element.avatar)
+          }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell class="col-email" mat-header-cell *matHeaderCellDef>
+          邮箱地址
+        </mat-header-cell>
+        <mat-cell class="col-email" *matCellDef="let element">
+          {{ element.email }}
         </mat-cell>
       </ng-container>
 
@@ -88,6 +90,6 @@
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </table>
+    </mat-table>
   </div>
 </article>

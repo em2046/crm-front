@@ -1,4 +1,6 @@
 .list-table {
+  min-width: 500px;
+
   button {
     margin: 5px;
   }
@@ -27,7 +29,18 @@
 mat-cell,
 mat-footer-cell,
 mat-header-cell {
-  min-width: 100px;
   flex-wrap: wrap;
   word-break: break-all;
+}
+
+mat-cell:first-of-type,
+mat-footer-cell:first-of-type,
+mat-header-cell:first-of-type {
+  padding-left: 8px;
+}
+
+mat-cell:last-of-type,
+mat-footer-cell:last-of-type,
+mat-header-cell:last-of-type {
+  padding-right: 10px;
 }
