@@ -21,11 +21,11 @@ export class UserListComponent implements OnInit, PageComponent {
   users: User[];
   waitDeleteIndex = {};
   displayedColumns: string[] = [
-    'avatar',
     'name',
     'roles',
     'realName',
     'email',
+    'avatar',
     'operation',
   ];
 

@@ -1,9 +1,19 @@
 <mat-toolbar class="toolbar" color="primary">
   <section>
+    <button
+      mat-flat-button
+      color="primary"
+      class="hamburger"
+      (click)="handleToggleSidebar()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
     <h1>客户关系管理系统</h1>
   </section>
   <section>
-    <button [matMenuTriggerFor]="menu" mat-button>{{user?.name || '用户'}}</button>
+    <button [matMenuTriggerFor]="menu" mat-button>
+      {{ user?.name || '用户' }}
+    </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>person</mat-icon>

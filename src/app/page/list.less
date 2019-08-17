@@ -1,6 +1,6 @@
 .list-table {
-  button + button {
-    margin-left: 10px;
+  button {
+    margin: 5px;
   }
 }
 
@@ -17,4 +17,17 @@
     height: 16px;
     font-size: 16px;
   }
+}
+
+.table-box {
+  width: 100%;
+  overflow: auto;
+}
+
+mat-cell,
+mat-footer-cell,
+mat-header-cell {
+  min-width: 100px;
+  flex-wrap: wrap;
+  word-break: break-all;
 }

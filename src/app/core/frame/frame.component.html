@@ -1,11 +1,13 @@
-<article id="everything">
+<article id="everything" [class.is-mobile]="mobileQuery.matches">
   <header id="header">
-    <app-header [user]="user"></app-header>
+    <app-header (toggleSidebar)="sidenav.toggle()" [user]="user"></app-header>
   </header>
-  <section id="layout">
-    <aside id="side">
-      <app-menu></app-menu>
-    </aside>
+  <mat-sidenav-container class="example-container" id="layout">
+    <mat-sidenav opened [mode]="mobileQuery.matches ? 'over' : 'side'" #sidenav>
+      <aside id="side">
+        <app-menu></app-menu>
+      </aside>
+    </mat-sidenav>
     <main id="main">
       <mat-tab-group
         animationDuration="0ms"
@@ -27,7 +29,7 @@
         </mat-tab>
       </mat-tab-group>
     </main>
-  </section>
+  </mat-sidenav-container>
   <footer id="footer">
     <app-footer></app-footer>
   </footer>

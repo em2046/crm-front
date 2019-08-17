@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Permission } from '../../../dto/permission.model';
-import { User } from '../../../dto/user.model';
 import Utils from '../../../../utils/utils';
 import { PageComponent } from '../../page.component';
 import { PermissionService } from '../permission.service';
@@ -8,7 +7,7 @@ import { PermissionService } from '../permission.service';
 @Component({
   selector: 'app-permission-list',
   templateUrl: './permission-list.component.html',
-  styleUrls: ['./permission-list.component.less'],
+  styleUrls: ['../../list.less', './permission-list.component.less'],
 })
 export class PermissionListComponent implements OnInit, PageComponent {
   data: any;

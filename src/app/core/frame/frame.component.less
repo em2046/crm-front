@@ -5,7 +5,6 @@
 }
 
 #layout {
-  width: 100vw;
   flex-grow: 1;
   display: flex;
   flex-direction: row;
@@ -13,8 +12,12 @@
 
 #side {
   width: 200px;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
+  transition: transform 200ms;
+
+  &.shrunk {
+    transform: translateX(-200px);
+  }
 }
 
 #main {
@@ -60,6 +63,15 @@
 }
 
 :host ::ng-deep {
+  .mat-drawer-inner-container {
+    display: flex;
+  }
+
+  .mat-drawer-content {
+    flex-grow: 1;
+    display: flex;
+  }
+
   .mat-tab-label {
     padding: 0 10px;
 

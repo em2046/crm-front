@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Utils from '../../../utils/utils';
@@ -12,16 +13,28 @@ import { Tab } from '../tab';
   templateUrl: './frame.component.html',
   styleUrls: ['./frame.component.less'],
 })
-export class FrameComponent implements OnInit {
+export class FrameComponent implements OnInit, OnDestroy {
   tabs: Tab[] = [];
   selected = new FormControl(0);
   user: User;
+  mobileQuery: MediaQueryList;
+
+  private mobileQueryListener: () => void;
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this.mobileQueryListener);
+  }
 
   constructor(
     private readonly router: Router,
     public tabService: TabService,
     private readonly userService: UserService,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
   ) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
     Utils.updateAuth();
     tabService.mission$.subscribe(msg => {
       this.handleOpen(msg);
@@ -29,10 +42,10 @@ export class FrameComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!Utils.accessToken) {
+    if (!Utils.accessToken()) {
       this.router.navigate(['/login']);
+      return;
     }
-
     this.getUserInfo();
   }
 
