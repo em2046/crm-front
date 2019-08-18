@@ -34,6 +34,7 @@
         matInput
         placeholder="Password"
         type="password"
+        [required]="!isEdit"
       />
       <mat-icon matSuffix>lock</mat-icon>
       <mat-hint align="end">4-200个字符</mat-hint>

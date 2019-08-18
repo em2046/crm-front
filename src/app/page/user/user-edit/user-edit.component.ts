@@ -262,8 +262,7 @@ export class UserEditComponent implements OnInit, PageComponent {
           this.saveLoading = false;
         }),
       )
-      .subscribe(res => {
-        console.log(res);
+      .subscribe(() => {
         this.alertService.alert('保存成功');
       });
   }
@@ -276,8 +275,7 @@ export class UserEditComponent implements OnInit, PageComponent {
           this.saveLoading = false;
         }),
       )
-      .subscribe(res => {
-        console.log(res);
+      .subscribe(() => {
         this.alertService.alert('保存成功');
       });
   }

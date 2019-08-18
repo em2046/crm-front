@@ -22,7 +22,7 @@ export class FrameComponent implements OnInit, OnDestroy {
   private mobileQueryListener: () => void;
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this.mobileQueryListener);
+    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
   }
 
   constructor(
@@ -34,7 +34,7 @@ export class FrameComponent implements OnInit, OnDestroy {
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this.mobileQueryListener);
+    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
     Utils.updateAuth();
     tabService.mission$.subscribe(msg => {
       this.handleOpen(msg);
