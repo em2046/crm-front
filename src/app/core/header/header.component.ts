@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '../../dto/user.model';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.less'],
 })
 export class HeaderComponent implements OnInit {
+  @Output()
+  toggleSidebar = new EventEmitter();
+
+  @Input()
+  user: User;
+
   constructor() {}
 
   ngOnInit() {}
+
+  handleToggleSidebar() {
+    this.toggleSidebar.emit();
+  }
 }

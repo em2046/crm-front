@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import Utils from '../../../utils/utils';
 import { TabService } from '../../common/tab.service';
+import { User } from '../../dto/user.model';
+import { UserService } from '../../common/user.service';
 import { Tab } from '../tab';
 
 @Component({
@@ -9,21 +13,40 @@ import { Tab } from '../tab';
   templateUrl: './frame.component.html',
   styleUrls: ['./frame.component.less'],
 })
-export class FrameComponent implements OnInit {
+export class FrameComponent implements OnInit, OnDestroy {
   tabs: Tab[] = [];
   selected = new FormControl(0);
+  user: User;
+  mobileQuery: MediaQueryList;
 
-  constructor(private readonly router: Router, public tabService: TabService) {
+  private mobileQueryListener: () => void;
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
+  }
+
+  constructor(
+    private readonly router: Router,
+    public tabService: TabService,
+    private readonly userService: UserService,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
+    Utils.updateAuth();
     tabService.mission$.subscribe(msg => {
       this.handleOpen(msg);
     });
   }
 
   ngOnInit() {
-    const accessToken = sessionStorage.getItem('access_token');
-    if (!accessToken) {
+    if (!Utils.accessToken()) {
       this.router.navigate(['/login']);
+      return;
     }
+    this.getUserInfo();
   }
 
   handleOpen(newTab) {
@@ -40,5 +63,12 @@ export class FrameComponent implements OnInit {
 
   handleClose(i: number) {
     this.tabs.splice(i, 1);
+  }
+
+  private getUserInfo() {
+    this.userService.getUserByToken().subscribe(res => {
+      this.user = res;
+      sessionStorage.setItem('user', JSON.stringify(res));
+    });
   }
 }

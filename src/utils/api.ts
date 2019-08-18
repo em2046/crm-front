@@ -5,6 +5,7 @@ const host = environment.apiUrl;
 export default class Api {
   static auth = {
     login: host + '/auth/login',
+    me: host + '/auth/me',
   };
 
   static user = {
@@ -14,6 +15,7 @@ export default class Api {
 
   static role = {
     base: host + '/role',
+    joinPermissions: host + '/role?join=permissions',
   };
 
   static permission = {

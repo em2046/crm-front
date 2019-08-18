@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import Utils from 'src/utils/utils';
 import { AlertService } from '../../common/alert.service';
 import { LoginService } from '../login.service';
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(userData) {
-    if (!this.loginForm.valid || this.loginLoading === true) {
+    if (!this.loginForm.valid || this.loginLoading) {
       return;
     }
 
@@ -62,8 +63,12 @@ export class LoginComponent implements OnInit {
     this.loginLoading = true;
     this.loginService
       .loginUser(loginUser)
+      .pipe(
+        finalize(() => {
+          this.loginLoading = false;
+        }),
+      )
       .subscribe(res => {
-        this.loginLoading = false;
         this.alertService.alert('登录成功');
         sessionStorage.setItem('access_token', res.access_token);
         this.router.navigate(['/']);

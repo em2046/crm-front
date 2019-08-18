@@ -1,10 +1,16 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { AlertService } from '../../../common/alert.service';
 import { Role } from '../../../dto/role.model';
 import { User } from '../../../dto/user.model';
 import { PageComponent } from '../../page.component';
 import { RoleService } from '../../role/role.service';
-import { UserService } from '../user.service';
+import { UserService } from '../../../common/user.service';
 import Utils from 'src/utils/utils';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
@@ -13,7 +19,7 @@ import {
   MatAutocompleteSelectedEvent,
   MatAutocomplete,
 } from '@angular/material/autocomplete';
-import { map, startWith } from 'rxjs/operators';
+import { finalize, map, startWith } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
@@ -26,11 +32,27 @@ export class UserEditComponent implements OnInit, PageComponent {
     public roleService: RoleService,
     public userService: UserService,
     private formBuilder: FormBuilder,
+    private readonly alertService: AlertService,
   ) {
     this.initFilter();
 
     this.editForm = this.formBuilder.group({
-      name: ['', [Validators.minLength(4), Validators.maxLength(200)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(200),
+        ],
+      ],
+      password: [
+        '',
+        [
+          this.passwordValidator(),
+          Validators.minLength(4),
+          Validators.maxLength(200),
+        ],
+      ],
       email: [
         '',
         [Validators.required, Validators.maxLength(512), Validators.email],
@@ -43,6 +65,10 @@ export class UserEditComponent implements OnInit, PageComponent {
     return this.editForm.get('name');
   }
 
+  get password() {
+    return this.editForm.get('password');
+  }
+
   get email() {
     return this.editForm.get('email');
   }
@@ -51,9 +77,15 @@ export class UserEditComponent implements OnInit, PageComponent {
     return this.editForm.get('realName');
   }
 
+  private userDefaultValue: User = { name: '', email: '', realName: '' };
+
   Utils = Utils;
-  data: User;
-  user: User;
+  data: {
+    type: string;
+    user: User;
+  };
+  isEdit = false;
+  user: User = { name: '' };
   editForm;
 
   visible = true;
@@ -66,11 +98,26 @@ export class UserEditComponent implements OnInit, PageComponent {
   selectedRoles: Role[] = [];
   allRoles: Role[] = [];
 
+  saveLoading = false;
+
   @ViewChild('roleInput', { static: false })
   roleInput: ElementRef<HTMLInputElement>;
 
   @ViewChild('auto', { static: false })
   matAutocomplete: MatAutocomplete;
+
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const isEdit = this.isEdit;
+      if (isEdit) {
+        return null;
+      }
+      if (control.value !== '') {
+        return null;
+      }
+      return { required: { value: control.value } };
+    };
+  }
 
   private initFilter() {
     this.refreshFilter();
@@ -132,13 +179,18 @@ export class UserEditComponent implements OnInit, PageComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedRoles.push(this.find(event.option.viewValue));
+    const role = this.find(event.option.viewValue);
+    const alreadySelected = this.selectedRoles.find(selected => {
+      return selected.name === role.name;
+    });
+    if (!alreadySelected) {
+      this.selectedRoles.push(role);
+    }
     this.roleInput.nativeElement.value = '';
     this.rolesCtrl.setValue(null);
   }
 
   private _filter(title: string): Role[] {
-    console.log(title);
     const filterValue = title.toLowerCase();
 
     return this.allRoles.filter(r => {
@@ -149,12 +201,17 @@ export class UserEditComponent implements OnInit, PageComponent {
   }
 
   ngOnInit() {
+    this.isEdit = this.data.type === 'EDIT';
     this.getRoles();
-    this.getUser(this.data.uuid);
+    if (this.isEdit) {
+      this.getUser(this.data.user.uuid);
+    }
   }
 
   getUser(uuid) {
     this.userService.getUser(uuid).subscribe(res => {
+      this.userDefaultValue = res;
+
       this.user = res;
       this.selectedRoles = res.roles;
       this.name.setValue(res.name);
@@ -168,5 +225,82 @@ export class UserEditComponent implements OnInit, PageComponent {
       this.allRoles = res;
       this.refreshFilter();
     });
+  }
+
+  onSubmit(userData: User) {
+    if (!this.editForm.valid || this.saveLoading) {
+      return;
+    }
+    userData.roles = this.selectedRoles.map(role => {
+      return {
+        uuid: role.uuid,
+      };
+    });
+
+    const user = this.data.user;
+
+    this.saveLoading = true;
+
+    if (this.isEdit) {
+      userData.password = null;
+      this.saveEdit(user, {
+        name: userData.name,
+        email: userData.email,
+        realName: userData.realName,
+        roles: userData.roles,
+      });
+    } else {
+      this.saveNew(userData);
+    }
+  }
+
+  private saveNew(userData: User) {
+    this.userService
+      .create(userData)
+      .pipe(
+        finalize(() => {
+          this.saveLoading = false;
+        }),
+      )
+      .subscribe(() => {
+        this.alertService.alert('保存成功');
+      });
+  }
+
+  private saveEdit(user, userData: User) {
+    this.userService
+      .updateUser(user.uuid, userData)
+      .pipe(
+        finalize(() => {
+          this.saveLoading = false;
+        }),
+      )
+      .subscribe(() => {
+        this.alertService.alert('保存成功');
+      });
+  }
+
+  resetForm() {
+    if (this.isEdit) {
+      this.resetEdit();
+    } else {
+      this.resetNew();
+    }
+  }
+
+  private resetNew() {
+    this.name.setValue('');
+    this.password.setValue('');
+    this.email.setValue('');
+    this.realName.setValue('');
+    this.selectedRoles = [];
+  }
+
+  private resetEdit() {
+    const userDefaultValue = this.userDefaultValue;
+    this.name.setValue(userDefaultValue.name);
+    this.email.setValue(userDefaultValue.email);
+    this.realName.setValue(userDefaultValue.realName);
+    this.selectedRoles = userDefaultValue.roles.slice();
   }
 }

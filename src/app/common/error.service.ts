@@ -13,9 +13,19 @@ export class ErrorService {
    */
   handleError() {
     return error => {
-      if (error.error instanceof ErrorEvent) {
-        console.error('出错了', error.error.message);
-        this.alertService.alert(error.error.message);
+      if (error.error.statusCode) {
+        switch (error.error.statusCode) {
+          case 401:
+            this.alertService.alert('身份验证失败');
+            break;
+          case 500:
+            this.alertService.alert('服务器错误');
+            break;
+          default:
+            console.error('出错了', error.error.message);
+            this.alertService.alert(error.error.message);
+            break;
+        }
       } else {
         console.error(`错误码`, error.status, `错误`, error.error);
         this.alertService.alert('服务器错误');

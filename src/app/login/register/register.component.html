@@ -112,8 +112,10 @@
         color="primary"
         mat-flat-button
         type="submit"
+        [disabled]="registerLoading"
       >
-        注册
+        <span>注册</span>
+        <mat-spinner *ngIf="registerLoading" color="primary"></mat-spinner>
       </button>
     </form>
   </div>
