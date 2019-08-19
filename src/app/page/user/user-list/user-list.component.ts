@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../../../common/alert.service';
 import { Tab } from '../../../core/tab';
-import { HttpResult } from '../../../dto/http-result';
 import { User } from '../../../dto/user.model';
 import { TabService } from '../../../common/tab.service';
 import { Page } from '../../page';
+import { PageList } from '../../page-list';
 import { PageComponent } from '../../page.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 import { UserService } from '../../../common/user.service';
@@ -15,11 +15,12 @@ import Utils from '../../../../utils/utils';
   templateUrl: './user-list.component.html',
   styleUrls: ['../../list.less', './user-list.component.less'],
 })
-export class UserListComponent implements OnInit, PageComponent {
+export class UserListComponent extends PageList
+  implements OnInit, PageComponent {
   data: any;
   Utils = Utils;
-  users: User[];
-  waitDeleteIndex = {};
+  items: User[];
+  deleteHashMap = {};
   displayedColumns: string[] = [
     'name',
     'realName',
@@ -30,18 +31,20 @@ export class UserListComponent implements OnInit, PageComponent {
   ];
 
   constructor(
-    private userService: UserService,
+    public service: UserService,
     public tabService: TabService,
-    private readonly alertService: AlertService,
-  ) {}
+    public alertService: AlertService,
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe(res => {
-      this.users = res;
+    this.service.getUsers().subscribe(res => {
+      this.items = res;
     });
   }
 
@@ -69,25 +72,6 @@ export class UserListComponent implements OnInit, PageComponent {
         }),
       }),
     );
-  }
-
-  handleDelete(user: User) {
-    if (this.waitDeleteIndex[user.uuid]) {
-      this.userService.remove(user.uuid).subscribe((res: HttpResult) => {
-        if (res.statusCode === 0) {
-          this.users = this.users.filter(u => {
-            return u.uuid !== user.uuid;
-          });
-        }
-        this.alertService.alert(res.message);
-      });
-      return;
-    }
-
-    this.waitDeleteIndex[user.uuid] = true;
-    setTimeout(() => {
-      this.waitDeleteIndex[user.uuid] = false;
-    }, 3000);
   }
 
   refreshPage() {

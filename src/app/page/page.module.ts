@@ -6,6 +6,7 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { RoleListComponent } from './role/role-list/role-list.component';
 import { PermissionListComponent } from './permission/permission-list/permission-list.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { RoleEditComponent } from './role/role-edit/role-edit.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
     RoleListComponent,
     PermissionListComponent,
     UserEditComponent,
+    RoleEditComponent,
   ],
   entryComponents: [
     UserListComponent,

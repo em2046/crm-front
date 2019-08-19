@@ -33,4 +33,10 @@ export class RoleService {
       .get<Role[]>(Api.role.joinPermissions, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
+
+  remove(uuid: string) {
+    return this.http
+      .delete(Api.role.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
 }

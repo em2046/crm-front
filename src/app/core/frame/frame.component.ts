@@ -22,7 +22,9 @@ export class FrameComponent implements OnInit, OnDestroy {
   private mobileQueryListener: () => void;
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
+    // TODO 等Safari支持后使用新API
+    // this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
+    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
   constructor(
@@ -34,7 +36,11 @@ export class FrameComponent implements OnInit, OnDestroy {
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
+
+    // TODO 等Safari支持后使用新API
+    // this.mobileQuery.addEventListener('change', this.mobileQueryListener);
+    this.mobileQuery.addListener(this.mobileQueryListener);
+
     Utils.updateAuth();
     tabService.mission$.subscribe(msg => {
       this.handleOpen(msg);
