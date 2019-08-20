@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { FooterComponent } from './footer/footer.component';
@@ -23,7 +24,7 @@ import { ChipsAutocompleteComponent } from './chips-autocomplete/chips-autocompl
     ChipsAutocompleteComponent,
   ],
   entryComponents: [AlertComponent],
-  imports: [CommonModule, RouterModule, MaterialModule],
-  exports: [HeaderComponent, FooterComponent, MenuComponent],
+  imports: [CommonModule, RouterModule, MaterialModule, ReactiveFormsModule],
+  exports: [HeaderComponent, FooterComponent, MenuComponent, ChipsAutocompleteComponent],
 })
 export class CoreModule {}
