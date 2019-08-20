@@ -263,7 +263,7 @@ export class UserEditComponent implements OnInit, PageComponent {
         }),
       )
       .subscribe(() => {
-        this.alertService.alert('保存成功');
+        this.alertService.snack('保存成功');
       });
   }
 
@@ -276,7 +276,7 @@ export class UserEditComponent implements OnInit, PageComponent {
         }),
       )
       .subscribe(() => {
-        this.alertService.alert('保存成功');
+        this.alertService.snack('保存成功');
       });
   }
 

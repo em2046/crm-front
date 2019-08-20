@@ -1,13 +1,19 @@
 <article class="page">
   <header class="page-header">
     <h2>角色列表</h2>
-    <button mat-flat-button color="primary" (click)="refreshPage()">
-      <mat-icon>refresh</mat-icon>
-      <span>刷新</span>
-    </button>
+    <section class="button-group">
+      <button mat-flat-button (click)="handleAdd()">
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>新增</span>
+      </button>
+      <button mat-flat-button color="primary" (click)="refreshPage()">
+        <mat-icon>refresh</mat-icon>
+        <span>刷新</span>
+      </button>
+    </section>
   </header>
   <div class="table-box">
-    <mat-table [dataSource]="roles" class="list-table">
+    <mat-table [dataSource]="items" class="list-table">
       <ng-container matColumnDef="name">
         <mat-header-cell class="col-name" mat-header-cell *matHeaderCellDef>
           名称
@@ -40,6 +46,41 @@
               {{ permission.title }}
             </mat-chip>
           </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="operation">
+        <mat-header-cell
+          class="col-operation"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          操作
+        </mat-header-cell>
+        <mat-cell class="col-operation" *matCellDef="let element">
+          <button
+            mat-flat-button
+            (click)="handleEdit(element)"
+            [disabled]="element.name === 'admin'"
+          >
+            <mat-icon>edit</mat-icon>
+            <span>编辑</span>
+          </button>
+          <button
+            mat-flat-button
+            (click)="handleDelete(element)"
+            [color]="isWaiting(element.uuid) ? 'warn' : null"
+            [disabled]="element.name === 'admin' || isDeleting(element.uuid)"
+          >
+            <mat-icon *ngIf="!isDeleting(element.uuid)">
+              {{ isWaiting(element.uuid) ? 'delete_forever' : 'delete' }}
+            </mat-icon>
+            <span>删除</span>
+            <mat-spinner
+              *ngIf="isDeleting(element.uuid)"
+              color="primary"
+            ></mat-spinner>
+          </button>
         </mat-cell>
       </ng-container>
 

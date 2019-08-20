@@ -13,7 +13,7 @@
     </section>
   </header>
   <div class="table-box">
-    <mat-table [dataSource]="users" class="list-table">
+    <mat-table [dataSource]="items" class="list-table">
       <ng-container matColumnDef="name">
         <mat-header-cell class="col-name" mat-header-cell *matHeaderCellDef>
           用户名
@@ -71,13 +71,13 @@
 
       <ng-container matColumnDef="operation">
         <mat-header-cell
-          class="col-real-operation"
+          class="col-operation"
           mat-header-cell
           *matHeaderCellDef
         >
           操作
         </mat-header-cell>
-        <mat-cell class="col-real-operation" *matCellDef="let element">
+        <mat-cell class="col-operation" *matCellDef="let element">
           <button
             mat-flat-button
             (click)="handleEdit(element)"
@@ -89,13 +89,17 @@
           <button
             mat-flat-button
             (click)="handleDelete(element)"
-            [color]="waitDeleteIndex[element.uuid] ? 'warn' : null"
-            [disabled]="element.name === 'admin'"
+            [color]="isWaiting(element.uuid) ? 'warn' : null"
+            [disabled]="element.name === 'admin' || isDeleting(element.uuid)"
           >
-            <mat-icon>
-              {{ waitDeleteIndex[element.uuid] ? 'delete_forever' : 'delete' }}
+            <mat-icon *ngIf="!isDeleting(element.uuid)">
+              {{ isWaiting(element.uuid) ? 'delete_forever' : 'delete' }}
             </mat-icon>
             <span>删除</span>
+            <mat-spinner
+              *ngIf="isDeleting(element.uuid)"
+              color="primary"
+            ></mat-spinner>
           </button>
         </mat-cell>
       </ng-container>
