@@ -21,6 +21,7 @@ import { RoleEditComponent } from './role/role-edit/role-edit.component';
     RoleListComponent,
     PermissionListComponent,
     UserEditComponent,
+    RoleEditComponent,
   ],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
 })

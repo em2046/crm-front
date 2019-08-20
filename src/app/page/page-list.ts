@@ -24,7 +24,7 @@ export class PageList {
           this.items = this.items.filter(u => {
             return u.uuid !== item.uuid;
           });
-          this.alertService.alert('删除成功');
+          this.alertService.snack('删除成功');
         });
       return;
     }

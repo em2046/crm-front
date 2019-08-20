@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../../../common/alert.service';
 import { TabService } from '../../../common/tab.service';
+import { Tab } from '../../../core/tab';
 import { Role } from '../../../dto/role.model';
+import { User } from '../../../dto/user.model';
+import { Page } from '../../page';
 import { PageList } from '../../page-list';
 import { PageComponent } from '../../page.component';
+import { RoleEditComponent } from '../role-edit/role-edit.component';
 import { RoleService } from '../role.service';
 import Utils from '../../../../utils/utils';
 
@@ -42,6 +46,29 @@ export class RoleListComponent extends PageList
     this.ngOnInit();
   }
 
-  // TODO
-  handleEdit(role: any) {}
+  handleAdd() {
+    this.tabService.mission(
+      new Tab({
+        title: '角色新增',
+        name: 'role-add',
+        page: new Page(RoleEditComponent, {
+          type: 'NEW',
+          user: {},
+        }),
+      }),
+    );
+  }
+
+  handleEdit(user: User) {
+    this.tabService.mission(
+      new Tab({
+        title: '角色编辑',
+        name: `role-edit#${user.uuid}`,
+        page: new Page(RoleEditComponent, {
+          type: 'EDIT',
+          user,
+        }),
+      }),
+    );
+  }
 }

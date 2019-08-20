@@ -16,7 +16,7 @@ export class ErrorService {
       if (error.error.statusCode) {
         switch (error.error.statusCode) {
           case 401:
-            this.alertService.alert('身份验证失败');
+            this.alertService.alert({ message: '身份验证失败', login: true});
             break;
           case 500:
             this.alertService.alert('服务器错误');

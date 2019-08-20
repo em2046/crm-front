@@ -118,7 +118,7 @@ export class RegisterComponent implements OnInit {
         }),
       )
       .subscribe(() => {
-        this.alertService.alert('注册成功');
+        this.alertService.snack('注册成功');
         this.router.navigate(['/login']);
       });
   }

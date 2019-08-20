@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         }),
       )
       .subscribe(res => {
-        this.alertService.alert('登录成功');
+        this.alertService.snack('登录成功');
         sessionStorage.setItem('access_token', res.access_token);
         this.router.navigate(['/']);
       });
@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     sessionStorage.removeItem('access_token');
+    this.alertService.clean();
   }
 
   handleForgetPassword() {

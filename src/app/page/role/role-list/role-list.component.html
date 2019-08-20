@@ -1,10 +1,16 @@
 <article class="page">
   <header class="page-header">
     <h2>角色列表</h2>
-    <button mat-flat-button color="primary" (click)="refreshPage()">
-      <mat-icon>refresh</mat-icon>
-      <span>刷新</span>
-    </button>
+    <section class="button-group">
+      <button mat-flat-button (click)="handleAdd()">
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>新增</span>
+      </button>
+      <button mat-flat-button color="primary" (click)="refreshPage()">
+        <mat-icon>refresh</mat-icon>
+        <span>刷新</span>
+      </button>
+    </section>
   </header>
   <div class="table-box">
     <mat-table [dataSource]="items" class="list-table">
