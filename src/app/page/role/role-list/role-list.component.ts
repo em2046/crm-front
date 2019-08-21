@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { AlertService } from '../../../common/alert.service';
 import { TabService } from '../../../common/tab.service';
 import { Tab } from '../../../core/tab';
 import { Role } from '../../../dto/role.model';
-import { User } from '../../../dto/user.model';
 import { Page } from '../../page';
 import { PageList } from '../../page-list';
 import { PageComponent } from '../../page.component';
@@ -18,6 +18,9 @@ import Utils from '../../../../utils/utils';
 })
 export class RoleListComponent extends PageList
   implements OnInit, PageComponent {
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  dataSource = new MatTableDataSource<Role>([]);
   data: any;
   Utils = Utils;
   items: Role[];
@@ -37,13 +40,10 @@ export class RoleListComponent extends PageList
   }
 
   getRoles() {
-    this.service.getRolesJoinPermissions().subscribe(res => {
+    this.service.getAllJoinPermissions().subscribe(res => {
       this.items = res;
+      this.updateView();
     });
-  }
-
-  refreshPage() {
-    this.ngOnInit();
   }
 
   handleAdd() {
@@ -53,22 +53,25 @@ export class RoleListComponent extends PageList
         name: 'role-add',
         page: new Page(RoleEditComponent, {
           type: 'NEW',
-          user: {},
+          role: {},
         }),
       }),
     );
   }
 
-  handleEdit(user: User) {
+  handleEdit(role: Role) {
     this.tabService.mission(
       new Tab({
         title: '角色编辑',
-        name: `role-edit#${user.uuid}`,
+        name: `role-edit#${role.uuid}`,
         page: new Page(RoleEditComponent, {
           type: 'EDIT',
-          user,
+          role,
         }),
       }),
     );
+  }
+  refreshPage() {
+    this.ngOnInit();
   }
 }

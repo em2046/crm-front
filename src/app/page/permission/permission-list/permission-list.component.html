@@ -7,9 +7,14 @@
     </button>
   </header>
   <div class="table-box">
-    <mat-table [dataSource]="permission" class="list-table">
+    <mat-table [dataSource]="dataSource" class="list-table" matSort>
       <ng-container matColumnDef="name">
-        <mat-header-cell class="col-name" mat-header-cell *matHeaderCellDef>
+        <mat-header-cell
+          class="col-name"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
           名称
         </mat-header-cell>
         <mat-cell class="col-name" *matCellDef="let element">
@@ -18,7 +23,12 @@
       </ng-container>
 
       <ng-container matColumnDef="title">
-        <mat-header-cell class="col-title" mat-header-cell *matHeaderCellDef>
+        <mat-header-cell
+          class="col-title"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
           显示名称
         </mat-header-cell>
         <mat-cell class="col-title" *matCellDef="let element">

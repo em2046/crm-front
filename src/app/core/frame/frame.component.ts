@@ -72,7 +72,7 @@ export class FrameComponent implements OnInit, OnDestroy {
   }
 
   private getUserInfo() {
-    this.userService.getUserByToken().subscribe(res => {
+    this.userService.getByToken().subscribe(res => {
       this.user = res;
       sessionStorage.setItem('user', JSON.stringify(res));
     });

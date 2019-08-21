@@ -16,25 +16,25 @@ export class UserService {
     private readonly errorService: ErrorService,
   ) {}
 
-  getUsers(): Observable<User[]> {
+  getAll(): Observable<User[]> {
     return this.http
       .get<User[]>(Api.user.base, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 
-  getUser(uuid): Observable<User> {
+  getOne(uuid): Observable<User> {
     return this.http
       .get<User>(Api.user.uuid(uuid), Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 
-  updateUser(uuid, user): Observable<User> {
+  update(uuid, user): Observable<User> {
     return this.http
       .patch<User>(Api.user.uuid(uuid), user, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 
-  getUserByToken() {
+  getByToken() {
     return this.http
       .get<User>(Api.auth.me, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));

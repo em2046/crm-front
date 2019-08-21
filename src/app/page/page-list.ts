@@ -1,8 +1,11 @@
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import { AlertService } from '../common/alert.service';
 
 export class PageList {
   deleteHashMap;
+  dataSource: MatTableDataSource<any>;
+  sort: MatSort;
   items;
   service;
   alertService: AlertService;
@@ -24,6 +27,7 @@ export class PageList {
           this.items = this.items.filter(u => {
             return u.uuid !== item.uuid;
           });
+          this.updateView();
           this.alertService.snack('删除成功');
         });
       return;
@@ -35,6 +39,11 @@ export class PageList {
         deleteHashMap[item.uuid] = null;
       }
     }, 3000);
+  }
+
+  updateView() {
+    this.dataSource = new MatTableDataSource<any>(this.items);
+    this.dataSource.sort = this.sort;
   }
 
   isWaiting(uuid) {

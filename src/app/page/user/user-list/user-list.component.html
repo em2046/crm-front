@@ -13,9 +13,14 @@
     </section>
   </header>
   <div class="table-box">
-    <mat-table [dataSource]="items" class="list-table">
+    <mat-table [dataSource]="dataSource" class="list-table" matSort>
       <ng-container matColumnDef="name">
-        <mat-header-cell class="col-name" mat-header-cell *matHeaderCellDef>
+        <mat-header-cell
+          class="col-name"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
           用户名
         </mat-header-cell>
         <mat-cell class="col-name" *matCellDef="let element">
@@ -27,6 +32,7 @@
         <mat-header-cell
           class="col-real-name"
           mat-header-cell
+          mat-sort-header
           *matHeaderCellDef
         >
           真实姓名
@@ -54,14 +60,19 @@
           头像
         </mat-header-cell>
         <mat-cell class="col-avatar" *matCellDef="let element">
-          <span class="crm-small-avatar">{{
-            Utils.codeToEmoji(element.avatar)
-          }}</span>
+          <span class="crm-small-avatar">
+            {{ Utils.codeToEmoji(element.avatar) }}
+          </span>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="email">
-        <mat-header-cell class="col-email" mat-header-cell *matHeaderCellDef>
+        <mat-header-cell
+          class="col-email"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
           邮箱地址
         </mat-header-cell>
         <mat-cell class="col-email" *matCellDef="let element">

@@ -1,5 +1,13 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {
   MatAutocompleteSelectedEvent,
@@ -9,33 +17,75 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+/**
+ * 选项
+ */
+export interface Option {
+  /**
+   * 值
+   */
+  value: string;
+  /**
+   * 显示
+   */
+  title: string;
+}
+
 @Component({
   selector: 'app-chips-autocomplete',
   templateUrl: './chips-autocomplete.component.html',
   styleUrls: ['./chips-autocomplete.component.less'],
 })
 export class ChipsAutocompleteComponent implements OnInit {
-  visible = true;
+  @Input()
+  label = '';
+
+  @Input()
+  icon = '';
+
+  @Input()
+  placeholder = '';
+
   selectable = true;
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  optionCtrl = new FormControl();
+  filteredOptions: Observable<Option[]>;
 
-  @ViewChild('fruitInput', { static: false })
-  fruitInput: ElementRef<HTMLInputElement>;
+  @Input()
+  selectedOptions: Option[] = [];
+
+  @Output()
+  selectedOptionsChange = new EventEmitter();
+
+  @Input()
+  allOptions: Option[] = [];
+
+  @ViewChild('input', { static: false })
+  optionInput: ElementRef<HTMLInputElement>;
+
   @ViewChild('auto', { static: false })
   matAutocomplete: MatAutocomplete;
 
   constructor() {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+    this.refreshFilter();
+  }
+
+  public refreshFilter() {
+    this.filteredOptions = this.optionCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) =>
-        fruit ? this._filter(fruit) : this.allFruits.slice(),
-      ),
+      map((option: Option | string | null) => {
+        if (option) {
+          if (typeof option === 'string') {
+            return this._filter(option);
+          } else if (option.title) {
+            return this._filter(option.title);
+          }
+        } else {
+          return this.allOptions.slice();
+        }
+      }),
     );
   }
 
@@ -48,7 +98,11 @@ export class ChipsAutocompleteComponent implements OnInit {
 
       // Add our fruit
       if ((value || '').trim()) {
-        this.fruits.push(value.trim());
+        const role = this.find(value);
+        if (role) {
+          this.selectedOptions.push(role);
+          this.selectedOptionsChange.emit(this.selectedOptions);
+        }
       }
 
       // Reset the input value
@@ -56,30 +110,46 @@ export class ChipsAutocompleteComponent implements OnInit {
         input.value = '';
       }
 
-      this.fruitCtrl.setValue(null);
+      this.optionCtrl.setValue(null);
     }
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(option: Option): void {
+    const index = this.selectedOptions.indexOf(option);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.selectedOptions.splice(index, 1);
+      this.selectedOptionsChange.emit(this.selectedOptions);
     }
+  }
+
+  find(title: string): Option {
+    return this.allOptions.find(option => {
+      return option.title === title.trim();
+    });
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    const option = this.find(event.option.viewValue);
+    const alreadySelected = this.selectedOptions.find(selected => {
+      return selected.value === option.value;
+    });
+    if (!alreadySelected) {
+      this.selectedOptions.push(option);
+      this.selectedOptionsChange.emit(this.selectedOptions);
+    }
+    this.optionInput.nativeElement.value = '';
+    this.optionCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  private _filter(title: string): Option[] {
+    const optionValue = title.toLowerCase();
 
-    return this.allFruits.filter(
-      fruit => fruit.toLowerCase().indexOf(filterValue) === 0,
-    );
+    return this.allOptions.filter(r => {
+      const foundTitle = r.title.toLowerCase().indexOf(optionValue) === 0;
+      const foundName = r.value.toLowerCase().indexOf(optionValue) === 0;
+      return foundTitle || foundName;
+    });
   }
 
   ngOnInit(): void {}

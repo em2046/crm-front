@@ -76,39 +76,14 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>角色</mat-label>
-      <mat-chip-list #chipList aria-label="角色选择器">
-        <mat-chip
-          *ngFor="let role of selectedRoles"
-          [selectable]="selectable"
-          [removable]="removable"
-          (removed)="remove(role)"
-        >
-          {{ role.title }}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input
-          placeholder="Roles..."
-          #roleInput
-          [formControl]="rolesCtrl"
-          [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)"
-        />
-      </mat-chip-list>
-      <mat-icon matSuffix>face</mat-icon>
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="selected($event)"
-      >
-        <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
-          {{ role.title }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <app-chips-autocomplete
+      #chipsAuto
+      label="角色"
+      icon="face"
+      placeholder="Role"
+      [(selectedOptions)]="selectedRoles"
+      [allOptions]="allRoles"
+    ></app-chips-autocomplete>
 
     <section>
       <button

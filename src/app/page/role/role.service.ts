@@ -17,26 +17,58 @@ export class RoleService {
   ) {}
 
   /**
-   * 获取角色
+   * 获取全部角色
    */
-  getRoles(): Observable<Role[]> {
+  getAll(): Observable<Role[]> {
     return this.http
       .get<Role[]>(Api.role.base, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 
   /**
-   * 获取角色并附带权限
+   * 获取角色
+   * @param uuid 编号
    */
-  getRolesJoinPermissions(): Observable<Role[]> {
+  getOne(uuid: string): Observable<Role> {
+    return this.http
+      .get<Role>(Api.role.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  /**
+   * 获取全部角色并附带权限
+   */
+  getAllJoinPermissions(): Observable<Role[]> {
     return this.http
       .get<Role[]>(Api.role.joinPermissions, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  /**
+   * 获取角色并附带权限
+   * @param uuid 编号
+   */
+  getJoinPermissions(uuid: string): Observable<Role> {
+    return this.http
+      .get<Role>(Api.role.uuidJoinPermissions(uuid), Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 
   remove(uuid: string) {
     return this.http
       .delete(Api.role.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  create(role) {
+    return this.http
+      .post<Role>(Api.role.base, role, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  update(uuid, role): Observable<Role> {
+    return this.http
+      .patch<Role>(Api.role.uuid(uuid), role, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 }

@@ -25,6 +25,11 @@ import { ChipsAutocompleteComponent } from './chips-autocomplete/chips-autocompl
   ],
   entryComponents: [AlertComponent],
   imports: [CommonModule, RouterModule, MaterialModule, ReactiveFormsModule],
-  exports: [HeaderComponent, FooterComponent, MenuComponent, ChipsAutocompleteComponent],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    MenuComponent,
+    ChipsAutocompleteComponent,
+  ],
 })
 export class CoreModule {}

@@ -1,2 +1,69 @@
-<p>role-edit works!</p>
-<app-chips-autocomplete></app-chips-autocomplete>
+<article class="page">
+  <form
+    class="edit-from"
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit(editForm.value)"
+  >
+    <mat-form-field appearance="outline" *ngIf="isEdit">
+      <mat-label>编号</mat-label>
+      <input matInput placeholder="Username" [value]="role.uuid" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>名称</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        placeholder="Name"
+        name="username"
+        required
+      />
+      <mat-icon matSuffix></mat-icon>
+      <mat-hint align="end">4-200个字符</mat-hint>
+      <mat-error *ngIf="name.invalid">
+        {{ Utils.getValidateMessage(name, '名称') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>显示名称</mat-label>
+      <input
+        formControlName="title"
+        matInput
+        placeholder="Title"
+        type="title"
+        name="title"
+        required
+      />
+      <mat-icon matSuffix></mat-icon>
+      <mat-hint align="end"></mat-hint>
+      <mat-error *ngIf="title.invalid">
+        {{ Utils.getValidateMessage(title, '显示名称') }}
+      </mat-error>
+    </mat-form-field>
+
+    <app-chips-autocomplete
+      #chipsAuto
+      label="权限"
+      icon="vpn_key"
+      placeholder="Permission"
+      [(selectedOptions)]="selectedPermissions"
+      [allOptions]="allPermissions"
+    ></app-chips-autocomplete>
+
+    <section>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="saveLoading"
+      >
+        <span>保存</span>
+        <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
+      </button>
+      <button mat-flat-button type="button" (click)="resetForm()">
+        <span>重置</span>
+      </button>
+    </section>
+  </form>
+</article>

@@ -17,6 +17,7 @@ export default class Api {
     base: host + '/role',
     joinPermissions: host + '/role?join=permissions',
     uuid: uuid => host + '/role/' + uuid,
+    uuidJoinPermissions: uuid => host + '/role/' + uuid + '?join=permissions',
   };
 
   static permission = {

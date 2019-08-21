@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { AlertService } from '../../../common/alert.service';
 import { Tab } from '../../../core/tab';
 import { User } from '../../../dto/user.model';
@@ -17,6 +18,10 @@ import Utils from '../../../../utils/utils';
 })
 export class UserListComponent extends PageList
   implements OnInit, PageComponent {
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  dataSource = new MatTableDataSource<User>([]);
+
   data: any;
   Utils = Utils;
   items: User[];
@@ -43,8 +48,9 @@ export class UserListComponent extends PageList
   }
 
   getUsers() {
-    this.service.getUsers().subscribe(res => {
+    this.service.getAll().subscribe(res => {
       this.items = res;
+      this.updateView();
     });
   }
 
