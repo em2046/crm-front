@@ -1,4 +1,4 @@
-import { Page } from '../page/page';
+import { Page } from '../../page/page';
 
 interface TabOptions {
   title: string;

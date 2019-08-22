@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { AlertComponent } from '../core/alert/alert.component';
+import { AlertComponent } from '../../components/alert/alert.component';
 
 export interface AlertOptions {
   message: string;

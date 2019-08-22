@@ -1,6 +1,6 @@
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
-import { AlertService } from '../common/alert.service';
+import { AlertService } from '../common/service/alert.service';
 
 export class PageList {
   deleteHashMap;

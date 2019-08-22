@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import { AlertService } from '../../../common/alert.service';
-import { TabService } from '../../../common/tab.service';
-import { Tab } from '../../../core/tab';
-import { Role } from '../../../dto/role.model';
+import { AlertService } from '../../../common/service/alert.service';
+import { TabService } from '../../../framework/tab.service';
+import { Tab } from '../../../common/class/tab';
+import { Role } from '../../../common/dto/role.model';
 import { Page } from '../../page';
 import { PageList } from '../../page-list';
 import { PageComponent } from '../../page.component';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
-import { RoleService } from '../role.service';
-import Utils from '../../../../utils/utils';
+import { RoleService } from '../../../common/service/role.service';
+import Utils from '../../../common/utils/utils';
 
 @Component({
   selector: 'app-role-list',
@@ -71,6 +71,7 @@ export class RoleListComponent extends PageList
       }),
     );
   }
+
   refreshPage() {
     this.ngOnInit();
   }

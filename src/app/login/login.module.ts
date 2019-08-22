@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '../material/material.module';
+import { MaterialModule } from '../material.module';
 import { AvatarsComponent } from './avatars/avatars.component';
 import { BackgroundComponent } from './background/background.component';
 import { LoginRoutingModule } from './login-routing.module';

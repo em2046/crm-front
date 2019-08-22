@@ -30,7 +30,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/unicorn-app-theme.scss",
+              "src/crm-theme.scss",
               "src/styles.less"
             ],
             "scripts": []

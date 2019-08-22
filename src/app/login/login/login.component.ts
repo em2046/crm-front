@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import Utils from 'src/utils/utils';
-import { AlertService } from '../../common/alert.service';
+import Utils from 'src/app/common/utils/utils';
+import { AlertService } from '../../common/service/alert.service';
 import { LoginService } from '../login.service';
 
 @Component({

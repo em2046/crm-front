@@ -5,18 +5,18 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { AlertService } from '../../../common/alert.service';
-import { User } from '../../../dto/user.model';
+import { AlertService } from '../../../common/service/alert.service';
+import { User } from '../../../common/dto/user.model';
 import { PageComponent } from '../../page.component';
-import { RoleService } from '../../role/role.service';
-import { UserService } from '../../../common/user.service';
-import Utils from 'src/utils/utils';
+import { RoleService } from '../../../common/service/role.service';
+import { UserService } from '../../../common/service/user.service';
+import Utils from 'src/app/common/utils/utils';
 import { finalize } from 'rxjs/operators';
 
 import {
   ChipsAutocompleteComponent,
   Option,
-} from '../../../core/chips-autocomplete/chips-autocomplete.component';
+} from '../../../components/chips-autocomplete/chips-autocomplete.component';
 
 @Component({
   selector: 'app-user-edit',

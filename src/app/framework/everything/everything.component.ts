@@ -2,18 +2,18 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import Utils from '../../../utils/utils';
-import { TabService } from '../../common/tab.service';
-import { User } from '../../dto/user.model';
-import { UserService } from '../../common/user.service';
-import { Tab } from '../tab';
+import Utils from '../../common/utils/utils';
+import { TabService } from '../tab.service';
+import { User } from '../../common/dto/user.model';
+import { UserService } from '../../common/service/user.service';
+import { Tab } from '../../common/class/tab';
 
 @Component({
   selector: 'app-frame',
-  templateUrl: './frame.component.html',
-  styleUrls: ['./frame.component.less'],
+  templateUrl: './everything.component.html',
+  styleUrls: ['./everything.component.less'],
 })
-export class FrameComponent implements OnInit, OnDestroy {
+export class EverythingComponent implements OnInit, OnDestroy {
   tabs: Tab[] = [];
   selected = new FormControl(0);
   user: User;

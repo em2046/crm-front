@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { AlertService } from '../../../common/alert.service';
-import { RoleService } from '../role.service';
+import { AlertService } from '../../../common/service/alert.service';
+import { RoleService } from '../../../common/service/role.service';
 import {
   ChipsAutocompleteComponent,
   Option,
-} from '../../../core/chips-autocomplete/chips-autocomplete.component';
-import { Role } from '../../../dto/role.model';
+} from '../../../components/chips-autocomplete/chips-autocomplete.component';
+import { Role } from '../../../common/dto/role.model';
 import { PageComponent } from '../../page.component';
-import { PermissionService } from '../../permission/permission.service';
-import Utils from 'src/utils/utils';
+import { PermissionService } from '../../../common/service/permission.service';
+import Utils from 'src/app/common/utils/utils';
 
 @Component({
   selector: 'app-role-edit',

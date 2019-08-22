@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material';
-import { CoreModule } from '../core/core.module';
-import { MaterialModule } from '../material/material.module';
+import { ComponentsModule } from '../components/components.module';
+import { MaterialModule } from '../material.module';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { RoleListComponent } from './role/role-list/role-list.component';
 import { PermissionListComponent } from './permission/permission-list/permission-list.component';
@@ -30,7 +30,7 @@ import { RoleEditComponent } from './role/role-edit/role-edit.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    CoreModule,
+    ComponentsModule,
     MatSortModule,
   ],
 })

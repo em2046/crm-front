@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { User } from '../../dto/user.model';
+import { User } from '../../common/dto/user.model';
 
 @Component({
   selector: 'app-header',

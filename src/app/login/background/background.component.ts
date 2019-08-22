@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Utils from '../../../utils/utils';
+import Utils from '../../common/utils/utils';
 
 @Component({
   selector: 'app-background',

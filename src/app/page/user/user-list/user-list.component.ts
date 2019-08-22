@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import { AlertService } from '../../../common/alert.service';
-import { Tab } from '../../../core/tab';
-import { User } from '../../../dto/user.model';
-import { TabService } from '../../../common/tab.service';
+import { AlertService } from '../../../common/service/alert.service';
+import { Tab } from '../../../common/class/tab';
+import { User } from '../../../common/dto/user.model';
+import { TabService } from '../../../framework/tab.service';
 import { Page } from '../../page';
 import { PageList } from '../../page-list';
 import { PageComponent } from '../../page.component';
 import { UserEditComponent } from '../user-edit/user-edit.component';
-import { UserService } from '../../../common/user.service';
-import Utils from '../../../../utils/utils';
+import { UserService } from '../../../common/service/user.service';
+import Utils from '../../../common/utils/utils';
 
 @Component({
   selector: 'app-user-list',

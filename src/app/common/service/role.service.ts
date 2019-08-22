@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import Api from '../../../utils/api';
-import Utils from '../../../utils/utils';
-import { Role } from '../../dto/role.model';
-import { ErrorService } from '../../common/error.service';
+import Api from '../utils/api';
+import Utils from '../utils/utils';
+import { Role } from '../dto/role.model';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root',

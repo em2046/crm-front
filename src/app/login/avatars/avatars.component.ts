@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import Utils from '../../../utils/utils';
+import Utils from '../../common/utils/utils';
 import { AvatarsService } from './avatars.service';
 
 export interface DialogData {
