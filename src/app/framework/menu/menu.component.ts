@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Page } from '../../page/page';
+import { Page } from '../../common/class/page';
 import { PermissionListComponent } from '../../page/permission/permission-list/permission-list.component';
 import { RoleListComponent } from '../../page/role/role-list/role-list.component';
 import { UserListComponent } from '../../page/user/user-list/user-list.component';

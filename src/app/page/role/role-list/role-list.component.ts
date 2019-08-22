@@ -4,9 +4,9 @@ import { AlertService } from '../../../common/service/alert.service';
 import { TabService } from '../../../framework/tab.service';
 import { Tab } from '../../../common/class/tab';
 import { Role } from '../../../common/dto/role.model';
-import { Page } from '../../page';
+import { Page } from '../../../common/class/page';
 import { PageList } from '../../page-list';
-import { PageComponent } from '../../page.component';
+import { PageData } from '../../../common/class/page-data';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
 import { RoleService } from '../../../common/service/role.service';
 import Utils from '../../../common/utils/utils';
@@ -16,8 +16,8 @@ import Utils from '../../../common/utils/utils';
   templateUrl: './role-list.component.html',
   styleUrls: ['../../list.less', './role-list.component.less'],
 })
-export class RoleListComponent extends PageList
-  implements OnInit, PageComponent {
+export class RoleListComponent extends PageList<Role>
+  implements OnInit, PageData {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource = new MatTableDataSource<Role>([]);

@@ -19,7 +19,13 @@ import { PaneComponent } from './pane/pane.component';
     PaneDirective,
     PaneComponent,
   ],
-  imports: [CommonModule, RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   exports: [HeaderComponent, FooterComponent, MenuComponent],
 })
 export class CoreModule {}

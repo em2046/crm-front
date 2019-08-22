@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
 import { AlertService } from '../../../common/service/alert.service';
 import { RoleService } from '../../../common/service/role.service';
 import {
@@ -8,25 +7,27 @@ import {
   Option,
 } from '../../../components/chips-autocomplete/chips-autocomplete.component';
 import { Role } from '../../../common/dto/role.model';
-import { PageComponent } from '../../page.component';
+import { PageData } from '../../../common/class/page-data';
 import { PermissionService } from '../../../common/service/permission.service';
-import Utils from 'src/app/common/utils/utils';
+import { PageEdit } from '../../page-edit';
 
 @Component({
   selector: 'app-role-edit',
   templateUrl: './role-edit.component.html',
   styleUrls: ['../../edit.less', './role-edit.component.less'],
 })
-export class RoleEditComponent implements OnInit, PageComponent {
+export class RoleEditComponent extends PageEdit<Role>
+  implements OnInit, PageData {
   @ViewChild('chipsAuto', { static: false })
   chipsAuto: ChipsAutocompleteComponent;
 
   constructor(
-    public roleService: RoleService,
+    public service: RoleService,
     public permissionService: PermissionService,
     private formBuilder: FormBuilder,
-    private readonly alertService: AlertService,
+    public alertService: AlertService,
   ) {
+    super();
     this.editForm = this.formBuilder.group({
       name: [
         '',
@@ -50,19 +51,14 @@ export class RoleEditComponent implements OnInit, PageComponent {
 
   private roleDefaultValue: Role = { name: '', title: '' };
 
-  Utils = Utils;
   data: {
     type: string;
     role: Role;
   };
-  isEdit = false;
   role: Role = { name: '' };
-  editForm;
 
   selectedPermissions: Option[] = [];
   allPermissions: Option[] = [];
-
-  saveLoading = false;
 
   ngOnInit() {
     this.isEdit = this.data.type === 'EDIT';
@@ -85,7 +81,7 @@ export class RoleEditComponent implements OnInit, PageComponent {
   }
 
   getRole(uuid) {
-    this.roleService.getJoinPermissions(uuid).subscribe(res => {
+    this.service.getJoinPermissions(uuid).subscribe(res => {
       this.roleDefaultValue = res;
 
       this.role = res;
@@ -125,47 +121,13 @@ export class RoleEditComponent implements OnInit, PageComponent {
     }
   }
 
-  private saveNew(roleData: Role) {
-    this.roleService
-      .create(roleData)
-      .pipe(
-        finalize(() => {
-          this.saveLoading = false;
-        }),
-      )
-      .subscribe(() => {
-        this.alertService.snack('保存成功');
-      });
-  }
-
-  private saveEdit(role, roleData: Role) {
-    this.roleService
-      .update(role.uuid, roleData)
-      .pipe(
-        finalize(() => {
-          this.saveLoading = false;
-        }),
-      )
-      .subscribe(() => {
-        this.alertService.snack('保存成功');
-      });
-  }
-
-  resetForm() {
-    if (this.isEdit) {
-      this.resetEdit();
-    } else {
-      this.resetNew();
-    }
-  }
-
-  private resetNew() {
+  resetNew() {
     this.name.setValue('');
     this.title.setValue('');
     this.selectedPermissions = [];
   }
 
-  private resetEdit() {
+  resetEdit() {
     const roleDefaultValue = this.roleDefaultValue;
     this.name.setValue(roleDefaultValue.name);
     this.title.setValue(roleDefaultValue.title);

@@ -4,9 +4,9 @@ import { AlertService } from '../../../common/service/alert.service';
 import { Tab } from '../../../common/class/tab';
 import { User } from '../../../common/dto/user.model';
 import { TabService } from '../../../framework/tab.service';
-import { Page } from '../../page';
+import { Page } from '../../../common/class/page';
 import { PageList } from '../../page-list';
-import { PageComponent } from '../../page.component';
+import { PageData } from '../../../common/class/page-data';
 import { UserEditComponent } from '../user-edit/user-edit.component';
 import { UserService } from '../../../common/service/user.service';
 import Utils from '../../../common/utils/utils';
@@ -16,8 +16,8 @@ import Utils from '../../../common/utils/utils';
   templateUrl: './user-list.component.html',
   styleUrls: ['../../list.less', './user-list.component.less'],
 })
-export class UserListComponent extends PageList
-  implements OnInit, PageComponent {
+export class UserListComponent extends PageList<User>
+  implements OnInit, PageData {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource = new MatTableDataSource<User>([]);

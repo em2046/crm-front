@@ -1,16 +1,17 @@
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
+import { Entity } from '../common/dto/entity';
 import { AlertService } from '../common/service/alert.service';
 
-export class PageList {
+export abstract class PageList<T extends Entity> {
   deleteHashMap;
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<T>;
   sort: MatSort;
-  items;
+  items: T[];
   service;
   alertService: AlertService;
 
-  handleDelete(item) {
+  handleDelete(item: T) {
     const deleteHashMap = this.deleteHashMap;
     const service = this.service;
     if (deleteHashMap[item.uuid] === 'WAITING') {
@@ -42,15 +43,15 @@ export class PageList {
   }
 
   updateView() {
-    this.dataSource = new MatTableDataSource<any>(this.items);
+    this.dataSource = new MatTableDataSource<T>(this.items);
     this.dataSource.sort = this.sort;
   }
 
-  isWaiting(uuid) {
+  isWaiting(uuid: string) {
     return this.deleteHashMap[uuid] === 'WAITING';
   }
 
-  isDeleting(uuid: any) {
+  isDeleting(uuid: string) {
     return this.deleteHashMap[uuid] === 'DELETING';
   }
 }

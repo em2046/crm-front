@@ -7,32 +7,33 @@ import {
 } from '@angular/forms';
 import { AlertService } from '../../../common/service/alert.service';
 import { User } from '../../../common/dto/user.model';
-import { PageComponent } from '../../page.component';
+import { PageData } from '../../../common/class/page-data';
 import { RoleService } from '../../../common/service/role.service';
 import { UserService } from '../../../common/service/user.service';
-import Utils from 'src/app/common/utils/utils';
-import { finalize } from 'rxjs/operators';
 
 import {
   ChipsAutocompleteComponent,
   Option,
 } from '../../../components/chips-autocomplete/chips-autocomplete.component';
+import { PageEdit } from '../../page-edit';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['../../edit.less', './user-edit.component.less'],
 })
-export class UserEditComponent implements OnInit, PageComponent {
+export class UserEditComponent extends PageEdit<User>
+  implements OnInit, PageData {
   @ViewChild('chipsAuto', { static: false })
   chipsAuto: ChipsAutocompleteComponent;
 
   constructor(
     public roleService: RoleService,
-    public userService: UserService,
+    public service: UserService,
     private formBuilder: FormBuilder,
-    private readonly alertService: AlertService,
+    public alertService: AlertService,
   ) {
+    super();
     this.editForm = this.formBuilder.group({
       name: [
         '',
@@ -76,19 +77,15 @@ export class UserEditComponent implements OnInit, PageComponent {
 
   private userDefaultValue: User = { name: '', email: '', realName: '' };
 
-  Utils = Utils;
   data: {
     type: string;
     user: User;
   };
-  isEdit = false;
+
   user: User = { name: '' };
-  editForm;
 
   selectedRoles: Option[] = [];
   allRoles: Option[] = [];
-
-  saveLoading = false;
 
   passwordValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
@@ -112,7 +109,7 @@ export class UserEditComponent implements OnInit, PageComponent {
   }
 
   getUser(uuid) {
-    this.userService.getOne(uuid).subscribe(res => {
+    this.service.getOne(uuid).subscribe(res => {
       this.userDefaultValue = res;
 
       this.user = res;
@@ -167,41 +164,7 @@ export class UserEditComponent implements OnInit, PageComponent {
     }
   }
 
-  private saveNew(userData: User) {
-    this.userService
-      .create(userData)
-      .pipe(
-        finalize(() => {
-          this.saveLoading = false;
-        }),
-      )
-      .subscribe(() => {
-        this.alertService.snack('保存成功');
-      });
-  }
-
-  private saveEdit(user, userData: User) {
-    this.userService
-      .update(user.uuid, userData)
-      .pipe(
-        finalize(() => {
-          this.saveLoading = false;
-        }),
-      )
-      .subscribe(() => {
-        this.alertService.snack('保存成功');
-      });
-  }
-
-  resetForm() {
-    if (this.isEdit) {
-      this.resetEdit();
-    } else {
-      this.resetNew();
-    }
-  }
-
-  private resetNew() {
+  resetNew() {
     this.name.setValue('');
     this.password.setValue('');
     this.email.setValue('');
@@ -209,7 +172,7 @@ export class UserEditComponent implements OnInit, PageComponent {
     this.selectedRoles = [];
   }
 
-  private resetEdit() {
+  resetEdit() {
     const userDefaultValue = this.userDefaultValue;
     this.name.setValue(userDefaultValue.name);
     this.email.setValue(userDefaultValue.email);

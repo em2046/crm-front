@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { PageComponent } from '../../page/page.component';
+import { PageData } from '../../common/class/page-data';
 import { PaneDirective } from './pane.directive';
 
 @Component({
@@ -33,6 +33,6 @@ export class PaneComponent implements OnInit {
     const componentRef = this.appPanePage.viewContainerRef.createComponent(
       componentFactory,
     );
-    (componentRef.instance as PageComponent).data = page.data;
+    (componentRef.instance as PageData).data = page.data;
   }
 }
