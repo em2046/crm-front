@@ -1,12 +1,19 @@
 <article class="page">
   <header class="page-header">
     <h2>权限列表</h2>
-    <button mat-flat-button color="primary" (click)="refreshPage()">
-      <mat-icon>refresh</mat-icon>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="refreshPage()"
+      [disabled]="getLoading"
+    >
+      <mat-icon *ngIf="!getLoading">refresh</mat-icon>
       <span>刷新</span>
+      <mat-spinner *ngIf="getLoading" color="primary"></mat-spinner>
     </button>
   </header>
   <div class="table-box">
+    <mat-progress-bar mode="query" *ngIf="getLoading"></mat-progress-bar>
     <mat-table [dataSource]="dataSource" class="list-table" matSort>
       <ng-container matColumnDef="name">
         <mat-header-cell

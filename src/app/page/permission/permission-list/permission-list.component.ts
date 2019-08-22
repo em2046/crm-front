@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { finalize } from 'rxjs/operators';
 import { Permission } from '../../../common/dto/permission.model';
 import Utils from '../../../common/utils/utils';
 import { PageList } from '../../page-list';
@@ -15,6 +16,7 @@ export class PermissionListComponent extends PageList<Permission>
   implements OnInit, PageData {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
+  getLoading = false;
   dataSource = new MatTableDataSource<Permission>([]);
   data: any;
   Utils = Utils;
@@ -30,10 +32,18 @@ export class PermissionListComponent extends PageList<Permission>
   }
 
   getPermission() {
-    this.permissionService.getPermissions().subscribe(res => {
-      this.items = res;
-      this.updateView();
-    });
+    this.getLoading = true;
+    this.permissionService
+      .getPermissions()
+      .pipe(
+        finalize(() => {
+          this.getLoading = false;
+        }),
+      )
+      .subscribe(res => {
+        this.items = res;
+        this.updateView();
+      });
   }
 
   refreshPage() {

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { finalize } from 'rxjs/operators';
 import { AlertService } from '../../../common/service/alert.service';
 import { Tab } from '../../../common/class/tab';
 import { User } from '../../../common/dto/user.model';
@@ -22,6 +23,7 @@ export class UserListComponent extends PageList<User>
 
   dataSource = new MatTableDataSource<User>([]);
 
+  getLoading = false;
   data: any;
   Utils = Utils;
   items: User[];
@@ -48,10 +50,18 @@ export class UserListComponent extends PageList<User>
   }
 
   getUsers() {
-    this.service.getAll().subscribe(res => {
-      this.items = res;
-      this.updateView();
-    });
+    this.getLoading = true;
+    this.service
+      .getAll()
+      .pipe(
+        finalize(() => {
+          this.getLoading = false;
+        }),
+      )
+      .subscribe(res => {
+        this.items = res;
+        this.updateView();
+      });
   }
 
   handleAdd() {

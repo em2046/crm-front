@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { finalize } from 'rxjs/operators';
 import { AlertService } from '../../../common/service/alert.service';
 import { TabService } from '../../../framework/tab.service';
 import { Tab } from '../../../common/class/tab';
@@ -21,6 +22,8 @@ export class RoleListComponent extends PageList<Role>
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   dataSource = new MatTableDataSource<Role>([]);
+
+  getLoading = false;
   data: any;
   Utils = Utils;
   items: Role[];
@@ -40,10 +43,18 @@ export class RoleListComponent extends PageList<Role>
   }
 
   getRoles() {
-    this.service.getAllJoinPermissions().subscribe(res => {
-      this.items = res;
-      this.updateView();
-    });
+    this.getLoading = true;
+    this.service
+      .getAllJoinPermissions()
+      .pipe(
+        finalize(() => {
+          this.getLoading = false;
+        }),
+      )
+      .subscribe(res => {
+        this.items = res;
+        this.updateView();
+      });
   }
 
   handleAdd() {
