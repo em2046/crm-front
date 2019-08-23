@@ -1,6 +1,6 @@
 <app-background></app-background>
 <div class="login">
-  <mat-icon class="login-logo">person_add</mat-icon>
+  <div class="login-logo register-icon"></div>
   <h1 class="login-title">新客服注册</h1>
   <p class="login-desc">上海交通大学本科毕业论文</p>
   <div class="login-card">
@@ -98,10 +98,10 @@
           matTooltip="选择头像"
           matTooltipPosition="after"
         >
-          <div *ngIf="!avatar" class="login-icon">
+          <div *ngIf="!avatar" class="login-avatar-placeholder">
             <mat-icon>face</mat-icon>
           </div>
-          <div *ngIf="avatar" class="login-icon">
+          <div *ngIf="avatar" class="login-avatar-placeholder">
             {{ Utils.codeToEmoji(avatar) }}
           </div>
         </div>
