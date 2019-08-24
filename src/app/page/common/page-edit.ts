@@ -1,7 +1,7 @@
 import { finalize } from 'rxjs/operators';
-import { Entity } from '../common/dto/entity';
-import { AlertService } from '../common/service/alert.service';
-import Utils from '../common/utils/utils';
+import { Entity } from '../../common/dto/entity';
+import { AlertService } from '../../common/service/alert.service';
+import Utils from '../../common/utils/utils';
 
 export abstract class PageEdit<T extends Entity> {
   Utils = Utils;

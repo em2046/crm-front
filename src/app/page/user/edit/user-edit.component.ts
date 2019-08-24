@@ -15,12 +15,12 @@ import {
   ChipsAutocompleteComponent,
   Option,
 } from '../../../components/chips-autocomplete/chips-autocomplete.component';
-import { PageEdit } from '../../page-edit';
+import { PageEdit } from '../../common/page-edit';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['../../edit.less', './user-edit.component.less'],
+  styleUrls: ['../../common/edit.less', './user-edit.component.less'],
 })
 export class UserEditComponent extends PageEdit<User>
   implements OnInit, PageData {

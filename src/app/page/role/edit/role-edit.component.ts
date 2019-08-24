@@ -9,12 +9,12 @@ import {
 import { Role } from '../../../common/dto/role.model';
 import { PageData } from '../../../common/class/page-data';
 import { PermissionService } from '../../../common/service/permission.service';
-import { PageEdit } from '../../page-edit';
+import { PageEdit } from '../../common/page-edit';
 
 @Component({
   selector: 'app-role-edit',
   templateUrl: './role-edit.component.html',
-  styleUrls: ['../../edit.less', './role-edit.component.less'],
+  styleUrls: ['../../common/edit.less', './role-edit.component.less'],
 })
 export class RoleEditComponent extends PageEdit<Role>
   implements OnInit, PageData {

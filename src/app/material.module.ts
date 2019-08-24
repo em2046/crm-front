@@ -42,7 +42,7 @@ import {
     MatTableModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
   exports: [
     MatSidenavModule,
@@ -63,7 +63,7 @@ import {
     MatTableModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
 })
 export class MaterialModule {}

@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --deployUrl=//cfs.em2046.com/",
+    "format": "prettier --write \"src/**/*.{ts,html,less}\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

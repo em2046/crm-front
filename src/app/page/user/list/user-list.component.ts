@@ -2,36 +2,43 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import { AlertService } from '../../../common/service/alert.service';
-import { TabService } from '../../../framework/tab.service';
 import { Tab } from '../../../common/class/tab';
-import { Role } from '../../../common/dto/role.model';
+import { User } from '../../../common/dto/user.model';
+import { TabService } from '../../../framework/tab.service';
 import { Page } from '../../../common/class/page';
-import { PageList } from '../../page-list';
+import { PageList } from '../../common/page-list';
 import { PageData } from '../../../common/class/page-data';
-import { RoleEditComponent } from '../role-edit/role-edit.component';
-import { RoleService } from '../../../common/service/role.service';
+import { UserEditComponent } from '../edit/user-edit.component';
+import { UserService } from '../../../common/service/user.service';
 import Utils from '../../../common/utils/utils';
 
 @Component({
-  selector: 'app-role-list',
-  templateUrl: './role-list.component.html',
-  styleUrls: ['../../list.less', './role-list.component.less'],
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['../../common/list.less', './user-list.component.less'],
 })
-export class RoleListComponent extends PageList<Role>
+export class UserListComponent extends PageList<User>
   implements OnInit, PageData {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  dataSource = new MatTableDataSource<Role>([]);
+  dataSource = new MatTableDataSource<User>([]);
 
   getLoading = false;
   data: any;
   Utils = Utils;
-  items: Role[];
-  displayedColumns: string[] = ['name', 'title', 'permissions', 'operation'];
+  items: User[];
   deleteHashMap = {};
+  displayedColumns: string[] = [
+    'name',
+    'realName',
+    'roles',
+    'avatar',
+    'email',
+    'operation',
+  ];
 
   constructor(
-    public service: RoleService,
+    public service: UserService,
     public tabService: TabService,
     public alertService: AlertService,
   ) {
@@ -39,13 +46,13 @@ export class RoleListComponent extends PageList<Role>
   }
 
   ngOnInit() {
-    this.getRoles();
+    this.getUsers();
   }
 
-  getRoles() {
+  getUsers() {
     this.getLoading = true;
     this.service
-      .getAllJoinPermissions()
+      .getAll()
       .pipe(
         finalize(() => {
           this.getLoading = false;
@@ -60,24 +67,24 @@ export class RoleListComponent extends PageList<Role>
   handleAdd() {
     this.tabService.mission(
       new Tab({
-        title: '角色新增',
-        name: 'role-add',
-        page: new Page(RoleEditComponent, {
+        title: '用户新增',
+        name: 'user-add',
+        page: new Page(UserEditComponent, {
           type: 'NEW',
-          role: {},
+          user: {},
         }),
       }),
     );
   }
 
-  handleEdit(role: Role) {
+  handleEdit(user: User) {
     this.tabService.mission(
       new Tab({
-        title: '角色编辑',
-        name: `role-edit#${role.uuid}`,
-        page: new Page(RoleEditComponent, {
+        title: '用户编辑',
+        name: `user-edit#${user.uuid}`,
+        page: new Page(UserEditComponent, {
           type: 'EDIT',
-          role,
+          user,
         }),
       }),
     );

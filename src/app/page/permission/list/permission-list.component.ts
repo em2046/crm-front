@@ -3,14 +3,14 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import { Permission } from '../../../common/dto/permission.model';
 import Utils from '../../../common/utils/utils';
-import { PageList } from '../../page-list';
+import { PageList } from '../../common/page-list';
 import { PageData } from '../../../common/class/page-data';
 import { PermissionService } from '../../../common/service/permission.service';
 
 @Component({
   selector: 'app-permission-list',
   templateUrl: './permission-list.component.html',
-  styleUrls: ['../../list.less', './permission-list.component.less'],
+  styleUrls: ['../../common/list.less', './permission-list.component.less'],
 })
 export class PermissionListComponent extends PageList<Permission>
   implements OnInit, PageData {
