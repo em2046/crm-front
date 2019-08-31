@@ -51,8 +51,8 @@ export class AlertService {
     const options = this.dialogQueue.shift();
 
     this.dialogRef = this.dialog.open(AlertComponent, {
-      width: '50vw',
-      minWidth: '400',
+      width: '100vw',
+      maxWidth: '400px',
       data: {
         message: options.message,
         login: options.login || false,

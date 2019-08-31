@@ -33,7 +33,7 @@ async function main() {
   });
 
   let avatarsJSON = JSON.stringify(emojiSet);
-  fsPromises.writeFile(
+  await fsPromises.writeFile(
     path.resolve(__dirname, avatarsDistPath),
     prettier.format(avatarsJSON, prettierConfig),
     fileOption,

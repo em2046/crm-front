@@ -127,8 +127,9 @@ export class RegisterComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AvatarsComponent, {
-      width: '75vw',
-      minWidth: '400px',
+      width: '375px',
+      minWidth: '80vw',
+      maxWidth: '100vw',
       data: { code: this.avatar },
     });
 
