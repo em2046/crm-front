@@ -1,0 +1,57 @@
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { finalize } from 'rxjs/operators';
+import { Entity } from '../../common/dto/entity';
+import { AlertService } from '../../common/service/alert.service';
+
+export abstract class PageList<T extends Entity> {
+  deleteHashMap;
+  dataSource: MatTableDataSource<T>;
+  sort: MatSort;
+  items: T[];
+  service;
+  alertService: AlertService;
+
+  handleDelete(item: T) {
+    const deleteHashMap = this.deleteHashMap;
+    const service = this.service;
+    if (deleteHashMap[item.uuid] === 'WAITING') {
+      deleteHashMap[item.uuid] = 'DELETING';
+      service
+        .remove(item.uuid)
+        .pipe(
+          finalize(() => {
+            deleteHashMap[item.uuid] = null;
+          }),
+        )
+        .subscribe(() => {
+          deleteHashMap[item.uuid] = 'DELETED';
+          this.items = this.items.filter(u => {
+            return u.uuid !== item.uuid;
+          });
+          this.updateView();
+          this.alertService.snack('删除成功');
+        });
+      return;
+    }
+
+    deleteHashMap[item.uuid] = 'WAITING';
+    setTimeout(() => {
+      if (deleteHashMap[item.uuid] === 'WAITING') {
+        deleteHashMap[item.uuid] = null;
+      }
+    }, 3000);
+  }
+
+  updateView() {
+    this.dataSource = new MatTableDataSource<T>(this.items);
+    this.dataSource.sort = this.sort;
+  }
+
+  isWaiting(uuid: string) {
+    return this.deleteHashMap[uuid] === 'WAITING';
+  }
+
+  isDeleting(uuid: string) {
+    return this.deleteHashMap[uuid] === 'DELETING';
+  }
+}

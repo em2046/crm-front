@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FrameComponent } from './core/frame/frame.component';
+import { EverythingComponent } from './framework/everything/everything.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: FrameComponent,
+    component: EverythingComponent,
   },
 ];
 

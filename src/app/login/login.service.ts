@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import Api from '../../utils/api';
-import Utils from '../../utils/utils';
-import { AccessToken } from '../dto/access-token';
-import { User } from '../dto/user.model';
-import { ErrorService } from '../common/error.service';
+import Api from '../common/utils/api';
+import Utils from '../common/utils/utils';
+import { AccessToken } from '../common/class/access-token';
+import { User } from '../common/dto/user.model';
+import { ErrorService } from '../common/service/error.service';
 
 @Injectable({
   providedIn: 'root',

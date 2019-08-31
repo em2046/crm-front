@@ -1,0 +1,108 @@
+<article class="page">
+  <form
+    class="edit-from"
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit(editForm.value)"
+  >
+    <mat-form-field appearance="outline" *ngIf="isEdit">
+      <mat-label>编号</mat-label>
+      <input
+        matInput
+        placeholder="Username"
+        [value]="user.uuid || ''"
+        disabled
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>用户名</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        placeholder="Username"
+        name="username"
+        required
+        autocomplete="username"
+      />
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-hint align="end">4-200个字符</mat-hint>
+      <mat-error *ngIf="name.invalid">
+        {{ Utils.getValidateMessage(name, '用户名') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="!isEdit">
+      <mat-label>密码</mat-label>
+      <input
+        autocomplete="new-password"
+        formControlName="password"
+        matInput
+        placeholder="Password"
+        type="password"
+        [required]="!isEdit"
+      />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-hint align="end">4-200个字符</mat-hint>
+      <mat-error *ngIf="password.invalid">
+        {{ Utils.getValidateMessage(password, '密码') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>邮箱地址</mat-label>
+      <input
+        formControlName="email"
+        matInput
+        placeholder="Email"
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+      />
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-hint align="end">请输入可以接受邮件的邮箱</mat-hint>
+      <mat-error *ngIf="email.invalid">
+        {{ Utils.getValidateMessage(email, '邮箱地址') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>真实姓名</mat-label>
+      <input
+        formControlName="realName"
+        matInput
+        placeholder="Real name"
+        autocomplete="name"
+        name="name"
+      />
+      <mat-hint align="end">请输入中文名</mat-hint>
+      <mat-error *ngIf="realName.invalid">
+        {{ Utils.getValidateMessage(realName, '真实姓名') }}
+      </mat-error>
+    </mat-form-field>
+
+    <app-chips-autocomplete
+      #chipsAuto
+      label="角色"
+      icon="face"
+      placeholder="Role"
+      [(selectedOptions)]="selectedRoles"
+      [allOptions]="allRoles"
+    ></app-chips-autocomplete>
+
+    <section>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="saveLoading"
+      >
+        <span>保存</span>
+        <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
+      </button>
+      <button mat-flat-button type="button" (click)="resetForm()">
+        <span>重置</span>
+      </button>
+    </section>
+  </form>
+</article>

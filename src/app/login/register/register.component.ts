@@ -9,9 +9,9 @@ import {
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { AlertService } from 'src/app/common/alert.service';
-import Utils from '../../../utils/utils';
-import { User } from '../../dto/user.model';
+import { AlertService } from 'src/app/common/service/alert.service';
+import Utils from '../../common/utils/utils';
+import { User } from '../../common/dto/user.model';
 import { AvatarsComponent } from '../avatars/avatars.component';
 import { LoginService } from '../login.service';
 
