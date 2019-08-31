@@ -1,20 +1,23 @@
 const fsPromises = require('fs').promises;
 const path = require('path');
-
+const formatPath = '../.prettierrc';
 const emojiPath = './emoji.txt';
-const avatarsDistPath = '../src/assets/avatars.json';
+const avatarsDistPath = '../src/app/login/avatars/avatars.ts';
 const endOfLine = /(?:\n|\r|\r\n)/;
 const fileOption = {
   encoding: 'utf8',
 };
 
 const prettier = require('prettier');
-const prettierConfig = {
-  parser: 'json',
-  endOfLine: 'lf',
-};
 
 async function main() {
+  let formatText = await fsPromises.readFile(
+    path.resolve(__dirname, formatPath),
+    fileOption,
+  );
+  let format = JSON.parse(formatText);
+  format.parser = 'typescript';
+
   let emojiText = await fsPromises.readFile(
     path.resolve(__dirname, emojiPath),
     fileOption,
@@ -33,9 +36,15 @@ async function main() {
   });
 
   let avatarsJSON = JSON.stringify(emojiSet);
+  let content = `/**
+ * 此文件由脚本自动生成，请勿直接修改
+ */
+export const AVATARS = ${avatarsJSON}
+`;
+
   await fsPromises.writeFile(
     path.resolve(__dirname, avatarsDistPath),
-    prettier.format(avatarsJSON, prettierConfig),
+    prettier.format(content, format),
     fileOption,
   );
 }

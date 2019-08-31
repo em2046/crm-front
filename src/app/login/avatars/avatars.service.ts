@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AVATARS } from './avatars';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AvatarsService {
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   getAvatars() {
-    return this.http.get('/assets/avatars.json');
+    return AVATARS;
   }
 }

@@ -8,8 +8,7 @@
     "format": "prettier --write \"src/**/*.{ts,html,less}\"",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "avatar-generator": "node ./scripts/avatar-generator.js"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
