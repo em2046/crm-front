@@ -5,6 +5,7 @@ import { RoleListComponent } from '../../page/role/list/role-list.component';
 import { UserListComponent } from '../../page/user/list/user-list.component';
 import { TabService } from '../tab.service';
 import { Tab } from '../../common/class/tab';
+import { CustomerListComponent } from '../../page/customer/list/customer-list.component';
 
 @Component({
   selector: 'app-menu',
@@ -47,6 +48,17 @@ export class MenuComponent implements OnInit {
         icon: 'vpn_key',
         name: 'permission',
         page: new Page(PermissionListComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenCustomer() {
+    this.tabService.mission(
+      new Tab({
+        title: '会员管理',
+        icon: 'supervisor_account',
+        name: 'customer',
+        page: new Page(CustomerListComponent, {}),
       }),
     );
   }

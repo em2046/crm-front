@@ -10,6 +10,7 @@ import { PermissionListComponent } from './permission/list/permission-list.compo
 import { UserEditComponent } from './user/edit/user-edit.component';
 import { RoleEditComponent } from './role/edit/role-edit.component';
 import { ComplaintModule } from './complaint/complaint.module';
+import { CustomerListComponent } from './customer/list/customer-list.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +19,13 @@ import { ComplaintModule } from './complaint/complaint.module';
     PermissionListComponent,
     UserEditComponent,
     RoleEditComponent,
+    CustomerListComponent,
   ],
   entryComponents: [
     UserListComponent,
     RoleListComponent,
     PermissionListComponent,
+    CustomerListComponent,
     UserEditComponent,
     RoleEditComponent,
   ],

@@ -28,10 +28,10 @@ export class PermissionListComponent extends PageList<Permission>
   }
 
   ngOnInit() {
-    this.getPermission();
+    this.getPermissions();
   }
 
-  getPermission() {
+  getPermissions() {
     this.getLoading = true;
     this.permissionService
       .getPermissions()

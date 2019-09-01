@@ -23,4 +23,8 @@ export default class Api {
   static permission = {
     base: host + '/permission',
   };
+
+  static customer = {
+    base: host + '/customer',
+  };
 }

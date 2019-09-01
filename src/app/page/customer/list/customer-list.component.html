@@ -1,0 +1,280 @@
+<article class="page">
+  <header class="page-header">
+    <h2>用户列表</h2>
+    <section class="button-group">
+      <button mat-flat-button (click)="handleAdd()">
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>新增</span>
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="refreshPage()"
+        [disabled]="getLoading"
+      >
+        <mat-icon *ngIf="!getLoading">refresh</mat-icon>
+        <span>刷新</span>
+        <mat-spinner *ngIf="getLoading" color="primary"></mat-spinner>
+      </button>
+    </section>
+  </header>
+  <div class="table-box">
+    <mat-progress-bar mode="query" *ngIf="getLoading"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" class="list-table" matSort>
+      <ng-container matColumnDef="name">
+        <mat-header-cell
+          class="col_name"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          客户用户名
+        </mat-header-cell>
+        <mat-cell class="col_name" *matCellDef="let element">
+          {{ element.name }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="nickName">
+        <mat-header-cell
+          class="col-nick-name"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          昵称
+        </mat-header-cell>
+        <mat-cell class="col-nick-name" *matCellDef="let element">
+          {{ element.nickName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="realName">
+        <mat-header-cell
+          class="col-real-name"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          真实姓名
+        </mat-header-cell>
+        <mat-cell class="col-real-name" *matCellDef="let element">
+          {{ element.realName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <mat-header-cell
+          class="col_type"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          类型
+        </mat-header-cell>
+        <mat-cell class="col_type" *matCellDef="let element">
+          {{ element.type }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="level">
+        <mat-header-cell
+          class="col_level"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          等级
+        </mat-header-cell>
+        <mat-cell class="col_level" *matCellDef="let element">
+          {{ element.level }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="registrationTime">
+        <mat-header-cell
+          class="col-registration-time"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          注册时间
+        </mat-header-cell>
+        <mat-cell class="col-registration-time" *matCellDef="let element">
+          {{ element.registrationTime }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="gender">
+        <mat-header-cell
+          class="col_gender"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          性别
+        </mat-header-cell>
+        <mat-cell class="col_gender" *matCellDef="let element">
+          {{ element.gender }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="birthday">
+        <mat-header-cell
+          class="col_birthday"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          生日
+        </mat-header-cell>
+        <mat-cell class="col_birthday" *matCellDef="let element">
+          {{ element.birthday }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <mat-header-cell
+          class="col_city"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          城市
+        </mat-header-cell>
+        <mat-cell class="col_city" *matCellDef="let element">
+          {{ element.city }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="occupation">
+        <mat-header-cell
+          class="col_occupation"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          职业
+        </mat-header-cell>
+        <mat-cell class="col_occupation" *matCellDef="let element">
+          {{ element.occupation }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="annualIncome">
+        <mat-header-cell
+          class="col-annual-income"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          年收入（元）
+        </mat-header-cell>
+        <mat-cell class="col-annual-income" *matCellDef="let element">
+          {{ element.annualIncome }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="education">
+        <mat-header-cell
+          class="col_education"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          学历
+        </mat-header-cell>
+        <mat-cell class="col_education" *matCellDef="let element">
+          {{ element.education }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="maritalStatus">
+        <mat-header-cell
+          class="col-marital-status"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          婚姻状况
+        </mat-header-cell>
+        <mat-cell class="col-marital-status" *matCellDef="let element">
+          {{ element.maritalStatus }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="numberOfChildren">
+        <mat-header-cell
+          class="col-number-of-children"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          孩子数量
+        </mat-header-cell>
+        <mat-cell class="col-number-of-children" *matCellDef="let element">
+          {{ element.numberOfChildren }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumber">
+        <mat-header-cell
+          class="col-phone-number"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          手机号
+        </mat-header-cell>
+        <mat-cell class="col-phone-number" *matCellDef="let element">
+          {{ element.phoneNumber }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="weChat">
+        <mat-header-cell
+          class="col-we-chat"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          微信号
+        </mat-header-cell>
+        <mat-cell class="col-we-chat" *matCellDef="let element">
+          {{ element.weChat }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="qq">
+        <mat-header-cell
+          class="col_qq"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          QQ号
+        </mat-header-cell>
+        <mat-cell class="col_qq" *matCellDef="let element">
+          {{ element.qq }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell
+          class="col_email"
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          邮箱地址
+        </mat-header-cell>
+        <mat-cell class="col_email" *matCellDef="let element">
+          {{ element.email }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+</article>
