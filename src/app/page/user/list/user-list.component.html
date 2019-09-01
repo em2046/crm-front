@@ -22,12 +22,7 @@
     <mat-progress-bar mode="query" *ngIf="getLoading"></mat-progress-bar>
     <mat-table [dataSource]="dataSource" class="list-table" matSort>
       <ng-container matColumnDef="name">
-        <mat-header-cell
-          class="col-name"
-          mat-header-cell
-          mat-sort-header
-          *matHeaderCellDef
-        >
+        <mat-header-cell class="col-name" mat-sort-header *matHeaderCellDef>
           用户名
         </mat-header-cell>
         <mat-cell class="col-name" *matCellDef="let element">
@@ -38,7 +33,6 @@
       <ng-container matColumnDef="realName">
         <mat-header-cell
           class="col-real-name"
-          mat-header-cell
           mat-sort-header
           *matHeaderCellDef
         >
@@ -50,7 +44,7 @@
       </ng-container>
 
       <ng-container matColumnDef="roles">
-        <mat-header-cell class="col-roles" mat-header-cell *matHeaderCellDef>
+        <mat-header-cell class="col-roles" *matHeaderCellDef>
           角色
         </mat-header-cell>
         <mat-cell class="col-roles" *matCellDef="let element">
@@ -63,7 +57,7 @@
       </ng-container>
 
       <ng-container matColumnDef="avatar">
-        <mat-header-cell class="col-avatar" mat-header-cell *matHeaderCellDef>
+        <mat-header-cell class="col-avatar" *matHeaderCellDef>
           头像
         </mat-header-cell>
         <mat-cell class="col-avatar" *matCellDef="let element">
@@ -74,12 +68,7 @@
       </ng-container>
 
       <ng-container matColumnDef="email">
-        <mat-header-cell
-          class="col-email"
-          mat-header-cell
-          mat-sort-header
-          *matHeaderCellDef
-        >
+        <mat-header-cell class="col-email" mat-sort-header *matHeaderCellDef>
           邮箱地址
         </mat-header-cell>
         <mat-cell class="col-email" *matCellDef="let element">
@@ -87,13 +76,16 @@
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="operation">
+      <ng-container matColumnDef="operation" [stickyEnd]="stickyEnd">
         <mat-header-cell
           class="col-operation"
-          mat-header-cell
           *matHeaderCellDef
+          matRipple
+          (click)="handleToggleSticky()"
         >
-          操作
+          <mat-icon *ngIf="!stickyEnd">layers</mat-icon>
+          <mat-icon *ngIf="stickyEnd">layers_clear</mat-icon>
+          <span>操作</span>
         </mat-header-cell>
         <mat-cell class="col-operation" *matCellDef="let element">
           <button

@@ -46,10 +46,10 @@ export class UserListComponent extends PageList<User>
   }
 
   ngOnInit() {
-    this.getUsers();
+    this.getItems();
   }
 
-  getUsers() {
+  getItems() {
     this.getLoading = true;
     this.service
       .getAll()

@@ -19,6 +19,9 @@ import {
   MatChipsModule,
   MatAutocompleteModule,
   MatProgressBarModule,
+  MatRippleModule,
+  MatSortModule,
+  MatPaginatorModule,
 } from '@angular/material';
 
 @NgModule({
@@ -43,6 +46,9 @@ import {
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressBarModule,
+    MatRippleModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   exports: [
     MatSidenavModule,
@@ -64,6 +70,9 @@ import {
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressBarModule,
+    MatRippleModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
 })
 export class MaterialModule {}

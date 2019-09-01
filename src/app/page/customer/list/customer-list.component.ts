@@ -7,7 +7,6 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 import Utils from 'src/app/common/utils/utils';
 import { Tab } from '../../../common/class/tab';
 import { Page } from '../../../common/class/page';
-import { UserEditComponent } from '../../user/edit/user-edit.component';
 import { TabService } from '../../../framework/tab.service';
 import {
   customerTypeTable,
@@ -17,6 +16,7 @@ import {
   customerMaritalStatusTable,
 } from 'src/app/common/table/customer.table';
 import { citiesTable } from '../../../common/table/cities.table';
+import { CustomerEditComponent } from '../edit/customer-edit.component';
 
 @Component({
   selector: 'app-customer-list',
@@ -50,6 +50,7 @@ export class CustomerListComponent extends PageList<Customer>
     'weChat',
     'qq',
     'email',
+    'operation',
   ];
 
   customerTypeTable = customerTypeTable;
@@ -64,20 +65,25 @@ export class CustomerListComponent extends PageList<Customer>
   }
 
   ngOnInit() {
-    this.getCustomers();
+    this.getItems();
   }
 
-  getCustomers() {
+  getItems() {
     this.getLoading = true;
     this.service
-      .getCustomers()
+      .getCustomers({
+        page: this.pagination.pageIndex + 1,
+        limit: this.pagination.pageSize,
+      })
       .pipe(
         finalize(() => {
           this.getLoading = false;
         }),
       )
       .subscribe(res => {
-        this.items = res;
+        this.items = res.data;
+        this.pagination.length = res.total;
+
         this.updateView();
       });
   }
@@ -87,7 +93,7 @@ export class CustomerListComponent extends PageList<Customer>
       new Tab({
         title: '用户新增',
         name: 'user-add',
-        page: new Page(UserEditComponent, {
+        page: new Page(CustomerEditComponent, {
           type: 'NEW',
           user: {},
         }),

@@ -16,9 +16,12 @@ export class CustomerService {
     private readonly errorService: ErrorService,
   ) {}
 
-  getCustomers(): Observable<Customer[]> {
+  getCustomers(params): Observable<Pagination<Customer[]>> {
     return this.http
-      .get<Customer[]>(Api.customer.base, Utils.httpOptions)
+      .get<Pagination<Customer[]>>(
+        Api.customer.base,
+        Object.assign({}, Utils.httpOptions, { params }),
+      )
       .pipe(catchError(this.errorService.handleError()));
   }
 }

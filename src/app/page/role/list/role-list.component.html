@@ -22,12 +22,7 @@
     <mat-progress-bar mode="query" *ngIf="getLoading"></mat-progress-bar>
     <mat-table [dataSource]="dataSource" class="list-table" matSort>
       <ng-container matColumnDef="name">
-        <mat-header-cell
-          class="col-name"
-          mat-header-cell
-          mat-sort-header
-          *matHeaderCellDef
-        >
+        <mat-header-cell class="col-name" mat-sort-header *matHeaderCellDef>
           名称
         </mat-header-cell>
         <mat-cell class="col-name" *matCellDef="let element">
@@ -36,12 +31,7 @@
       </ng-container>
 
       <ng-container matColumnDef="title">
-        <mat-header-cell
-          class="col-title"
-          mat-header-cell
-          mat-sort-header
-          *matHeaderCellDef
-        >
+        <mat-header-cell class="col-title" mat-sort-header *matHeaderCellDef>
           显示名称
         </mat-header-cell>
         <mat-cell class="col-title" *matCellDef="let element">
@@ -50,11 +40,7 @@
       </ng-container>
 
       <ng-container matColumnDef="permissions">
-        <mat-header-cell
-          class="col-permissions"
-          mat-header-cell
-          *matHeaderCellDef
-        >
+        <mat-header-cell class="col-permissions" *matHeaderCellDef>
           权限
         </mat-header-cell>
         <mat-cell class="col-permissions" *matCellDef="let element">
@@ -66,13 +52,16 @@
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="operation">
+      <ng-container matColumnDef="operation" [stickyEnd]="stickyEnd">
         <mat-header-cell
           class="col-operation"
-          mat-header-cell
           *matHeaderCellDef
+          matRipple
+          (click)="handleToggleSticky()"
         >
-          操作
+          <mat-icon *ngIf="!stickyEnd">layers</mat-icon>
+          <mat-icon *ngIf="stickyEnd">layers_clear</mat-icon>
+          <span>操作</span>
         </mat-header-cell>
         <mat-cell class="col-operation" *matCellDef="let element">
           <button

@@ -46,14 +46,26 @@
   }
 }
 
+mat-row {
+  align-items: stretch;
+}
+
 mat-cell:first-of-type,
 mat-footer-cell:first-of-type,
 mat-header-cell:first-of-type {
-  padding-left: 8px;
+  padding-left: 0;
 }
 
 mat-cell:last-of-type,
 mat-footer-cell:last-of-type,
 mat-header-cell:last-of-type {
-  padding-right: 8px;
+  padding-right: 0;
+}
+
+.mat-table-sticky:first-child {
+  outline: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky:last-child {
+  outline: 1px solid #e0e0e0;
 }

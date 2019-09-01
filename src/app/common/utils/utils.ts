@@ -1,6 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
 
 export default class Utils {
+  static pageSizeOptions: number[] = [5, 10, 25, 100];
+
   /**
    * HTTP请求不含认证数据
    */

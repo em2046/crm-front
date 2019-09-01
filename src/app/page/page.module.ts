@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSortModule } from '@angular/material';
 import { ComponentsModule } from '../components/components.module';
 import { MaterialModule } from '../material.module';
 import { UserListComponent } from './user/list/user-list.component';
@@ -11,6 +10,7 @@ import { UserEditComponent } from './user/edit/user-edit.component';
 import { RoleEditComponent } from './role/edit/role-edit.component';
 import { ComplaintModule } from './complaint/complaint.module';
 import { CustomerListComponent } from './customer/list/customer-list.component';
+import { CustomerEditComponent } from './customer/edit/customer-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { CustomerListComponent } from './customer/list/customer-list.component';
     UserEditComponent,
     RoleEditComponent,
     CustomerListComponent,
+    CustomerEditComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -28,6 +29,7 @@ import { CustomerListComponent } from './customer/list/customer-list.component';
     CustomerListComponent,
     UserEditComponent,
     RoleEditComponent,
+    CustomerEditComponent,
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,6 @@ import { CustomerListComponent } from './customer/list/customer-list.component';
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    MatSortModule,
     ComplaintModule,
   ],
 })

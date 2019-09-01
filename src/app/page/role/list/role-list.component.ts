@@ -39,10 +39,10 @@ export class RoleListComponent extends PageList<Role>
   }
 
   ngOnInit() {
-    this.getRoles();
+    this.getItems();
   }
 
-  getRoles() {
+  getItems() {
     this.getLoading = true;
     this.service
       .getAllJoinPermissions()

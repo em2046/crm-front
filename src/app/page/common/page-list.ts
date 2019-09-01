@@ -10,6 +10,24 @@ export abstract class PageList<T extends Entity> {
   items: T[];
   service;
   alertService: AlertService;
+  stickyEnd = true;
+  pagination = {
+    length: 0,
+    pageIndex: 0,
+    pageSize: 10,
+  };
+
+  abstract getItems();
+
+  handlePageEvent(e) {
+    this.pagination.pageSize = e.pageSize;
+    this.pagination.pageIndex = e.pageIndex;
+    this.getItems();
+  }
+
+  handleToggleSticky() {
+    this.stickyEnd = !this.stickyEnd;
+  }
 
   handleDelete(item: T) {
     const deleteHashMap = this.deleteHashMap;
