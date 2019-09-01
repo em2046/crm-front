@@ -3,12 +3,12 @@
  */
 export enum CustomerType {
   /**
-   * 普通
+   * 普通会员
    */
   NORMAL = '',
 
   /**
-   * 会员
+   * VIP会员
    */
   VIP = 'vip',
 }
@@ -17,7 +17,6 @@ export enum CustomerType {
  * 用户等级
  */
 export enum CustomerLevel {
-  LEVEL_0 = 0,
   LEVEL_1 = 1,
   LEVEL_2 = 2,
   LEVEL_3 = 3,

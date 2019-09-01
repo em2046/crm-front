@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageList } from '../../common/page-list';
 import { Customer } from '../../../common/dto/customer.model';
 import { CustomerService } from '../customer.service';
 import { finalize } from 'rxjs/operators';
-import { MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import Utils from 'src/app/common/utils/utils';
 import { Tab } from '../../../common/class/tab';
 import { Page } from '../../../common/class/page';
 import { UserEditComponent } from '../../user/edit/user-edit.component';
 import { TabService } from '../../../framework/tab.service';
+import {
+  customerTypeTable,
+  customerLevelTable,
+  customerGenderTable,
+  customerEducationTable,
+  customerMaritalStatusTable,
+} from 'src/app/common/table/customer.table';
+import { citiesTable } from '../../../common/table/cities.table';
 
 @Component({
   selector: 'app-customer-list',
@@ -17,6 +25,7 @@ import { TabService } from '../../../framework/tab.service';
 })
 export class CustomerListComponent extends PageList<Customer>
   implements OnInit {
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   getLoading = false;
   dataSource = new MatTableDataSource<Customer>([]);
   data: any;
@@ -42,6 +51,13 @@ export class CustomerListComponent extends PageList<Customer>
     'qq',
     'email',
   ];
+
+  customerTypeTable = customerTypeTable;
+  customerLevelTable = customerLevelTable;
+  customerGenderTable = customerGenderTable;
+  customerEducationTable = customerEducationTable;
+  customerMaritalStatusTable = customerMaritalStatusTable;
+  citiesTable = citiesTable;
 
   constructor(public service: CustomerService, public tabService: TabService) {
     super();

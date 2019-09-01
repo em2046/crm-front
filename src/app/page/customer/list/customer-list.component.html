@@ -73,7 +73,7 @@
           类型
         </mat-header-cell>
         <mat-cell class="col_type" *matCellDef="let element">
-          {{ element.type }}
+          {{ customerTypeTable[element.type].title }}
         </mat-cell>
       </ng-container>
 
@@ -87,7 +87,7 @@
           等级
         </mat-header-cell>
         <mat-cell class="col_level" *matCellDef="let element">
-          {{ element.level }}
+          <mat-icon>{{ customerLevelTable[element.level].icon }}</mat-icon>
         </mat-cell>
       </ng-container>
 
@@ -101,7 +101,7 @@
           注册时间
         </mat-header-cell>
         <mat-cell class="col-registration-time" *matCellDef="let element">
-          {{ element.registrationTime }}
+          {{ element.registrationTime | date: 'yyyy-MM-dd' }}
         </mat-cell>
       </ng-container>
 
@@ -115,7 +115,7 @@
           性别
         </mat-header-cell>
         <mat-cell class="col_gender" *matCellDef="let element">
-          {{ element.gender }}
+          {{ customerGenderTable[element.gender].title }}
         </mat-cell>
       </ng-container>
 
@@ -129,7 +129,7 @@
           生日
         </mat-header-cell>
         <mat-cell class="col_birthday" *matCellDef="let element">
-          {{ element.birthday }}
+          {{ element.birthday | date: 'yyyy-MM-dd' }}
         </mat-cell>
       </ng-container>
 
@@ -143,7 +143,7 @@
           城市
         </mat-header-cell>
         <mat-cell class="col_city" *matCellDef="let element">
-          {{ element.city }}
+          {{ citiesTable[element.city].title }}
         </mat-cell>
       </ng-container>
 
@@ -171,7 +171,7 @@
           年收入（元）
         </mat-header-cell>
         <mat-cell class="col-annual-income" *matCellDef="let element">
-          {{ element.annualIncome }}
+          {{ element.annualIncome | currency: 'CNY':'symbol-narrow' }}
         </mat-cell>
       </ng-container>
 
@@ -185,7 +185,7 @@
           学历
         </mat-header-cell>
         <mat-cell class="col_education" *matCellDef="let element">
-          {{ element.education }}
+          {{ customerEducationTable[element.education].title }}
         </mat-cell>
       </ng-container>
 
@@ -199,7 +199,7 @@
           婚姻状况
         </mat-header-cell>
         <mat-cell class="col-marital-status" *matCellDef="let element">
-          {{ element.maritalStatus }}
+          {{ customerMaritalStatusTable[element.maritalStatus].title }}
         </mat-cell>
       </ng-container>
 
@@ -213,7 +213,7 @@
           孩子数量
         </mat-header-cell>
         <mat-cell class="col-number-of-children" *matCellDef="let element">
-          {{ element.numberOfChildren }}
+          {{ element.numberOfChildren || '--' }}
         </mat-cell>
       </ng-container>
 
