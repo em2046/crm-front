@@ -27,7 +27,6 @@ export class UserListComponent extends PageList<User>
   data: any;
   Utils = Utils;
   items: User[];
-  deleteHashMap = {};
   displayedColumns: string[] = [
     'name',
     'realName',

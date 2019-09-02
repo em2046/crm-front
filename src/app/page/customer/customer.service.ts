@@ -24,4 +24,28 @@ export class CustomerService {
       )
       .pipe(catchError(this.errorService.handleError()));
   }
+
+  remove(uuid: string) {
+    return this.http
+      .delete(Api.customer.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  create(customer) {
+    return this.http
+      .post(Api.customer.base, customer, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  update(uuid, customer) {
+    return this.http
+      .patch(Api.customer.uuid(uuid), customer, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  getCustomer(uuid: string): Observable<Customer> {
+    return this.http
+      .get<Customer>(Api.customer.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
 }

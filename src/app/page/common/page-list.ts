@@ -4,7 +4,7 @@ import { Entity } from '../../common/dto/entity';
 import { AlertService } from '../../common/service/alert.service';
 
 export abstract class PageList<T extends Entity> {
-  deleteHashMap;
+  deleteHashMap = {};
   dataSource: MatTableDataSource<T>;
   sort: MatSort;
   items: T[];

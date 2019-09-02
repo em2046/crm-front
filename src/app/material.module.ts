@@ -22,6 +22,7 @@ import {
   MatRippleModule,
   MatSortModule,
   MatPaginatorModule,
+  MatRadioModule,
 } from '@angular/material';
 
 @NgModule({
@@ -49,6 +50,7 @@ import {
     MatRippleModule,
     MatSortModule,
     MatPaginatorModule,
+    MatRadioModule,
   ],
   exports: [
     MatSidenavModule,
@@ -73,6 +75,7 @@ import {
     MatRippleModule,
     MatSortModule,
     MatPaginatorModule,
+    MatRadioModule,
   ],
 })
 export class MaterialModule {}

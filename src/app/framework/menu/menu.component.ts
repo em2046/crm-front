@@ -55,7 +55,7 @@ export class MenuComponent implements OnInit {
   handleOpenCustomer() {
     this.tabService.mission(
       new Tab({
-        title: '会员管理',
+        title: '客户管理',
         icon: 'supervisor_account',
         name: 'customer',
         page: new Page(CustomerListComponent, {}),

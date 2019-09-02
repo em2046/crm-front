@@ -13,6 +13,8 @@ export enum CustomerType {
   VIP = 'vip',
 }
 
+export const customerTypeList = [CustomerType.NORMAL, CustomerType.VIP];
+
 /**
  * 用户等级
  */
@@ -24,6 +26,15 @@ export enum CustomerLevel {
   LEVEL_5 = 5,
   LEVEL_6 = 6,
 }
+
+export const CustomerLevelList = [
+  CustomerLevel.LEVEL_1,
+  CustomerLevel.LEVEL_2,
+  CustomerLevel.LEVEL_3,
+  CustomerLevel.LEVEL_4,
+  CustomerLevel.LEVEL_5,
+  CustomerLevel.LEVEL_6,
+];
 
 /**
  * 性别
@@ -49,6 +60,13 @@ export enum CustomerGender {
    */
   OTHER = 'other',
 }
+
+export const CustomerGenderList = [
+  CustomerGender.UN_KNOW,
+  CustomerGender.MALE,
+  CustomerGender.FEMALE,
+  CustomerGender.OTHER,
+];
 
 /**
  * 学历
@@ -85,6 +103,15 @@ export enum CustomerEducation {
   OTHER = 'other',
 }
 
+export const CustomerEducationList = [
+  CustomerEducation.UN_KNOW,
+  CustomerEducation.ASSOCIATE,
+  CustomerEducation.BACHELOR,
+  CustomerEducation.MASTER,
+  CustomerEducation.DOCTOR,
+  CustomerEducation.OTHER,
+];
+
 /**
  * 婚姻状况
  */
@@ -109,6 +136,13 @@ export enum CustomerMaritalStatus {
    */
   OTHER = 'other',
 }
+
+export const CustomerMaritalStatusList = [
+  CustomerMaritalStatus.UN_KNOW,
+  CustomerMaritalStatus.MARRIED,
+  CustomerMaritalStatus.UNMARRIED,
+  CustomerMaritalStatus.OTHER,
+];
 
 export interface Customer {
   uuid?: string;

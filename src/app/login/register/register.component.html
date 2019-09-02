@@ -20,7 +20,7 @@
           required
         />
         <mat-icon matSuffix>person</mat-icon>
-        <mat-hint align="end">4-200个字符</mat-hint>
+        <mat-hint align="end">4-256个字符</mat-hint>
         <mat-error *ngIf="name.invalid">
           {{ Utils.getValidateMessage(name, '用户名') }}
         </mat-error>
@@ -37,7 +37,7 @@
           type="password"
         />
         <mat-icon matSuffix>lock</mat-icon>
-        <mat-hint align="end">4-200个字符</mat-hint>
+        <mat-hint align="end">4-256个字符</mat-hint>
         <mat-error *ngIf="password.invalid">
           {{ Utils.getValidateMessage(password, '密码') }}
         </mat-error>

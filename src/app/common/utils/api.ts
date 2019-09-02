@@ -26,5 +26,6 @@ export default class Api {
 
   static customer = {
     base: host + '/customer',
+    uuid: uuid => host + '/customer/' + uuid,
   };
 }

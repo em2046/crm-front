@@ -1,1 +1,81 @@
-<p>customer-edit works!</p>
+<article class="page">
+  <form
+    class="edit-from"
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit(editForm.value)"
+  >
+    <mat-form-field appearance="outline" *ngIf="isEdit">
+      <mat-label>编号</mat-label>
+      <input matInput [value]="customer.uuid || ''" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>客户名</mat-label>
+      <input formControlName="name" matInput placeholder="Name" required />
+      <mat-hint align="end">4-256个字符</mat-hint>
+      <mat-error *ngIf="name.invalid">
+        {{ Utils.getValidateMessage(name, '客户名') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>昵称</mat-label>
+      <input
+        formControlName="nickName"
+        matInput
+        placeholder="Nick name"
+        required
+      />
+      <mat-hint align="end">2-64个字符</mat-hint>
+      <mat-error *ngIf="nickName.invalid">
+        {{ Utils.getValidateMessage(nickName, '昵称') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>真实姓名</mat-label>
+      <input formControlName="realName" matInput placeholder="Real name" />
+      <mat-hint align="end">2-64个字符</mat-hint>
+      <mat-error *ngIf="realName.invalid">
+        {{ Utils.getValidateMessage(realName, '真实姓名') }}
+      </mat-error>
+    </mat-form-field>
+
+    <label id="customer-type">类型</label>
+    <mat-radio-group aria-labelledby="customer-type" formControlName="type">
+      <mat-radio-button
+        color="primary"
+        *ngFor="let type of customerTypeList"
+        [value]="type"
+      >
+        {{ customerTypeTable[type].title }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <label id="customer-level">等级</label>
+    <mat-radio-group aria-labelledby="customer-level" formControlName="level">
+      <mat-radio-button
+        color="primary"
+        *ngFor="let level of CustomerLevelList"
+        [value]="level"
+      >
+        {{ customerLevelTable[level].title }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <section>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="saveLoading"
+      >
+        <span>保存</span>
+        <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
+      </button>
+      <button mat-flat-button type="button" (click)="resetForm()">
+        <span>重置</span>
+      </button>
+    </section>
+  </form>
+</article>

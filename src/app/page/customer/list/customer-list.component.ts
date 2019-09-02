@@ -17,6 +17,7 @@ import {
 } from 'src/app/common/table/customer.table';
 import { citiesTable } from '../../../common/table/cities.table';
 import { CustomerEditComponent } from '../edit/customer-edit.component';
+import { AlertService } from '../../../common/service/alert.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -60,7 +61,11 @@ export class CustomerListComponent extends PageList<Customer>
   customerMaritalStatusTable = customerMaritalStatusTable;
   citiesTable = citiesTable;
 
-  constructor(public service: CustomerService, public tabService: TabService) {
+  constructor(
+    public service: CustomerService,
+    public tabService: TabService,
+    public alertService: AlertService,
+  ) {
     super();
   }
 
@@ -91,11 +96,24 @@ export class CustomerListComponent extends PageList<Customer>
   handleAdd() {
     this.tabService.mission(
       new Tab({
-        title: '用户新增',
-        name: 'user-add',
+        title: '客户新增',
+        name: 'customer-add',
         page: new Page(CustomerEditComponent, {
           type: 'NEW',
           user: {},
+        }),
+      }),
+    );
+  }
+
+  handleEdit(customer: Customer) {
+    this.tabService.mission(
+      new Tab({
+        title: '客户编辑',
+        name: `customer-edit#${customer.uuid}`,
+        page: new Page(CustomerEditComponent, {
+          type: 'EDIT',
+          customer,
         }),
       }),
     );
