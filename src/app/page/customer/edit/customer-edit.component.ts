@@ -13,7 +13,7 @@ import {
   CustomerEducation,
   CustomerMaritalStatus,
 } from '../../../common/dto/customer.model';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlertService } from '../../../common/service/alert.service';
 import { CustomerService } from '../customer.service';
 import {
@@ -24,6 +24,18 @@ import {
   customerGenderTable,
 } from 'src/app/common/table/customer.table';
 import { citiesTable } from 'src/app/common/table/cities.table';
+import { CITIES } from '../../../common/table/cities';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+interface City {
+  code: string;
+  name: string;
+}
+
+export interface User {
+  name: string;
+}
 
 @Component({
   selector: 'app-customer-edit',
@@ -56,15 +68,19 @@ export class CustomerEditComponent extends PageEdit<Customer>
         ],
       ],
       realName: ['', [Validators.minLength(0), Validators.maxLength(64)]],
-      type: '',
-      level: '',
+      type: CustomerType.NORMAL,
+      level: CustomerLevel.LEVEL_1,
+      gender: CustomerGender.UN_KNOW,
+      birthday: '',
       occupation: ['', [Validators.minLength(0), Validators.maxLength(64)]],
       annualIncome: [null, [Validators.min(0), Validators.max(2147483647)]],
+      education: CustomerEducation.UN_KNOW,
+      maritalStatus: CustomerEducation.UN_KNOW,
       numberOfChildren: [null, [Validators.min(0), Validators.max(127)]],
-      phoneNumber: [null, [Validators.minLength(0), Validators.maxLength(64)]],
-      weChat: [null, [Validators.minLength(0), Validators.maxLength(64)]],
-      qq: [null, [Validators.minLength(0), Validators.maxLength(64)]],
-      email: [null, [Validators.minLength(0), Validators.maxLength(512)]],
+      phoneNumber: ['', [Validators.minLength(0), Validators.maxLength(64)]],
+      weChat: ['', [Validators.minLength(0), Validators.maxLength(64)]],
+      qq: ['', [Validators.minLength(0), Validators.maxLength(64)]],
+      email: ['', [Validators.minLength(0), Validators.maxLength(512)]],
     });
   }
 
@@ -74,6 +90,8 @@ export class CustomerEditComponent extends PageEdit<Customer>
   customerEducationTable = customerEducationTable;
   customerMaritalStatusTable = customerMaritalStatusTable;
   citiesTable = citiesTable;
+  CITIES: City[] = CITIES;
+  filteredCities: Observable<City[]>;
 
   customerTypeList: CustomerType[] = customerTypeList;
   CustomerLevelList: CustomerLevel[] = CustomerLevelList;
@@ -101,12 +119,28 @@ export class CustomerEditComponent extends PageEdit<Customer>
     return this.editForm.get('level');
   }
 
+  get gender() {
+    return this.editForm.get('gender');
+  }
+
+  get birthday() {
+    return this.editForm.get('birthday');
+  }
+
   get occupation() {
     return this.editForm.get('occupation');
   }
 
   get annualIncome() {
     return this.editForm.get('annualIncome');
+  }
+
+  get education() {
+    return this.editForm.get('education');
+  }
+
+  get maritalStatus() {
+    return this.editForm.get('maritalStatus');
   }
 
   get numberOfChildren() {
@@ -140,11 +174,31 @@ export class CustomerEditComponent extends PageEdit<Customer>
   };
   customer: Customer = { name: '' };
 
+  city = new FormControl();
+
   ngOnInit() {
+    this.filteredCities = this.city.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.name)),
+      map(name => (name ? this._cityFilter(name) : this.CITIES.slice())),
+    );
+
     this.isEdit = this.data.type === 'EDIT';
     if (this.isEdit) {
       this.getCustomer(this.data.customer.uuid);
     }
+  }
+
+  cityDisplay(city?: City): string | undefined {
+    return city ? city.name : undefined;
+  }
+
+  private _cityFilter(name: string): City[] {
+    const filterValue = name.toLowerCase();
+
+    return this.CITIES.filter(
+      option => option.name.toLowerCase().indexOf(filterValue) === 0,
+    );
   }
 
   getCustomer(uuid) {
@@ -157,6 +211,18 @@ export class CustomerEditComponent extends PageEdit<Customer>
       this.realName.setValue(res.realName);
       this.type.setValue(res.type);
       this.level.setValue(res.level);
+      this.gender.setValue(res.gender);
+      this.birthday.setValue(res.birthday);
+      this.city.setValue(this.citiesTable[res.city]);
+      this.occupation.setValue(res.occupation);
+      this.annualIncome.setValue(res.annualIncome);
+      this.education.setValue(res.education);
+      this.maritalStatus.setValue(res.maritalStatus);
+      this.numberOfChildren.setValue(res.numberOfChildren);
+      this.phoneNumber.setValue(res.phoneNumber);
+      this.weChat.setValue(res.weChat);
+      this.qq.setValue(res.qq);
+      this.email.setValue(res.email);
     });
   }
 
@@ -166,6 +232,9 @@ export class CustomerEditComponent extends PageEdit<Customer>
     }
 
     const customer = this.data.customer;
+
+    data.city = this.city.value.code;
+
     this.saveLoading = true;
     if (this.isEdit) {
       this.saveEdit(customer, data);
@@ -180,5 +249,12 @@ export class CustomerEditComponent extends PageEdit<Customer>
 
   resetNew() {
     this.name.setValue('');
+    this.nickName.setValue('');
+    this.realName.setValue('');
+    this.type.setValue(CustomerType.NORMAL);
+    this.level.setValue(CustomerLevel.LEVEL_1);
+    this.gender.setValue(CustomerGender.UN_KNOW);
+    this.birthday.setValue('');
+    this.city.setValue({});
   }
 }

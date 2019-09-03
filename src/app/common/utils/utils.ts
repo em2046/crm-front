@@ -90,6 +90,12 @@ export default class Utils {
     if (field.errors.maxlength) {
       return `${label}不能多于${field.errors.maxlength.requiredLength}个字符`;
     }
+    if (field.errors.min) {
+      return `${label}不能小于${field.errors.min.min}`;
+    }
+    if (field.errors.max) {
+      return `${label}不能大于${field.errors.max.max}`;
+    }
     return '';
   }
 }
