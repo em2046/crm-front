@@ -28,7 +28,6 @@ export class RoleListComponent extends PageList<Role>
   Utils = Utils;
   items: Role[];
   displayedColumns: string[] = ['name', 'title', 'permissions', 'operation'];
-  deleteHashMap = {};
 
   constructor(
     public service: RoleService,
@@ -39,10 +38,10 @@ export class RoleListComponent extends PageList<Role>
   }
 
   ngOnInit() {
-    this.getRoles();
+    this.getItems();
   }
 
-  getRoles() {
+  getItems() {
     this.getLoading = true;
     this.service
       .getAllJoinPermissions()

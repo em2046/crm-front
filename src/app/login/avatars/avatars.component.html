@@ -3,7 +3,7 @@
   <div class="avatars-list">
     <div
       (click)="selectAvatar(avatar.code)"
-      *ngFor="let avatar of avatars | async"
+      *ngFor="let avatar of avatars"
       [ngClass]="{ active: avatar.code === data.code }"
       class="avatars-item"
     >

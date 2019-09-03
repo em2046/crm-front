@@ -27,7 +27,6 @@ export class UserListComponent extends PageList<User>
   data: any;
   Utils = Utils;
   items: User[];
-  deleteHashMap = {};
   displayedColumns: string[] = [
     'name',
     'realName',
@@ -46,10 +45,10 @@ export class UserListComponent extends PageList<User>
   }
 
   ngOnInit() {
-    this.getUsers();
+    this.getItems();
   }
 
-  getUsers() {
+  getItems() {
     this.getLoading = true;
     this.service
       .getAll()

@@ -96,11 +96,11 @@ export class RoleEditComponent extends PageEdit<Role>
     });
   }
 
-  onSubmit(roleData: Role) {
+  onSubmit(data: Role) {
     if (!this.editForm.valid || this.saveLoading) {
       return;
     }
-    roleData.permissions = this.selectedPermissions.map(permissions => {
+    data.permissions = this.selectedPermissions.map(permissions => {
       return {
         uuid: permissions.value,
       };
@@ -112,12 +112,12 @@ export class RoleEditComponent extends PageEdit<Role>
 
     if (this.isEdit) {
       this.saveEdit(role, {
-        name: roleData.name,
-        title: roleData.title,
-        permissions: roleData.permissions,
+        name: data.name,
+        title: data.title,
+        permissions: data.permissions,
       });
     } else {
-      this.saveNew(roleData);
+      this.saveNew(data);
     }
   }
 

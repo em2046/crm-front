@@ -137,11 +137,11 @@ export class UserEditComponent extends PageEdit<User>
     });
   }
 
-  onSubmit(userData: User) {
+  onSubmit(data: User) {
     if (!this.editForm.valid || this.saveLoading) {
       return;
     }
-    userData.roles = this.selectedRoles.map(role => {
+    data.roles = this.selectedRoles.map(role => {
       return {
         uuid: role.value,
       };
@@ -152,15 +152,15 @@ export class UserEditComponent extends PageEdit<User>
     this.saveLoading = true;
 
     if (this.isEdit) {
-      userData.password = null;
+      data.password = null;
       this.saveEdit(user, {
-        name: userData.name,
-        email: userData.email,
-        realName: userData.realName,
-        roles: userData.roles,
+        name: data.name,
+        email: data.email,
+        realName: data.realName,
+        roles: data.roles,
       });
     } else {
-      this.saveNew(userData);
+      this.saveNew(data);
     }
   }
 

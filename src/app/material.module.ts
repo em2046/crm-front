@@ -19,6 +19,12 @@ import {
   MatChipsModule,
   MatAutocompleteModule,
   MatProgressBarModule,
+  MatRippleModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatRadioModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 
 @NgModule({
@@ -43,6 +49,12 @@ import {
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressBarModule,
+    MatRippleModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     MatSidenavModule,
@@ -64,6 +76,12 @@ import {
     MatChipsModule,
     MatAutocompleteModule,
     MatProgressBarModule,
+    MatRippleModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
 })
 export class MaterialModule {}

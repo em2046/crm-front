@@ -1,0 +1,247 @@
+<article class="page">
+  <form
+    class="edit-from"
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit(editForm.value)"
+  >
+    <mat-form-field appearance="outline" *ngIf="isEdit">
+      <mat-label>编号</mat-label>
+      <input matInput [value]="customer.uuid || ''" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>客户名</mat-label>
+      <input formControlName="name" matInput placeholder="Name" required />
+      <mat-hint align="end">4-256个字符</mat-hint>
+      <mat-error *ngIf="name.invalid">
+        {{ Utils.getValidateMessage(name, '客户名') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>昵称</mat-label>
+      <input
+        formControlName="nickName"
+        matInput
+        placeholder="Nick name"
+        required
+      />
+      <mat-hint align="end">2-64个字符</mat-hint>
+      <mat-error *ngIf="nickName.invalid">
+        {{ Utils.getValidateMessage(nickName, '昵称') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>真实姓名</mat-label>
+      <input formControlName="realName" matInput placeholder="Real name" />
+      <mat-hint align="end">2-64个字符</mat-hint>
+      <mat-error *ngIf="realName.invalid">
+        {{ Utils.getValidateMessage(realName, '真实姓名') }}
+      </mat-error>
+    </mat-form-field>
+
+    <section class="form-field">
+      <label id="customer-type">类型</label>
+      <mat-radio-group aria-labelledby="customer-type" formControlName="type">
+        <mat-radio-button
+          color="primary"
+          *ngFor="let type of customerTypeList"
+          [value]="type"
+        >
+          {{ customerTypeTable[type].title }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <section class="form-field">
+      <label id="customer-level">等级</label>
+      <mat-radio-group aria-labelledby="customer-level" formControlName="level">
+        <mat-radio-button
+          color="primary"
+          *ngFor="let level of CustomerLevelList"
+          [value]="level"
+        >
+          {{ customerLevelTable[level].title }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <section class="form-field">
+      <label id="customer-gender">性别</label>
+      <mat-radio-group
+        aria-labelledby="customer-gender"
+        formControlName="gender"
+      >
+        <mat-radio-button
+          color="primary"
+          *ngFor="let gender of CustomerGenderList"
+          [value]="gender"
+        >
+          {{ customerGenderTable[gender].title }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <mat-form-field appearance="outline">
+      <mat-label>生日</mat-label>
+      <input
+        formControlName="birthday"
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Birthday"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>城市</mat-label>
+      <input
+        type="text"
+        placeholder="City"
+        aria-label="City"
+        matInput
+        [formControl]="city"
+        [matAutocomplete]="auto"
+      />
+
+      <mat-icon matSuffix>location_city</mat-icon>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="cityDisplay">
+        <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+          {{ city.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>职业</mat-label>
+      <input formControlName="occupation" matInput placeholder="Occupation" />
+      <mat-icon matSuffix>work</mat-icon>
+      <mat-hint align="end">2-64个字符</mat-hint>
+      <mat-error *ngIf="occupation.invalid">
+        {{ Utils.getValidateMessage(occupation, '职业') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>年收入（元）</mat-label>
+      <input
+        formControlName="annualIncome"
+        matInput
+        placeholder="Annual income"
+        type="number"
+      />
+      <mat-hint align="end">0-2147483647</mat-hint>
+      <mat-error *ngIf="annualIncome.invalid">
+        {{ Utils.getValidateMessage(annualIncome, '年收入') }}
+      </mat-error>
+    </mat-form-field>
+
+    <section class="form-field">
+      <label id="customer-education">学历</label>
+      <mat-radio-group
+        aria-labelledby="customer-education"
+        formControlName="education"
+      >
+        <mat-radio-button
+          color="primary"
+          *ngFor="let education of CustomerEducationList"
+          [value]="education"
+        >
+          {{ customerEducationTable[education].title }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <section class="form-field">
+      <label id="customer-marital-status">婚姻状况</label>
+      <mat-radio-group
+        aria-labelledby="customer-marital-status"
+        formControlName="maritalStatus"
+      >
+        <mat-radio-button
+          color="primary"
+          *ngFor="let maritalStatus of CustomerMaritalStatusList"
+          [value]="maritalStatus"
+        >
+          {{ customerMaritalStatusTable[maritalStatus].title }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <mat-form-field appearance="outline">
+      <mat-label>孩子数量</mat-label>
+      <input
+        formControlName="numberOfChildren"
+        matInput
+        placeholder="Number Of Children"
+        type="number"
+      />
+      <mat-hint align="end">0-127</mat-hint>
+      <mat-error *ngIf="numberOfChildren.invalid">
+        {{ Utils.getValidateMessage(numberOfChildren, '孩子数量') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>手机号</mat-label>
+      <input
+        formControlName="phoneNumber"
+        matInput
+        placeholder="Phone Number"
+      />
+      <mat-icon matSuffix>phone_iphone</mat-icon>
+      <mat-hint align="end">请输入中国大陆手机号码</mat-hint>
+      <mat-error *ngIf="phoneNumber.invalid">
+        {{ Utils.getValidateMessage(phoneNumber, '手机号') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>微信号</mat-label>
+      <input formControlName="weChat" matInput placeholder="WeChat ID" />
+      <mat-error *ngIf="weChat.invalid">
+        {{ Utils.getValidateMessage(weChat, '微信号') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>QQ号</mat-label>
+      <input formControlName="qq" matInput placeholder="QQ ID" />
+      <mat-error *ngIf="qq.invalid">
+        {{ Utils.getValidateMessage(qq, 'QQ号') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>邮箱地址</mat-label>
+      <input
+        formControlName="email"
+        matInput
+        placeholder="Email"
+        type="email"
+      />
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-hint align="end">请输入可以接受邮件的邮箱</mat-hint>
+      <mat-error *ngIf="email.invalid">
+        {{ Utils.getValidateMessage(email, '邮箱地址') }}
+      </mat-error>
+    </mat-form-field>
+
+    <section>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="saveLoading"
+      >
+        <span>保存</span>
+        <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
+      </button>
+      <button mat-flat-button type="button" (click)="resetForm()">
+        <span>重置</span>
+      </button>
+    </section>
+  </form>
+</article>
