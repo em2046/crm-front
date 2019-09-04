@@ -10,11 +10,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>客户名</mat-label>
+      <mat-label>客户用户名</mat-label>
       <input formControlName="name" matInput placeholder="Name" required />
       <mat-hint align="end">4-256个字符</mat-hint>
       <mat-error *ngIf="name.invalid">
-        {{ Utils.getValidateMessage(name, '客户名') }}
+        {{ Utils.getValidateMessage(name, '客户用户名') }}
       </mat-error>
     </mat-form-field>
 
@@ -42,8 +42,8 @@
     </mat-form-field>
 
     <section class="form-field">
-      <label id="customer-type">类型</label>
-      <mat-radio-group aria-labelledby="customer-type" formControlName="type">
+      <label>类型</label>
+      <mat-radio-group formControlName="type">
         <mat-radio-button
           color="primary"
           *ngFor="let type of customerTypeList"
@@ -55,8 +55,8 @@
     </section>
 
     <section class="form-field">
-      <label id="customer-level">等级</label>
-      <mat-radio-group aria-labelledby="customer-level" formControlName="level">
+      <label>等级</label>
+      <mat-radio-group formControlName="level">
         <mat-radio-button
           color="primary"
           *ngFor="let level of CustomerLevelList"
@@ -68,11 +68,8 @@
     </section>
 
     <section class="form-field">
-      <label id="customer-gender">性别</label>
-      <mat-radio-group
-        aria-labelledby="customer-gender"
-        formControlName="gender"
-      >
+      <label>性别</label>
+      <mat-radio-group formControlName="gender">
         <mat-radio-button
           color="primary"
           *ngFor="let gender of CustomerGenderList"
@@ -104,10 +101,15 @@
         matInput
         [formControl]="city"
         [matAutocomplete]="auto"
+        (blur)="handleCityClosed()"
       />
 
       <mat-icon matSuffix>location_city</mat-icon>
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="cityDisplay">
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="cityDisplay"
+        (closed)="handleCityClosed()"
+      >
         <mat-option *ngFor="let city of filteredCities | async" [value]="city">
           {{ city.name }}
         </mat-option>
@@ -139,11 +141,8 @@
     </mat-form-field>
 
     <section class="form-field">
-      <label id="customer-education">学历</label>
-      <mat-radio-group
-        aria-labelledby="customer-education"
-        formControlName="education"
-      >
+      <label>学历</label>
+      <mat-radio-group formControlName="education">
         <mat-radio-button
           color="primary"
           *ngFor="let education of CustomerEducationList"
@@ -155,11 +154,8 @@
     </section>
 
     <section class="form-field">
-      <label id="customer-marital-status">婚姻状况</label>
-      <mat-radio-group
-        aria-labelledby="customer-marital-status"
-        formControlName="maritalStatus"
-      >
+      <label>婚姻状况</label>
+      <mat-radio-group formControlName="maritalStatus">
         <mat-radio-button
           color="primary"
           *ngFor="let maritalStatus of CustomerMaritalStatusList"

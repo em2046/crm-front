@@ -37,6 +37,26 @@ export interface User {
   name: string;
 }
 
+const emptyCustomerData = {
+  name: null,
+  nickName: null,
+  realName: null,
+  type: CustomerType.NORMAL,
+  level: CustomerLevel.LEVEL_1,
+  gender: CustomerGender.UN_KNOW,
+  birthday: null,
+  city: {},
+  occupation: null,
+  annualIncome: null,
+  education: CustomerEducation.UN_KNOW,
+  maritalStatus: CustomerMaritalStatus.UN_KNOW,
+  numberOfChildren: null,
+  phoneNumber: null,
+  weChat: null,
+  qq: null,
+  email: null,
+};
+
 @Component({
   selector: 'app-customer-edit',
   templateUrl: './customer-edit.component.html',
@@ -67,20 +87,23 @@ export class CustomerEditComponent extends PageEdit<Customer>
           Validators.maxLength(64),
         ],
       ],
-      realName: ['', [Validators.minLength(0), Validators.maxLength(64)]],
+      realName: [null, [Validators.minLength(2), Validators.maxLength(64)]],
       type: CustomerType.NORMAL,
       level: CustomerLevel.LEVEL_1,
       gender: CustomerGender.UN_KNOW,
-      birthday: '',
-      occupation: ['', [Validators.minLength(0), Validators.maxLength(64)]],
+      birthday: null,
+      occupation: [null, [Validators.minLength(0), Validators.maxLength(64)]],
       annualIncome: [null, [Validators.min(0), Validators.max(2147483647)]],
       education: CustomerEducation.UN_KNOW,
       maritalStatus: CustomerEducation.UN_KNOW,
       numberOfChildren: [null, [Validators.min(0), Validators.max(127)]],
-      phoneNumber: ['', [Validators.minLength(0), Validators.maxLength(64)]],
-      weChat: ['', [Validators.minLength(0), Validators.maxLength(64)]],
-      qq: ['', [Validators.minLength(0), Validators.maxLength(64)]],
-      email: ['', [Validators.minLength(0), Validators.maxLength(512)]],
+      phoneNumber: [null, [Validators.minLength(0), Validators.maxLength(64)]],
+      weChat: [null, [Validators.minLength(0), Validators.maxLength(64)]],
+      qq: [null, [Validators.minLength(0), Validators.maxLength(64)]],
+      email: [
+        null,
+        [Validators.minLength(0), Validators.maxLength(512), Validators.email],
+      ],
     });
   }
 
@@ -179,7 +202,7 @@ export class CustomerEditComponent extends PageEdit<Customer>
   ngOnInit() {
     this.filteredCities = this.city.valueChanges.pipe(
       startWith(''),
-      map(value => (typeof value === 'string' ? value : value.name)),
+      map(value => (typeof value === 'string' ? value : value && value.name)),
       map(name => (name ? this._cityFilter(name) : this.CITIES.slice())),
     );
 
@@ -206,24 +229,63 @@ export class CustomerEditComponent extends PageEdit<Customer>
       this.customerDefaultValue = res;
 
       this.customer = res;
-      this.name.setValue(res.name);
-      this.nickName.setValue(res.nickName);
-      this.realName.setValue(res.realName);
-      this.type.setValue(res.type);
-      this.level.setValue(res.level);
-      this.gender.setValue(res.gender);
-      this.birthday.setValue(res.birthday);
-      this.city.setValue(this.citiesTable[res.city]);
-      this.occupation.setValue(res.occupation);
-      this.annualIncome.setValue(res.annualIncome);
-      this.education.setValue(res.education);
-      this.maritalStatus.setValue(res.maritalStatus);
-      this.numberOfChildren.setValue(res.numberOfChildren);
-      this.phoneNumber.setValue(res.phoneNumber);
-      this.weChat.setValue(res.weChat);
-      this.qq.setValue(res.qq);
-      this.email.setValue(res.email);
+      this.setCustomer(res);
     });
+  }
+
+  getCustomerJSON(data) {
+    const json: Customer = {};
+
+    json.name = data.name;
+    json.nickName = data.nickName;
+    json.realName = data.realName || null;
+    json.type = data.type;
+    json.level = data.level;
+    json.gender = data.gender;
+    json.birthday = data.birthday || null;
+
+    if (this.city.value) {
+      json.city = this.city.value.code || null;
+    } else {
+      json.city = null;
+    }
+
+    json.occupation = data.occupation || null;
+    json.annualIncome = data.annualIncome;
+    json.education = data.education;
+    json.maritalStatus = data.maritalStatus;
+    json.numberOfChildren = data.numberOfChildren;
+    json.phoneNumber = data.phoneNumber || null;
+    json.weChat = data.weChat || null;
+    json.qq = data.qq || null;
+    json.email = data.email || null;
+    return json;
+  }
+
+  setCustomer(data) {
+    this.name.setValue(data.name);
+    this.nickName.setValue(data.nickName);
+    this.realName.setValue(data.realName);
+    this.type.setValue(data.type);
+    this.level.setValue(data.level);
+    this.gender.setValue(data.gender);
+    this.birthday.setValue(data.birthday);
+
+    if (data.city) {
+      this.city.setValue(this.citiesTable[data.city]);
+    } else {
+      this.city.setValue({});
+    }
+
+    this.occupation.setValue(data.occupation);
+    this.annualIncome.setValue(data.annualIncome);
+    this.education.setValue(data.education);
+    this.maritalStatus.setValue(data.maritalStatus);
+    this.numberOfChildren.setValue(data.numberOfChildren);
+    this.phoneNumber.setValue(data.phoneNumber);
+    this.weChat.setValue(data.weChat);
+    this.qq.setValue(data.qq);
+    this.email.setValue(data.email);
   }
 
   onSubmit(data: Customer) {
@@ -233,28 +295,27 @@ export class CustomerEditComponent extends PageEdit<Customer>
 
     const customer = this.data.customer;
 
-    data.city = this.city.value.code;
+    const json = this.getCustomerJSON(data);
 
     this.saveLoading = true;
     if (this.isEdit) {
-      this.saveEdit(customer, data);
+      this.saveEdit(customer, json);
     } else {
-      this.saveNew(data);
+      this.saveNew(json);
     }
   }
 
   resetEdit() {
-    this.name.setValue(this.customerDefaultValue.name);
+    this.setCustomer(this.customerDefaultValue);
   }
 
   resetNew() {
-    this.name.setValue('');
-    this.nickName.setValue('');
-    this.realName.setValue('');
-    this.type.setValue(CustomerType.NORMAL);
-    this.level.setValue(CustomerLevel.LEVEL_1);
-    this.gender.setValue(CustomerGender.UN_KNOW);
-    this.birthday.setValue('');
-    this.city.setValue({});
+    this.setCustomer(emptyCustomerData);
+  }
+
+  handleCityClosed() {
+    if (typeof this.city.value === 'string') {
+      this.city.setValue({});
+    }
   }
 }
