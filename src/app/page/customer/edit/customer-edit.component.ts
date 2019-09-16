@@ -31,6 +31,9 @@ import { map, startWith } from 'rxjs/operators';
 interface City {
   code: string;
   name: string;
+  shortName: string;
+  pinyin: string;
+  pinyinFirstLetter: string;
 }
 
 export interface User {
@@ -115,6 +118,7 @@ export class CustomerEditComponent extends PageEdit<Customer>
   citiesTable = citiesTable;
   CITIES: City[] = CITIES;
   filteredCities: Observable<City[]>;
+  cityTimer?: number = null;
 
   customerTypeList: CustomerType[] = customerTypeList;
   CustomerLevelList: CustomerLevel[] = CustomerLevelList;
@@ -219,9 +223,26 @@ export class CustomerEditComponent extends PageEdit<Customer>
   private _cityFilter(name: string): City[] {
     const filterValue = name.toLowerCase();
 
-    return this.CITIES.filter(
-      option => option.name.toLowerCase().indexOf(filterValue) === 0,
-    );
+    return this.CITIES.filter(city => {
+      const cityName = city.name.toLowerCase();
+      const pinyin = city.pinyin.toLowerCase();
+      const pinyinFirstLetter = city.pinyinFirstLetter.toLowerCase();
+      return (
+        cityName.indexOf(filterValue) === 0 ||
+        pinyin.indexOf(filterValue) === 0 ||
+        pinyinFirstLetter.indexOf(filterValue) === 0
+      );
+    });
+  }
+
+  private findCity(cityName: string): City {
+    const foundCityName = this.CITIES.find(city => {
+      return city.name === cityName;
+    });
+    const foundCityShortName = this.CITIES.find(city => {
+      return cityName.indexOf(city.shortName) === 0;
+    });
+    return foundCityName || foundCityShortName;
   }
 
   getCustomer(uuid) {
@@ -314,8 +335,20 @@ export class CustomerEditComponent extends PageEdit<Customer>
   }
 
   handleCityClosed() {
-    if (typeof this.city.value === 'string') {
+    clearTimeout(this.cityTimer);
+    this.cityTimer = setTimeout(() => {
+      const cityName = this.city.value;
+      if (typeof cityName !== 'string') {
+        return;
+      }
+
+      const foundCity = this.findCity(cityName);
+      if (foundCity) {
+        this.city.setValue(foundCity);
+        return;
+      }
+
       this.city.setValue({});
-    }
+    }, 100);
   }
 }
