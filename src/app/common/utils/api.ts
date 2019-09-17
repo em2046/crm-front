@@ -28,4 +28,9 @@ export default class Api {
     base: host + '/customer',
     uuid: uuid => host + '/customer/' + uuid,
   };
+
+  static knowledge = {
+    base: host + '/knowledge',
+    uuid: uuid => host + '/knowledge/' + uuid,
+  };
 }

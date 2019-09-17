@@ -11,6 +11,8 @@ import { RoleEditComponent } from './role/edit/role-edit.component';
 import { ComplaintModule } from './complaint/complaint.module';
 import { CustomerListComponent } from './customer/list/customer-list.component';
 import { CustomerEditComponent } from './customer/edit/customer-edit.component';
+import { KnowledgeListComponent } from './knowledge/list/knowledge-list.component';
+import { KnowledgeEditComponent } from './knowledge/edit/knowledge-edit.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { CustomerEditComponent } from './customer/edit/customer-edit.component';
     RoleEditComponent,
     CustomerListComponent,
     CustomerEditComponent,
+    KnowledgeListComponent,
+    KnowledgeEditComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -30,6 +34,8 @@ import { CustomerEditComponent } from './customer/edit/customer-edit.component';
     UserEditComponent,
     RoleEditComponent,
     CustomerEditComponent,
+    KnowledgeListComponent,
+    KnowledgeEditComponent,
   ],
   imports: [
     CommonModule,
