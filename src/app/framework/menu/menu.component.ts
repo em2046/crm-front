@@ -6,6 +6,7 @@ import { UserListComponent } from '../../page/user/list/user-list.component';
 import { TabService } from '../tab.service';
 import { Tab } from '../../common/class/tab';
 import { CustomerListComponent } from '../../page/customer/list/customer-list.component';
+import { KnowledgeListComponent } from '../../page/knowledge/list/knowledge-list.component';
 
 @Component({
   selector: 'app-menu',
@@ -59,6 +60,17 @@ export class MenuComponent implements OnInit {
         icon: 'supervisor_account',
         name: 'customer',
         page: new Page(CustomerListComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenKnowledge() {
+    this.tabService.mission(
+      new Tab({
+        title: '知识管理',
+        icon: 'local_library',
+        name: 'knowledge',
+        page: new Page(KnowledgeListComponent, {}),
       }),
     );
   }

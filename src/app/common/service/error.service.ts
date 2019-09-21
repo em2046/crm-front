@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { AlertService } from './alert.service';
+import Utils from '../utils/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,9 @@ export class ErrorService {
             break;
           default:
             console.error('出错了', error.error.message);
-            this.alertService.alert(error.error.message);
+            this.alertService.alert(
+              Utils.getValidateMessageFromHttp(error.error.message),
+            );
             break;
         }
       } else {

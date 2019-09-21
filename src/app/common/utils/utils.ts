@@ -98,4 +98,28 @@ export default class Utils {
     }
     return '';
   }
+
+  /**
+   * 服务器错误信息解析
+   * @param message 错误信息
+   */
+  static getValidateMessageFromHttp(message) {
+    if (Array.isArray(message)) {
+      return Utils.getValidateMessageFromHttp(message[0]);
+    }
+
+    if (
+      typeof message === 'object' &&
+      typeof message.constraints === 'object'
+    ) {
+      const constraints = Object.values(message.constraints);
+      return constraints[0];
+    }
+
+    if (typeof message === 'string') {
+      return message;
+    }
+
+    return '未知错误，请与管理员联系';
+  }
 }
