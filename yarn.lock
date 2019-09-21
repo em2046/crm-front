@@ -308,6 +308,18 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@ckeditor/ckeditor5-angular@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/@ckeditor/ckeditor5-angular/download/@ckeditor/ckeditor5-angular-1.1.0.tgz#f1ba15b4eab1315a357bb6718b6e6c1582b5e52f"
+  integrity sha1-8boVtOqxMVo1e7Zxi25sFYK15S8=
+  dependencies:
+    tslib "^1.9.0"
+
+"@ckeditor/ckeditor5-build-classic@^12.4.0":
+  version "12.4.0"
+  resolved "https://registry.npm.taobao.org/@ckeditor/ckeditor5-build-classic/download/@ckeditor/ckeditor5-build-classic-12.4.0.tgz#d5eefb00424d6c559f826d8509ba6ce7e1ce12b9"
+  integrity sha1-1e77AEJNbFWfgm2FCbps5+HOErk=
+
 "@ngtools/webpack@8.1.2":
   version "8.1.2"
   resolved "https://registry.npm.taobao.org/@ngtools/webpack/download/@ngtools/webpack-8.1.2.tgz#5f96371d51a7f338a29990916b5b77f55bbf1ca6"

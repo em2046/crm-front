@@ -13,6 +13,7 @@ import { CustomerListComponent } from './customer/list/customer-list.component';
 import { CustomerEditComponent } from './customer/edit/customer-edit.component';
 import { KnowledgeListComponent } from './knowledge/list/knowledge-list.component';
 import { KnowledgeEditComponent } from './knowledge/edit/knowledge-edit.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { KnowledgeEditComponent } from './knowledge/edit/knowledge-edit.componen
     ReactiveFormsModule,
     ComponentsModule,
     ComplaintModule,
+    CKEditorModule,
   ],
 })
 export class PageModule {}

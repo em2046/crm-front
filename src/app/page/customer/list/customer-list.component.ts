@@ -18,6 +18,7 @@ import {
 import { citiesTable } from '../../../common/table/cities.table';
 import { CustomerEditComponent } from '../edit/customer-edit.component';
 import { AlertService } from '../../../common/service/alert.service';
+import { PageData } from '../../../common/class/page-data';
 
 @Component({
   selector: 'app-customer-list',
@@ -25,8 +26,9 @@ import { AlertService } from '../../../common/service/alert.service';
   styleUrls: ['../../common/list.less', './customer-list.component.less'],
 })
 export class CustomerListComponent extends PageList<Customer>
-  implements OnInit {
+  implements OnInit, PageData {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   getLoading = false;
   dataSource = new MatTableDataSource<Customer>([]);
   data: any;

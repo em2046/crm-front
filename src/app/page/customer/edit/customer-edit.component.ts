@@ -322,6 +322,7 @@ export class CustomerEditComponent extends PageEdit<Customer>
     if (this.isEdit) {
       this.saveEdit(customer, json);
     } else {
+      json.registrationTime = new Date().toJSON();
       this.saveNew(json);
     }
   }

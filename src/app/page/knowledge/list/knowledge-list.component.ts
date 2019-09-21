@@ -43,7 +43,7 @@ export class KnowledgeListComponent extends PageList<Knowledge>
   getItems() {
     this.getLoading = true;
     this.service
-      .getKnowledge({
+      .getKnowledgeList({
         page: this.pagination.pageIndex + 1,
         limit: this.pagination.pageSize,
       })

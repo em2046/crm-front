@@ -16,7 +16,7 @@ export class KnowledgeService {
     private readonly errorService: ErrorService,
   ) {}
 
-  getKnowledge(params): Observable<Pagination<Knowledge[]>> {
+  getKnowledgeList(params): Observable<Pagination<Knowledge[]>> {
     return this.http
       .get<Pagination<Knowledge[]>>(
         Api.knowledge.base,
@@ -25,9 +25,27 @@ export class KnowledgeService {
       .pipe(catchError(this.errorService.handleError()));
   }
 
+  getKnowledge(uuid: string): Observable<Knowledge> {
+    return this.http
+      .get<Knowledge>(Api.knowledge.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
   remove(uuid: string) {
     return this.http
       .delete(Api.knowledge.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  create(knowledge) {
+    return this.http
+      .post(Api.knowledge.base, knowledge, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  update(uuid, knowledge) {
+    return this.http
+      .patch(Api.knowledge.uuid(uuid), knowledge, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 }
