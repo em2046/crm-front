@@ -14,6 +14,8 @@ import { CustomerEditComponent } from './customer/edit/customer-edit.component';
 import { KnowledgeListComponent } from './knowledge/list/knowledge-list.component';
 import { KnowledgeEditComponent } from './knowledge/edit/knowledge-edit.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { KnowledgeSearchComponent } from './knowledge/search/knowledge-search.component';
+import { KnowledgeViewComponent } from './knowledge/view/knowledge-view.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     CustomerEditComponent,
     KnowledgeListComponent,
     KnowledgeEditComponent,
+    KnowledgeSearchComponent,
+    KnowledgeViewComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -37,6 +41,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     CustomerEditComponent,
     KnowledgeListComponent,
     KnowledgeEditComponent,
+    KnowledgeSearchComponent,
+    KnowledgeViewComponent,
   ],
   imports: [
     CommonModule,

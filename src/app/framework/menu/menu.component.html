@@ -33,12 +33,12 @@
 <mat-nav-list>
   <h3 mat-subheader>知识库</h3>
 
-  <mat-list-item>
+  <mat-list-item (click)="handleOpenKnowledgeSearch()">
     <mat-icon mat-list-icon>search</mat-icon>
     <p mat-line>知识查询</p>
   </mat-list-item>
 
-  <mat-list-item (click)="handleOpenKnowledge()">
+  <mat-list-item (click)="handleOpenKnowledgeList()">
     <mat-icon mat-list-icon>local_library</mat-icon>
     <p mat-line>知识管理</p>
   </mat-list-item>

@@ -48,4 +48,10 @@ export class KnowledgeService {
       .patch(Api.knowledge.uuid(uuid), knowledge, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
+
+  search(keyword: string) {
+    return this.http
+      .post(Api.knowledge.search, { keyword }, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
 }
