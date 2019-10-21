@@ -8,7 +8,6 @@ import { RoleListComponent } from './role/list/role-list.component';
 import { PermissionListComponent } from './permission/list/permission-list.component';
 import { UserEditComponent } from './user/edit/user-edit.component';
 import { RoleEditComponent } from './role/edit/role-edit.component';
-import { ComplaintModule } from './complaint/complaint.module';
 import { CustomerListComponent } from './customer/list/customer-list.component';
 import { CustomerEditComponent } from './customer/edit/customer-edit.component';
 import { KnowledgeListComponent } from './knowledge/list/knowledge-list.component';
@@ -16,6 +15,7 @@ import { KnowledgeEditComponent } from './knowledge/edit/knowledge-edit.componen
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { KnowledgeSearchComponent } from './knowledge/search/knowledge-search.component';
 import { KnowledgeViewComponent } from './knowledge/view/knowledge-view.component';
+import { ComplaintListComponent } from './complaint/list/complaint-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { KnowledgeViewComponent } from './knowledge/view/knowledge-view.componen
     KnowledgeEditComponent,
     KnowledgeSearchComponent,
     KnowledgeViewComponent,
+    ComplaintListComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -43,6 +44,7 @@ import { KnowledgeViewComponent } from './knowledge/view/knowledge-view.componen
     KnowledgeEditComponent,
     KnowledgeSearchComponent,
     KnowledgeViewComponent,
+    ComplaintListComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +52,6 @@ import { KnowledgeViewComponent } from './knowledge/view/knowledge-view.componen
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    ComplaintModule,
     CKEditorModule,
   ],
 })

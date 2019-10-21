@@ -8,6 +8,7 @@ import { Tab } from '../../common/class/tab';
 import { CustomerListComponent } from '../../page/customer/list/customer-list.component';
 import { KnowledgeListComponent } from '../../page/knowledge/list/knowledge-list.component';
 import { KnowledgeSearchComponent } from '../../page/knowledge/search/knowledge-search.component';
+import { ComplaintListComponent } from '../../page/complaint/list/complaint-list.component';
 
 @Component({
   selector: 'app-menu',
@@ -80,9 +81,20 @@ export class MenuComponent implements OnInit {
     this.tabService.mission(
       new Tab({
         title: '知识查询',
-        icon: 'local_library',
+        icon: 'search',
         name: 'knowledge-search',
         page: new Page(KnowledgeSearchComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenComplaint() {
+    this.tabService.mission(
+      new Tab({
+        title: '客户投诉',
+        icon: 'chat',
+        name: 'complaint-list',
+        page: new Page(ComplaintListComponent, {}),
       }),
     );
   }

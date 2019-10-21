@@ -1,1 +1,28 @@
-<p>complaint-list works!</p>
+<article class="page">
+  <header class="page-header">
+    <h2>投诉列表</h2>
+  </header>
+  <div class="table-box">
+    <mat-progress-bar mode="query" *ngIf="getLoading"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" class="list-table" matSort>
+      <ng-container matColumnDef="title">
+        <mat-header-cell class="col-title" mat-sort-header *matHeaderCellDef>
+          标题
+        </mat-header-cell>
+        <mat-cell class="col-title" *matCellDef="let element">
+          {{ element.title }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+  <mat-paginator
+    [length]="pagination.length"
+    [pageSize]="pagination.pageSize"
+    [pageSizeOptions]="Utils.pageSizeOptions"
+    (page)="handlePageEvent($event)"
+  >
+  </mat-paginator>
+</article>

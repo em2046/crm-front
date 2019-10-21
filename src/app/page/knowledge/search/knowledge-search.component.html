@@ -1,5 +1,7 @@
 <article class="page">
-  <h2>知识查询!</h2>
+  <header class="page-header">
+    <h2>知识查询</h2>
+  </header>
   <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
     <mat-form-field appearance="legacy">
       <mat-label>关键词</mat-label>
