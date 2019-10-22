@@ -12,7 +12,7 @@ import { AlertService } from '../../../common/service/alert.service';
 @Component({
   selector: 'app-complaint-list',
   templateUrl: './complaint-list.component.html',
-  styleUrls: ['./complaint-list.component.less'],
+  styleUrls: ['../../common/list.less', './complaint-list.component.less'],
 })
 export class ComplaintListComponent extends PageList<Complaint>
   implements OnInit, PageData {
@@ -22,7 +22,7 @@ export class ComplaintListComponent extends PageList<Complaint>
   data: any;
   Utils = Utils;
   items: Complaint[];
-  displayedColumns: string[] = ['title'];
+  displayedColumns: string[] = ['title', 'description', 'operation'];
   getLoading = false;
 
   constructor(
@@ -60,4 +60,8 @@ export class ComplaintListComponent extends PageList<Complaint>
   refreshPage() {
     this.ngOnInit();
   }
+
+  handleAdd() {}
+
+  handleEdit(element: any) {}
 }

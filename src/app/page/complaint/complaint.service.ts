@@ -24,4 +24,10 @@ export class ComplaintService {
       )
       .pipe(catchError(this.errorService.handleError()));
   }
+
+  remove(uuid: string) {
+    return this.http
+      .delete(Api.complaint.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
 }

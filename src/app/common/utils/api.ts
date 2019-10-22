@@ -37,5 +37,6 @@ export default class Api {
 
   static complaint = {
     base: host + '/complaint',
+    uuid: uuid => host + '/complaint/' + uuid,
   };
 }
