@@ -8,6 +8,10 @@ import { finalize } from 'rxjs/operators';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { TabService } from '../../../framework/tab.service';
 import { AlertService } from '../../../common/service/alert.service';
+import { Tab } from '../../../common/class/tab';
+import { Page } from '../../../common/class/page';
+import { ComplaintEditComponent } from '../complaint-edit/complaint-edit.component';
+import { taskStatusTable } from 'src/app/common/table/task.table';
 
 @Component({
   selector: 'app-complaint-list',
@@ -18,11 +22,20 @@ export class ComplaintListComponent extends PageList<Complaint>
   implements OnInit, PageData {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
+  taskStatusTable = taskStatusTable;
   dataSource = new MatTableDataSource<Complaint>([]);
   data: any;
   Utils = Utils;
   items: Complaint[];
-  displayedColumns: string[] = ['title', 'description', 'operation'];
+  displayedColumns: string[] = [
+    'title',
+    'description',
+    'assignee',
+    'status',
+    'createDate',
+    'updateDate',
+    'operation',
+  ];
   getLoading = false;
 
   constructor(
@@ -61,7 +74,29 @@ export class ComplaintListComponent extends PageList<Complaint>
     this.ngOnInit();
   }
 
-  handleAdd() {}
+  handleAdd() {
+    this.tabService.mission(
+      new Tab({
+        title: '投诉新增',
+        name: `complaint-new`,
+        page: new Page(ComplaintEditComponent, {
+          type: 'NEW',
+          complaint: {},
+        }),
+      }),
+    );
+  }
 
-  handleEdit(element: any) {}
+  handleEdit(complaint: Complaint) {
+    this.tabService.mission(
+      new Tab({
+        title: '投诉编辑',
+        name: `complaint-edit#${complaint.uuid}`,
+        page: new Page(ComplaintEditComponent, {
+          type: 'EDIT',
+          complaint,
+        }),
+      }),
+    );
+  }
 }

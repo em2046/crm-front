@@ -43,6 +43,56 @@
         </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="assignee">
+        <mat-header-cell class="col-assignee" mat-sort-header *matHeaderCellDef>
+          处理人
+        </mat-header-cell>
+        <mat-cell class="col-assignee" *matCellDef="let element">
+          {{ element.assignee }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell class="col-status" mat-sort-header *matHeaderCellDef>
+          状态
+        </mat-header-cell>
+        <mat-cell class="col-status" *matCellDef="let element">
+          {{ taskStatusTable[element.status].title }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <mat-header-cell
+          class="col-create-date"
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          创建时间
+        </mat-header-cell>
+        <mat-cell class="col-create-date" *matCellDef="let element">
+          <span class="date">{{
+            element.createDate | date: 'yyyy-MM-dd'
+          }}</span>
+          <span class="time">{{ element.createDate | date: 'HH:mm' }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updateDate">
+        <mat-header-cell
+          class="col-update-date"
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          更新时间
+        </mat-header-cell>
+        <mat-cell class="col-update-date" *matCellDef="let element">
+          <span class="date">{{
+            element.updateDate | date: 'yyyy-MM-dd'
+          }}</span>
+          <span class="time">{{ element.updateDate | date: 'HH:mm' }}</span>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="operation" [stickyEnd]="stickyEnd">
         <mat-header-cell
           class="col-operation"

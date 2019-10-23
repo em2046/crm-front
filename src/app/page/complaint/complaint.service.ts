@@ -25,9 +25,27 @@ export class ComplaintService {
       .pipe(catchError(this.errorService.handleError()));
   }
 
+  create(complaint) {
+    return this.http
+      .post(Api.complaint.base, complaint, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  update(uuid, complaint) {
+    return this.http
+      .patch(Api.complaint.update(uuid), complaint, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
   remove(uuid: string) {
     return this.http
       .delete(Api.complaint.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  getComplaint(uuid): Observable<Complaint> {
+    return this.http
+      .get(Api.complaint.uuid(uuid), Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 }
