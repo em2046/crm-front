@@ -16,7 +16,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { KnowledgeSearchComponent } from './knowledge/search/knowledge-search.component';
 import { KnowledgeViewComponent } from './knowledge/view/knowledge-view.component';
 import { ComplaintListComponent } from './complaint/list/complaint-list.component';
-import { ComplaintEditComponent } from './complaint/complaint-edit/complaint-edit.component';
+import { ComplaintEditComponent } from './complaint/edit/complaint-edit.component';
+import { ComplaintViewComponent } from './complaint/view/complaint-view.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ComplaintEditComponent } from './complaint/complaint-edit/complaint-edi
     KnowledgeViewComponent,
     ComplaintListComponent,
     ComplaintEditComponent,
+    ComplaintViewComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -48,6 +50,7 @@ import { ComplaintEditComponent } from './complaint/complaint-edit/complaint-edi
     KnowledgeViewComponent,
     ComplaintListComponent,
     ComplaintEditComponent,
+    ComplaintViewComponent,
   ],
   imports: [
     CommonModule,

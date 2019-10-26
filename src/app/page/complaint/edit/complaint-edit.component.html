@@ -30,6 +30,17 @@
       </mat-error>
     </mat-form-field>
 
+    <app-chips-autocomplete
+      *ngIf="!isEdit"
+      #chipsAuto
+      [max]="1"
+      label="指派"
+      icon="arrow_forward"
+      placeholder="User"
+      [(selectedOptions)]="selectedUsers"
+      [allOptions]="allUsers"
+    ></app-chips-autocomplete>
+
     <section>
       <button
         mat-flat-button

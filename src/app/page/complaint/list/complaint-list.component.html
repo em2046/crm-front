@@ -48,7 +48,7 @@
           处理人
         </mat-header-cell>
         <mat-cell class="col-assignee" *matCellDef="let element">
-          {{ element.assignee }}
+          {{ element.assignee.realName }}
         </mat-cell>
       </ng-container>
 
@@ -105,11 +105,11 @@
           <span>操作</span>
         </mat-header-cell>
         <mat-cell class="col-operation" *matCellDef="let element">
-          <button
-            mat-flat-button
-            (click)="handleEdit(element)"
-            [disabled]="element.name === 'admin'"
-          >
+          <button mat-flat-button (click)="handleView(element)">
+            <mat-icon>pageview</mat-icon>
+            <span>查看</span>
+          </button>
+          <button mat-flat-button (click)="handleEdit(element)">
             <mat-icon>edit</mat-icon>
             <span>编辑</span>
           </button>
@@ -117,7 +117,7 @@
             mat-flat-button
             (click)="handleDelete(element)"
             [color]="isWaiting(element.uuid) ? 'warn' : null"
-            [disabled]="element.name === 'admin' || isDeleting(element.uuid)"
+            [disabled]="isDeleting(element.uuid)"
           >
             <mat-icon *ngIf="!isDeleting(element.uuid)">
               {{ isWaiting(element.uuid) ? 'delete_forever' : 'delete' }}

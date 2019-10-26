@@ -10,8 +10,9 @@ import { TabService } from '../../../framework/tab.service';
 import { AlertService } from '../../../common/service/alert.service';
 import { Tab } from '../../../common/class/tab';
 import { Page } from '../../../common/class/page';
-import { ComplaintEditComponent } from '../complaint-edit/complaint-edit.component';
+import { ComplaintEditComponent } from '../edit/complaint-edit.component';
 import { taskStatusTable } from 'src/app/common/table/task.table';
+import { ComplaintViewComponent } from '../view/complaint-view.component';
 
 @Component({
   selector: 'app-complaint-list',
@@ -94,6 +95,19 @@ export class ComplaintListComponent extends PageList<Complaint>
         name: `complaint-edit#${complaint.uuid}`,
         page: new Page(ComplaintEditComponent, {
           type: 'EDIT',
+          complaint,
+        }),
+      }),
+    );
+  }
+
+  handleView(complaint: Complaint) {
+    this.tabService.mission(
+      new Tab({
+        title: '投诉查看',
+        name: `complaint-view#${complaint.uuid}`,
+        page: new Page(ComplaintViewComponent, {
+          type: 'VIEW',
           complaint,
         }),
       }),
