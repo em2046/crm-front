@@ -39,5 +39,7 @@ export default class Api {
     base: host + '/complaint',
     uuid: uuid => host + '/complaint/' + uuid,
     update: uuid => host + '/complaint/' + uuid + '/update',
+    assign: uuid => host + '/complaint/' + uuid + '/assign',
+    finish: uuid => host + '/complaint/' + uuid + '/finish',
   };
 }

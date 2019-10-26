@@ -37,6 +37,18 @@ export class ComplaintService {
       .pipe(catchError(this.errorService.handleError()));
   }
 
+  assign(uuid, user) {
+    return this.http
+      .patch(Api.complaint.assign(uuid), { assignee: user }, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  finish(uuid, user) {
+    return this.http
+      .patch(Api.complaint.finish(uuid), { assignee: user }, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
   remove(uuid: string) {
     return this.http
       .delete(Api.complaint.uuid(uuid), Utils.httpOptions)

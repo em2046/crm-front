@@ -21,8 +21,8 @@ export class ComplaintViewComponent implements OnInit {
     public userService: UserService,
   ) {}
 
-  @ViewChild('chipsAuto', { static: false })
-  chipsAuto: ChipsAutocompleteComponent;
+  @ViewChild('chipsAutoAssign', { static: false })
+  chipsAutoAssign: ChipsAutocompleteComponent;
 
   selectedUsers: Option[] = [];
   allUsers: Option[] = [];
@@ -40,16 +40,27 @@ export class ComplaintViewComponent implements OnInit {
     }
 
     const user = this.selectedUsers[0].value;
-    console.log(user);
+
+    this.service.assign(this.complaint.uuid, user).subscribe(() => {
+      this.refresh();
+    });
   }
 
   handleFinish() {
-    console.log(this.selectedUsers);
+    this.service
+      .finish(this.complaint.uuid, this.complaint.assignee)
+      .subscribe(() => {
+        this.refresh();
+      });
   }
 
   ngOnInit() {
-    this.getComplaint(this.data.complaint.uuid);
+    this.refresh();
     this.getUsers();
+  }
+
+  refresh() {
+    this.getComplaint(this.data.complaint.uuid);
   }
 
   private getComplaint(uuid: string) {
@@ -69,7 +80,10 @@ export class ComplaintViewComponent implements OnInit {
           title: r.realName,
         };
       });
-      this.chipsAuto.refreshFilter();
+
+      if (this.chipsAutoAssign) {
+        this.chipsAutoAssign.refreshFilter();
+      }
     });
   }
 }
