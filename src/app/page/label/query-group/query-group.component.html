@@ -1,0 +1,40 @@
+<div class="query-group" *ngIf="data.type === 'GROUP'">
+  <div class="query-operator" (click)="handleToggleOperator()">
+    {{ data.operator }}
+  </div>
+  <div class="query-list">
+    <app-query-group
+      [data]="child"
+      [index]="i"
+      *ngFor="let child of data.children; let i = index"
+      (delete)="handleChildDelete($event)"
+    ></app-query-group>
+    <div class="query-add">
+      <button mat-flat-button (click)="handleAddGroup()">
+        <mat-icon>add_circle</mat-icon>
+        添加组
+      </button>
+      <button mat-flat-button (click)="handleAddRule()">
+        <mat-icon>add_box</mat-icon>
+        添加规则
+      </button>
+      <button
+        mat-flat-button
+        *ngIf="index !== undefined"
+        (click)="handleDelete()"
+      >
+        <mat-icon>delete</mat-icon>
+        删除组
+      </button>
+    </div>
+  </div>
+</div>
+<div class="query-rule" *ngIf="data.type === 'RULE'">
+  {{ data.rule[0] }}
+  {{ data.rule[1] }}
+  <input class="query-input" type="text" [(ngModel)]="data.rule[2]" />
+  <button mat-flat-button (click)="handleDelete()">
+    <mat-icon>delete</mat-icon>
+    删除规则
+  </button>
+</div>

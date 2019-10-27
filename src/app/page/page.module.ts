@@ -18,6 +18,8 @@ import { KnowledgeViewComponent } from './knowledge/view/knowledge-view.componen
 import { ComplaintListComponent } from './complaint/list/complaint-list.component';
 import { ComplaintEditComponent } from './complaint/edit/complaint-edit.component';
 import { ComplaintViewComponent } from './complaint/view/complaint-view.component';
+import { LabelEditComponent } from './label/edit/label-edit.component';
+import { QueryGroupComponent } from './label/query-group/query-group.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { ComplaintViewComponent } from './complaint/view/complaint-view.componen
     ComplaintListComponent,
     ComplaintEditComponent,
     ComplaintViewComponent,
+    LabelEditComponent,
+    QueryGroupComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -51,6 +55,7 @@ import { ComplaintViewComponent } from './complaint/view/complaint-view.componen
     ComplaintListComponent,
     ComplaintEditComponent,
     ComplaintViewComponent,
+    LabelEditComponent,
   ],
   imports: [
     CommonModule,
