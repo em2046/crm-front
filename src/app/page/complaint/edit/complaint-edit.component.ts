@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageEdit } from '../../common/page-edit';
-import Complaint from '../../../common/dto/complaint.model';
+import Complaint from '../../../common/model/complaint.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../common/service/alert.service';
 import { ComplaintService } from '../complaint.service';
@@ -10,7 +10,6 @@ import {
   Option,
 } from '../../../components/chips-autocomplete/chips-autocomplete.component';
 import { UserService } from '../../../common/service/user.service';
-import { User } from '../../../common/dto/user.model';
 
 @Component({
   selector: 'app-complaint-edit',

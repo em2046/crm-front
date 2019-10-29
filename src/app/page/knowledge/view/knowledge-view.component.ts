@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KnowledgeService } from '../knowledge.service';
 import { AlertService } from '../../../common/service/alert.service';
-import { Knowledge } from '../../../common/dto/knowledge.model';
+import { Knowledge } from '../../../common/model/knowledge.model';
 
 @Component({
   selector: 'app-knowledge-view',

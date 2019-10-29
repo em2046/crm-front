@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageList } from '../../common/page-list';
-import Complaint from '../../../common/dto/complaint.model';
+import Complaint from '../../../common/model/complaint.model';
 import { PageData } from '../../../common/class/page-data';
 import Utils from 'src/app/common/utils/utils';
 import { ComplaintService } from '../complaint.service';

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ErrorService } from '../../common/service/error.service';
 import { Observable } from 'rxjs';
-import { Knowledge } from '../../common/dto/knowledge.model';
+import { Knowledge } from '../../common/model/knowledge.model';
 import Api from '../../common/utils/api';
 import Utils from '../../common/utils/utils';
 import { catchError } from 'rxjs/operators';

@@ -1,4 +1,4 @@
-import { TaskStatus } from '../dto/task.model';
+import { TaskStatus } from '../model/task.model';
 
 export const taskStatusTable = {
   [TaskStatus.CREATED]: { title: '已创建' },

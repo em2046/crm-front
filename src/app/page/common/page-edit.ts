@@ -1,5 +1,5 @@
 import { finalize } from 'rxjs/operators';
-import { Entity } from '../../common/dto/entity';
+import { Entity } from '../../common/class/entity';
 import { AlertService } from '../../common/service/alert.service';
 import Utils from '../../common/utils/utils';
 

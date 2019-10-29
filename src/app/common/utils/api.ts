@@ -42,4 +42,9 @@ export default class Api {
     assign: uuid => host + '/complaint/' + uuid + '/assign',
     finish: uuid => host + '/complaint/' + uuid + '/finish',
   };
+
+  static label = {
+    base: host + '/label',
+    uuid: uuid => host + '/label/' + uuid,
+  };
 }

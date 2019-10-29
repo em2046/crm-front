@@ -9,7 +9,7 @@ import { PageList } from '../../common/page-list';
 import { PageData } from '../../../common/class/page-data';
 import { KnowledgeService } from '../knowledge.service';
 import Utils from '../../../common/utils/utils';
-import { Knowledge } from '../../../common/dto/knowledge.model';
+import { Knowledge } from '../../../common/model/knowledge.model';
 import { KnowledgeEditComponent } from '../edit/knowledge-edit.component';
 
 @Component({

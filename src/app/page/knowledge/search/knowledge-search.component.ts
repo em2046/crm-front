@@ -6,7 +6,7 @@ import { AlertService } from '../../../common/service/alert.service';
 import { finalize } from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
 import Utils from 'src/app/common/utils/utils';
-import { Knowledge } from '../../../common/dto/knowledge.model';
+import { Knowledge } from '../../../common/model/knowledge.model';
 import { Tab } from '../../../common/class/tab';
 import { Page } from '../../../common/class/page';
 import { KnowledgeViewComponent } from '../view/knowledge-view.component';

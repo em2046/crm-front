@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import Complaint from '../../../common/dto/complaint.model';
+import Complaint from '../../../common/model/complaint.model';
 import { ComplaintService } from '../complaint.service';
 import { finalize } from 'rxjs/operators';
 import { taskStatusTable } from 'src/app/common/table/task.table';
-import { TaskStatus } from '../../../common/dto/task.model';
+import { TaskStatus } from '../../../common/model/task.model';
 import {
   ChipsAutocompleteComponent,
   Option,

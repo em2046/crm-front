@@ -9,7 +9,7 @@ import { CustomerListComponent } from '../../page/customer/list/customer-list.co
 import { KnowledgeListComponent } from '../../page/knowledge/list/knowledge-list.component';
 import { KnowledgeSearchComponent } from '../../page/knowledge/search/knowledge-search.component';
 import { ComplaintListComponent } from '../../page/complaint/list/complaint-list.component';
-import { LabelEditComponent } from '../../page/label/edit/label-edit.component';
+import { LabelListComponent } from '../../page/label/list/label-list.component';
 
 @Component({
   selector: 'app-menu',
@@ -105,8 +105,8 @@ export class MenuComponent implements OnInit {
       new Tab({
         title: '标签',
         icon: 'loyalty',
-        name: 'label',
-        page: new Page(LabelEditComponent, {}),
+        name: 'label-list',
+        page: new Page(LabelListComponent, {}),
       }),
     );
   }

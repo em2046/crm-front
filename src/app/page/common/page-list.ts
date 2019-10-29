@@ -1,6 +1,6 @@
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
-import { Entity } from '../../common/dto/entity';
+import { Entity } from '../../common/class/entity';
 import { AlertService } from '../../common/service/alert.service';
 
 export abstract class PageList<T extends Entity> {
