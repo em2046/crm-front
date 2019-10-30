@@ -28,6 +28,12 @@ export class LabelService {
       .pipe(catchError(this.errorService.handleError()));
   }
 
+  remove(uuid: string) {
+    return this.http
+      .delete(Api.label.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
   create(label) {
     return this.http
       .post<Label>(Api.label.base, label, Utils.httpOptions)

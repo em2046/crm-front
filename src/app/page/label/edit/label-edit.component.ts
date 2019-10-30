@@ -39,7 +39,7 @@ export class LabelEditComponent extends PageEdit<Label> implements OnInit {
     children: [
       {
         type: 'RULE',
-        rule: ['type', '=', 'vip'],
+        rule: ['type', 'IN', []],
       },
     ],
   };

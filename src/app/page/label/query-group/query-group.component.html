@@ -1,6 +1,6 @@
 <div class="query-group" *ngIf="data.type === 'GROUP'">
   <div class="query-operator" (click)="handleToggleOperator()">
-    {{ data.operator }}
+    {{ operatorTable[data.operator] || '' }}
   </div>
   <div class="query-list">
     <app-query-group
@@ -10,15 +10,16 @@
       (delete)="handleChildDelete($event)"
     ></app-query-group>
     <div class="query-add">
-      <button mat-flat-button (click)="handleAddGroup()">
+      <button type="button" mat-flat-button (click)="handleAddGroup()">
         <mat-icon>add_circle</mat-icon>
         添加组
       </button>
-      <button mat-flat-button (click)="handleAddRule()">
+      <button type="button" mat-flat-button (click)="handleAddRule()">
         <mat-icon>add_box</mat-icon>
         添加规则
       </button>
       <button
+        type="button"
         mat-flat-button
         *ngIf="index !== undefined"
         (click)="handleDelete()"
@@ -30,10 +31,83 @@
   </div>
 </div>
 <div class="query-rule" *ngIf="data.type === 'RULE'">
-  {{ data.rule[0] }}
-  {{ data.rule[1] }}
-  <input class="query-input" type="text" [(ngModel)]="data.rule[2]" />
-  <button mat-flat-button (click)="handleDelete()">
+  <mat-form-field>
+    <mat-select [(ngModel)]="data.rule[0]" (ngModelChange)="handleDataChange()">
+      <mat-option *ngFor="let type of typeList" [value]="type.value">
+        {{ type.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <span *ngIf="typeHash[data.rule[0]].dataType === 'int'">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.rule[1]">
+        <mat-option value=">">大于</mat-option>
+        <mat-option value="<">小于</mat-option>
+        <mat-option value=">=">大于等于</mat-option>
+        <mat-option value="<=">小于等于</mat-option>
+        <mat-option value="=">等于</mat-option>
+        <mat-option value="!=">不等于</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="data.rule[2]" />
+    </mat-form-field>
+  </span>
+
+  <span *ngIf="typeHash[data.rule[0]].dataType === 'text'">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.rule[1]">
+        <option value="=">等于</option>
+        <option value="!=">不等于</option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="data.rule[2]" />
+    </mat-form-field>
+  </span>
+
+  <span *ngIf="typeHash[data.rule[0]].dataType === 'enum'">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.rule[1]">
+        <mat-option value="IN">属于</mat-option>
+        <mat-option value="NOT IN">不属于</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isArray(data.rule[2])">
+      <mat-select [(ngModel)]="data.rule[2]" multiple>
+        <mat-option
+          *ngFor="let option of typeHash[data.rule[0]].dataSource"
+          [value]="option"
+          >{{ typeHash[data.rule[0]].dataTable[option].title }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </span>
+
+  <span *ngIf="typeHash[data.rule[0]].dataType === 'date'">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.rule[1]">
+        <mat-option value=">">大于</mat-option>
+        <mat-option value="<">小于</mat-option>
+        <mat-option value=">=">大于等于</mat-option>
+        <mat-option value="<=">小于等于</mat-option>
+        <mat-option value="=">等于</mat-option>
+        <mat-option value="!=">不等于</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.rule[2]" [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </span>
+
+  <button type="button" mat-flat-button (click)="handleDelete()">
     <mat-icon>delete</mat-icon>
     删除规则
   </button>

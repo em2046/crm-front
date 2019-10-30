@@ -9,13 +9,16 @@ import { TabService } from '../../../framework/tab.service';
 import { Tab } from '../../../common/class/tab';
 import { Page } from 'src/app/common/class/page';
 import { LabelEditComponent } from '../edit/label-edit.component';
+import { PageData } from '../../../common/class/page-data';
+import { AlertService } from '../../../common/service/alert.service';
 
 @Component({
   selector: 'app-label-list',
   templateUrl: './label-list.component.html',
   styleUrls: ['../../common/list.less', './label-list.component.less'],
 })
-export class LabelListComponent extends PageList<Label> implements OnInit {
+export class LabelListComponent extends PageList<Label>
+  implements OnInit, PageData {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   getLoading = false;
@@ -26,8 +29,9 @@ export class LabelListComponent extends PageList<Label> implements OnInit {
   displayedColumns: string[] = ['title', 'operation'];
 
   constructor(
-    private labelService: LabelService,
+    public service: LabelService,
     public tabService: TabService,
+    public alertService: AlertService,
   ) {
     super();
   }
@@ -38,7 +42,7 @@ export class LabelListComponent extends PageList<Label> implements OnInit {
 
   getItems() {
     this.getLoading = true;
-    this.labelService
+    this.service
       .getLabels()
       .pipe(
         finalize(() => {

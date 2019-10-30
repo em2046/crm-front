@@ -26,6 +26,20 @@
   }
 }
 
+:host ::ng-deep {
+  .mat-form-field-infix {
+    border-top: 0;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+    bottom: 0;
+  }
+}
+
 .query-operator {
   background-color: #808080;
   border-radius: 10px;
@@ -38,6 +52,7 @@
   color: #fff;
   margin-left: -20px;
   cursor: pointer;
+  flex-shrink: 0;
 
   &:hover {
     background-color: #3f51b5;
@@ -51,10 +66,15 @@
   margin: 10px;
   display: flex;
   align-items: center;
+
+  span {
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 .query-add {
-  margin-left: 30px;
 }
 
 button.mat-flat-button {
@@ -67,18 +87,4 @@ button.mat-flat-button {
   width: 18px;
   height: 18px;
   font-size: 18px;
-}
-
-.query-input {
-  width: 100px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  height: 26px;
-  padding: 5px;
-  box-sizing: border-box;
-  border-radius: 4px;
-
-  &:focus {
-    outline: none;
-    border-color: #3f51b5;
-  }
 }
