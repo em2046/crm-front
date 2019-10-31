@@ -47,4 +47,8 @@ export default class Api {
     base: host + '/label',
     uuid: uuid => host + '/label/' + uuid,
   };
+
+  static statistics = {
+    base: host + '/statistics',
+  };
 }

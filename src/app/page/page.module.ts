@@ -21,6 +21,7 @@ import { ComplaintViewComponent } from './complaint/view/complaint-view.componen
 import { LabelEditComponent } from './label/edit/label-edit.component';
 import { QueryGroupComponent } from './label/query-group/query-group.component';
 import { LabelListComponent } from './label/list/label-list.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { LabelListComponent } from './label/list/label-list.component';
     LabelEditComponent,
     QueryGroupComponent,
     LabelListComponent,
+    StatisticsComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -59,6 +61,7 @@ import { LabelListComponent } from './label/list/label-list.component';
     ComplaintViewComponent,
     LabelEditComponent,
     LabelListComponent,
+    StatisticsComponent,
   ],
   imports: [
     CommonModule,

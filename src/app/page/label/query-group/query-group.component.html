@@ -59,8 +59,8 @@
   <span *ngIf="typeHash[data.rule[0]].dataType === 'text'">
     <mat-form-field>
       <mat-select [(ngModel)]="data.rule[1]">
-        <option value="=">等于</option>
-        <option value="!=">不等于</option>
+        <mat-option value="=">等于</mat-option>
+        <mat-option value="!=">不等于</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -104,6 +104,36 @@
       <input matInput [(ngModel)]="data.rule[2]" [matDatepicker]="picker" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </span>
+
+  <span *ngIf="typeHash[data.rule[0]].dataType === 'city'">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.rule[1]">
+        <mat-option value="=">等于</mat-option>
+        <mat-option value="!=">不等于</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="text"
+        placeholder=""
+        aria-label="City"
+        matInput
+        [formControl]="city"
+        [matAutocomplete]="auto"
+        (blur)="handleCityClosed()"
+      />
+      <mat-icon matSuffix>location_city</mat-icon>
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="cityDisplay"
+        (closed)="handleCityClosed()"
+      >
+        <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+          {{ city.name }}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
   </span>
 

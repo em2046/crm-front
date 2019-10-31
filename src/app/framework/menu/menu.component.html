@@ -1,4 +1,13 @@
 <mat-nav-list>
+  <mat-list-item (click)="handleOpenStatistics()">
+    <mat-icon mat-list-icon>equalizer</mat-icon>
+    <p mat-line>数据统计</p>
+  </mat-list-item>
+</mat-nav-list>
+
+<mat-divider></mat-divider>
+
+<mat-nav-list>
   <h3 mat-subheader>客服工作台</h3>
 
   <mat-list-item (click)="handleOpenComplaint()">

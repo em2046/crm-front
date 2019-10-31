@@ -1,0 +1,70 @@
+<article class="page">
+  <h2>{{ today | date: 'yyyy-MM-dd' }}</h2>
+  <section class="statistics-card">
+    <dl>
+      <dt>
+        客服总数
+      </dt>
+      <dd>
+        {{ data.user?.staffCount }}
+      </dd>
+    </dl>
+
+    <dl>
+      <dt>
+        客服主管总数
+      </dt>
+      <dd>
+        {{ data.user?.staffCount }}
+      </dd>
+    </dl>
+
+    <dl>
+      <dt>
+        运营总数
+      </dt>
+      <dd>
+        {{ data.user?.staffCount }}
+      </dd>
+    </dl>
+  </section>
+  <section class="statistics-card">
+    <dl>
+      <dt>
+        客户总数
+      </dt>
+      <dd>
+        {{ data.customer?.customerCount }}
+      </dd>
+    </dl>
+
+    <dl>
+      <dt>
+        VIP客户总数
+      </dt>
+      <dd>
+        {{ data.customer?.vipCount }}
+      </dd>
+    </dl>
+  </section>
+  <section class="statistics-card">
+    <dl>
+      <dt>
+        文章总数
+      </dt>
+      <dd>
+        {{ data.knowledgeCount }}
+      </dd>
+    </dl>
+  </section>
+  <section class="statistics-card">
+    <dl>
+      <dt>
+        标签总数
+      </dt>
+      <dd>
+        {{ data.labelCount }}
+      </dd>
+    </dl>
+  </section>
+</article>

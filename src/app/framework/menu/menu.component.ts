@@ -10,6 +10,7 @@ import { KnowledgeListComponent } from '../../page/knowledge/list/knowledge-list
 import { KnowledgeSearchComponent } from '../../page/knowledge/search/knowledge-search.component';
 import { ComplaintListComponent } from '../../page/complaint/list/complaint-list.component';
 import { LabelListComponent } from '../../page/label/list/label-list.component';
+import { StatisticsComponent } from '../../page/statistics/statistics.component';
 
 @Component({
   selector: 'app-menu',
@@ -107,6 +108,17 @@ export class MenuComponent implements OnInit {
         icon: 'loyalty',
         name: 'label-list',
         page: new Page(LabelListComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenStatistics() {
+    this.tabService.mission(
+      new Tab({
+        title: '数据统计',
+        icon: 'equalizer',
+        name: 'statistics',
+        page: new Page(StatisticsComponent, {}),
       }),
     );
   }
