@@ -7,6 +7,9 @@ import { TabService } from '../tab.service';
 import { Tab } from '../../common/class/tab';
 import { CustomerListComponent } from '../../page/customer/list/customer-list.component';
 import { KnowledgeListComponent } from '../../page/knowledge/list/knowledge-list.component';
+import { KnowledgeSearchComponent } from '../../page/knowledge/search/knowledge-search.component';
+import { ComplaintListComponent } from '../../page/complaint/list/complaint-list.component';
+import { LabelListComponent } from '../../page/label/list/label-list.component';
 
 @Component({
   selector: 'app-menu',
@@ -64,13 +67,46 @@ export class MenuComponent implements OnInit {
     );
   }
 
-  handleOpenKnowledge() {
+  handleOpenKnowledgeList() {
     this.tabService.mission(
       new Tab({
         title: '知识管理',
         icon: 'local_library',
-        name: 'knowledge',
+        name: 'knowledge-list',
         page: new Page(KnowledgeListComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenKnowledgeSearch() {
+    this.tabService.mission(
+      new Tab({
+        title: '知识查询',
+        icon: 'search',
+        name: 'knowledge-search',
+        page: new Page(KnowledgeSearchComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenComplaint() {
+    this.tabService.mission(
+      new Tab({
+        title: '客户投诉',
+        icon: 'chat',
+        name: 'complaint-list',
+        page: new Page(ComplaintListComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenLabel() {
+    this.tabService.mission(
+      new Tab({
+        title: '标签',
+        icon: 'loyalty',
+        name: 'label-list',
+        page: new Page(LabelListComponent, {}),
       }),
     );
   }

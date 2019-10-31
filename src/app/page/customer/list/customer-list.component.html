@@ -22,10 +22,10 @@
     <mat-progress-bar mode="query" *ngIf="getLoading"></mat-progress-bar>
     <mat-table [dataSource]="dataSource" class="list-table" matSort>
       <ng-container matColumnDef="name">
-        <mat-header-cell class="col_name" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-name" mat-sort-header *matHeaderCellDef>
           客户用户名
         </mat-header-cell>
-        <mat-cell class="col_name" *matCellDef="let element">
+        <mat-cell class="col-name" *matCellDef="let element">
           {{ element.name }}
         </mat-cell>
       </ng-container>
@@ -57,19 +57,19 @@
       </ng-container>
 
       <ng-container matColumnDef="type">
-        <mat-header-cell class="col_type" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-type" mat-sort-header *matHeaderCellDef>
           类型
         </mat-header-cell>
-        <mat-cell class="col_type" *matCellDef="let element">
+        <mat-cell class="col-type" *matCellDef="let element">
           {{ customerTypeTable[element.type].title }}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="level">
-        <mat-header-cell class="col_level" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-level" mat-sort-header *matHeaderCellDef>
           等级
         </mat-header-cell>
-        <mat-cell class="col_level" *matCellDef="let element">
+        <mat-cell class="col-level" *matCellDef="let element">
           <mat-icon>{{ customerLevelTable[element.level].icon }}</mat-icon>
         </mat-cell>
       </ng-container>
@@ -88,41 +88,41 @@
       </ng-container>
 
       <ng-container matColumnDef="gender">
-        <mat-header-cell class="col_gender" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-gender" mat-sort-header *matHeaderCellDef>
           性别
         </mat-header-cell>
-        <mat-cell class="col_gender" *matCellDef="let element">
+        <mat-cell class="col-gender" *matCellDef="let element">
           {{ customerGenderTable[element.gender].title }}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="birthday">
-        <mat-header-cell class="col_birthday" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-birthday" mat-sort-header *matHeaderCellDef>
           生日
         </mat-header-cell>
-        <mat-cell class="col_birthday" *matCellDef="let element">
+        <mat-cell class="col-birthday" *matCellDef="let element">
           {{ element.birthday | date: 'yyyy-MM-dd' }}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="city">
-        <mat-header-cell class="col_city" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-city" mat-sort-header *matHeaderCellDef>
           城市
         </mat-header-cell>
-        <mat-cell class="col_city" *matCellDef="let element">
+        <mat-cell class="col-city" *matCellDef="let element">
           {{ citiesTable[element.city]?.name }}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="occupation">
         <mat-header-cell
-          class="col_occupation"
+          class="col-occupation"
           mat-sort-header
           *matHeaderCellDef
         >
           职业
         </mat-header-cell>
-        <mat-cell class="col_occupation" *matCellDef="let element">
+        <mat-cell class="col-occupation" *matCellDef="let element">
           {{ element.occupation }}
         </mat-cell>
       </ng-container>
@@ -142,13 +142,13 @@
 
       <ng-container matColumnDef="education">
         <mat-header-cell
-          class="col_education"
+          class="col-education"
           mat-sort-header
           *matHeaderCellDef
         >
           学历
         </mat-header-cell>
-        <mat-cell class="col_education" *matCellDef="let element">
+        <mat-cell class="col-education" *matCellDef="let element">
           {{ customerEducationTable[element.education].title }}
         </mat-cell>
       </ng-container>
@@ -202,19 +202,19 @@
       </ng-container>
 
       <ng-container matColumnDef="qq">
-        <mat-header-cell class="col_qq" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-qq" mat-sort-header *matHeaderCellDef>
           QQ号
         </mat-header-cell>
-        <mat-cell class="col_qq" *matCellDef="let element">
+        <mat-cell class="col-qq" *matCellDef="let element">
           {{ element.qq }}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="email">
-        <mat-header-cell class="col_email" mat-sort-header *matHeaderCellDef>
+        <mat-header-cell class="col-email" mat-sort-header *matHeaderCellDef>
           邮箱地址
         </mat-header-cell>
-        <mat-cell class="col_email" *matCellDef="let element">
+        <mat-cell class="col-email" *matCellDef="let element">
           {{ element.email }}
         </mat-cell>
       </ng-container>
@@ -231,11 +231,7 @@
           <span>操作</span>
         </mat-header-cell>
         <mat-cell class="col-operation" *matCellDef="let element">
-          <button
-            mat-flat-button
-            (click)="handleEdit(element)"
-            [disabled]="element.name === 'admin'"
-          >
+          <button mat-flat-button (click)="handleEdit(element)">
             <mat-icon>edit</mat-icon>
             <span>编辑</span>
           </button>
@@ -243,7 +239,7 @@
             mat-flat-button
             (click)="handleDelete(element)"
             [color]="isWaiting(element.uuid) ? 'warn' : null"
-            [disabled]="element.name === 'admin' || isDeleting(element.uuid)"
+            [disabled]="isDeleting(element.uuid)"
           >
             <mat-icon *ngIf="!isDeleting(element.uuid)">
               {{ isWaiting(element.uuid) ? 'delete_forever' : 'delete' }}

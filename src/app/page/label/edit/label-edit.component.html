@@ -1,0 +1,41 @@
+<article class="page">
+  <form
+    class="label-edit-form"
+    [formGroup]="editForm"
+    (ngSubmit)="onSubmit(editForm.value)"
+  >
+    <mat-form-field appearance="outline" *ngIf="isEdit">
+      <mat-label>编号</mat-label>
+      <input matInput [value]="label.uuid || ''" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>名称</mat-label>
+      <input formControlName="title" matInput placeholder="Title" required />
+      <mat-icon matSuffix></mat-icon>
+      <mat-hint align="end">4-256个字符</mat-hint>
+      <mat-error *ngIf="title.invalid">
+        {{ Utils.getValidateMessage(title, '名称') }}
+      </mat-error>
+    </mat-form-field>
+
+    <section class="rule-wrap">
+      <app-query-group [data]="ruleJson"></app-query-group>
+    </section>
+
+    <section>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="saveLoading"
+      >
+        <span>保存</span>
+        <mat-spinner *ngIf="saveLoading" color="primary"></mat-spinner>
+      </button>
+      <button mat-flat-button type="button" (click)="resetForm()">
+        <span>重置</span>
+      </button>
+    </section>
+  </form>
+</article>

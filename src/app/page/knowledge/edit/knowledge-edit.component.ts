@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEdit } from '../../common/page-edit';
-import { Knowledge } from '../../../common/dto/knowledge.model';
+import { Knowledge } from '../../../common/model/knowledge.model';
 import { KnowledgeService } from '../knowledge.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../common/service/alert.service';

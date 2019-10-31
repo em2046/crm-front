@@ -6,7 +6,7 @@ import {
   ChipsAutocompleteComponent,
   Option,
 } from '../../../components/chips-autocomplete/chips-autocomplete.component';
-import { Role } from '../../../common/dto/role.model';
+import { Role } from '../../../common/model/role.model';
 import { PageData } from '../../../common/class/page-data';
 import { PermissionService } from '../../../common/service/permission.service';
 import { PageEdit } from '../../common/page-edit';

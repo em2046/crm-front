@@ -1,0 +1,90 @@
+.query-group {
+  position: relative;
+  border-left: solid 1px rgba(0, 0, 0, 0.12);
+  margin: 10px 0 10px 30px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 0;
+    content: '';
+    display: block;
+    width: 10px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
+  &:before {
+    top: 0;
+  }
+
+  &:after {
+    bottom: 0;
+  }
+}
+
+:host ::ng-deep {
+  .mat-form-field-infix {
+    border-top: 0;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+    bottom: 0;
+  }
+}
+
+.query-operator {
+  background-color: #808080;
+  border-radius: 10px;
+  font-size: 12px;
+  width: 40px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  margin-left: -20px;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: #3f51b5;
+  }
+}
+
+.query-list {
+}
+
+.query-rule {
+  margin: 10px;
+  display: flex;
+  align-items: center;
+
+  span {
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+.query-add {
+}
+
+button.mat-flat-button {
+  font-size: 12px;
+  line-height: 26px;
+  padding: 0 6px;
+}
+
+.mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}

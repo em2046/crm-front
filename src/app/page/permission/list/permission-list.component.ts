@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
-import { Permission } from '../../../common/dto/permission.model';
+import { Permission } from '../../../common/model/permission.model';
 import Utils from '../../../common/utils/utils';
 import { PageList } from '../../common/page-list';
 import { PageData } from '../../../common/class/page-data';

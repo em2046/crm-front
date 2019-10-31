@@ -4,7 +4,7 @@ import { finalize } from 'rxjs/operators';
 import { AlertService } from '../../../common/service/alert.service';
 import { TabService } from '../../../framework/tab.service';
 import { Tab } from '../../../common/class/tab';
-import { Role } from '../../../common/dto/role.model';
+import { Role } from '../../../common/model/role.model';
 import { Page } from '../../../common/class/page';
 import { PageList } from '../../common/page-list';
 import { PageData } from '../../../common/class/page-data';

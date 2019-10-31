@@ -32,5 +32,19 @@ export default class Api {
   static knowledge = {
     base: host + '/knowledge',
     uuid: uuid => host + '/knowledge/' + uuid,
+    search: host + '/knowledge/search',
+  };
+
+  static complaint = {
+    base: host + '/complaint',
+    uuid: uuid => host + '/complaint/' + uuid,
+    update: uuid => host + '/complaint/' + uuid + '/update',
+    assign: uuid => host + '/complaint/' + uuid + '/assign',
+    finish: uuid => host + '/complaint/' + uuid + '/finish',
+  };
+
+  static label = {
+    base: host + '/label',
+    uuid: uuid => host + '/label/' + uuid,
   };
 }

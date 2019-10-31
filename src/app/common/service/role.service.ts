@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Api from '../utils/api';
 import Utils from '../utils/utils';
-import { Role } from '../dto/role.model';
+import { Role } from '../model/role.model';
 import { ErrorService } from './error.service';
 
 @Injectable({

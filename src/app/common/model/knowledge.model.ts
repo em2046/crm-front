@@ -1,6 +1,6 @@
 export interface Knowledge {
   uuid?: string;
-  title: string;
+  title?: string;
   content?: string;
   author?: string;
   createDate?: string;

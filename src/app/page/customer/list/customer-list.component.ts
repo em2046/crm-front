@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageList } from '../../common/page-list';
-import { Customer } from '../../../common/dto/customer.model';
+import { Customer } from '../../../common/model/customer.model';
 import { CustomerService } from '../customer.service';
 import { finalize } from 'rxjs/operators';
 import { MatSort, MatTableDataSource } from '@angular/material';

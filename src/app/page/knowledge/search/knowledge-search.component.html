@@ -1,0 +1,32 @@
+<article class="page">
+  <header class="page-header">
+    <h2>知识查询</h2>
+  </header>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)">
+    <mat-form-field appearance="legacy">
+      <mat-label>关键词</mat-label>
+      <input matInput placeholder="Keyword" formControlName="keyword" />
+      <mat-error *ngIf="keyword.invalid">
+        {{ Utils.getValidateMessage(keyword, '关键词') }}
+      </mat-error>
+    </mat-form-field>
+    <button mat-flat-button type="submit" color="primary">
+      <mat-icon matSuffix>search</mat-icon>
+      <span>搜索</span>
+    </button>
+  </form>
+  <mat-card class="knowledge-post" *ngFor="let post of list">
+    <mat-card-header>
+      <mat-card-title>{{ post.title }}</mat-card-title>
+      <mat-card-subtitle>{{ post.author }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div [innerHTML]="post.content"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" (click)="handleView(post)">
+        查看
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</article>

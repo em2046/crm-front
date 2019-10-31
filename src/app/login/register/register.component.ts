@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AlertService } from 'src/app/common/service/alert.service';
 import Utils from '../../common/utils/utils';
-import { User } from '../../common/dto/user.model';
+import { User } from '../../common/model/user.model';
 import { AvatarsComponent } from '../avatars/avatars.component';
 import { LoginService } from '../login.service';
 

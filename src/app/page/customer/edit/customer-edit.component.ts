@@ -12,7 +12,7 @@ import {
   CustomerGender,
   CustomerEducation,
   CustomerMaritalStatus,
-} from '../../../common/dto/customer.model';
+} from '../../../common/model/customer.model';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlertService } from '../../../common/service/alert.service';
 import { CustomerService } from '../customer.service';

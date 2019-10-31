@@ -4,7 +4,7 @@ import {
   CustomerLevel,
   CustomerMaritalStatus,
   CustomerType,
-} from '../dto/customer.model';
+} from '../model/customer.model';
 
 export const customerTypeTable = {
   [CustomerType.NORMAL]: { title: '普通会员' },

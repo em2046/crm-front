@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import Api from '../common/utils/api';
 import Utils from '../common/utils/utils';
 import { AccessToken } from '../common/class/access-token';
-import { User } from '../common/dto/user.model';
+import { User } from '../common/model/user.model';
 import { ErrorService } from '../common/service/error.service';
 
 @Injectable({

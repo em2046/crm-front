@@ -1,0 +1,79 @@
+<article class="page">
+  <h2>{{ complaint.title }}</h2>
+  <section class="description">
+    {{ complaint.description }}
+  </section>
+  <div class="task-process">
+    <div
+      class="task-step"
+      [class.is-current]="TaskStatus.CREATED === complaint.status"
+    >
+      {{ taskStatusTable[TaskStatus.CREATED]?.title }}
+    </div>
+    <div
+      class="task-step"
+      [class.is-current]="TaskStatus.ASSIGNED === complaint.status"
+    >
+      {{ taskStatusTable[TaskStatus.ASSIGNED]?.title }}
+    </div>
+    <div
+      class="task-step"
+      [class.is-current]="TaskStatus.FINISHED === complaint.status"
+    >
+      {{ taskStatusTable[TaskStatus.FINISHED]?.title }}
+    </div>
+  </div>
+  <div class="assignee-box" *ngIf="complaint.status === TaskStatus.CREATED">
+    <app-chips-autocomplete
+      #chipsAutoAssign
+      [max]="1"
+      label="指派"
+      icon="arrow_forward"
+      placeholder="User"
+      [(selectedOptions)]="selectedUsers"
+      [allOptions]="allUsers"
+    ></app-chips-autocomplete>
+
+    <button mat-flat-button color="primary" (click)="handleAssign()">
+      <mat-icon>forward</mat-icon>
+      指派
+    </button>
+  </div>
+  <div *ngIf="complaint.status === TaskStatus.ASSIGNED">
+    <button mat-flat-button color="primary" (click)="handleFinish()">
+      <mat-icon>done</mat-icon>
+      完成
+    </button>
+  </div>
+  <div *ngIf="complaint.status === TaskStatus.FINISHED">
+    <p>此任务已经处理完成</p>
+  </div>
+  <div class="details">
+    <dl>
+      <dt>处理人：</dt>
+      <dd>{{ complaint.assignee?.realName }}</dd>
+    </dl>
+    <dl>
+      <dt>状态：</dt>
+      <dd>{{ taskStatusTable[complaint.status]?.title }}</dd>
+    </dl>
+    <dl>
+      <dt>创建时间：</dt>
+      <dd>
+        <span class="date">{{
+          complaint.createDate | date: 'yyyy-MM-dd'
+        }}</span>
+        <span class="time">{{ complaint.createDate | date: 'HH:mm' }}</span>
+      </dd>
+    </dl>
+    <dl>
+      <dt>更新时间：</dt>
+      <dd>
+        <span class="date">{{
+          complaint.updateDate | date: 'yyyy-MM-dd'
+        }}</span>
+        <span class="time">{{ complaint.updateDate | date: 'HH:mm' }}</span>
+      </dd>
+    </dl>
+  </div>
+</article>

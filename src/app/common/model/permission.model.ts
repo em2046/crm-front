@@ -1,5 +1,5 @@
 export class Permission {
-  uuid: string;
+  uuid?: string;
   name?: string;
   title?: string;
 }

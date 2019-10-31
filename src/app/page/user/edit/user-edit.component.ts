@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AlertService } from '../../../common/service/alert.service';
-import { User } from '../../../common/dto/user.model';
+import { User } from '../../../common/model/user.model';
 import { PageData } from '../../../common/class/page-data';
 import { RoleService } from '../../../common/service/role.service';
 import { UserService } from '../../../common/service/user.service';

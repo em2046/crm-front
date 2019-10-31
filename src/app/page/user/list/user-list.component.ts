@@ -3,7 +3,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 import { finalize } from 'rxjs/operators';
 import { AlertService } from '../../../common/service/alert.service';
 import { Tab } from '../../../common/class/tab';
-import { User } from '../../../common/dto/user.model';
+import { User } from '../../../common/model/user.model';
 import { TabService } from '../../../framework/tab.service';
 import { Page } from '../../../common/class/page';
 import { PageList } from '../../common/page-list';

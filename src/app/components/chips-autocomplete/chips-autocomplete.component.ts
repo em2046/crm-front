@@ -62,6 +62,9 @@ export class ChipsAutocompleteComponent implements OnInit {
   @Input()
   allOptions: Option[] = [];
 
+  @Input()
+  max?: number;
+
   @ViewChild('input', { static: false })
   optionInput: ElementRef<HTMLInputElement>;
 
@@ -90,6 +93,9 @@ export class ChipsAutocompleteComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
+    const max = this.max;
+    const full = typeof max === 'number' && this.selectedOptions.length >= max;
+
     // Add fruit only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
@@ -98,9 +104,9 @@ export class ChipsAutocompleteComponent implements OnInit {
 
       // Add our fruit
       if ((value || '').trim()) {
-        const role = this.find(value);
-        if (role) {
-          this.selectedOptions.push(role);
+        const option = this.find(value);
+        if (option && !full) {
+          this.selectedOptions.push(option);
           this.selectedOptionsChange.emit(this.selectedOptions);
         }
       }
@@ -130,11 +136,14 @@ export class ChipsAutocompleteComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+    const max = this.max;
+    const full = typeof max === 'number' && this.selectedOptions.length >= max;
+
     const option = this.find(event.option.viewValue);
     const alreadySelected = this.selectedOptions.find(selected => {
       return selected.value === option.value;
     });
-    if (!alreadySelected) {
+    if (!alreadySelected && !full) {
       this.selectedOptions.push(option);
       this.selectedOptionsChange.emit(this.selectedOptions);
     }

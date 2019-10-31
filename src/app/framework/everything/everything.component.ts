@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Utils from '../../common/utils/utils';
 import { TabService } from '../tab.service';
-import { User } from '../../common/dto/user.model';
+import { User } from '../../common/model/user.model';
 import { UserService } from '../../common/service/user.service';
 import { Tab } from '../../common/class/tab';
 
