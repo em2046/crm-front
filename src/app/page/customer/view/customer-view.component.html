@@ -1,0 +1,90 @@
+<article class="page">
+  <dl>
+    <dt>客户用户名</dt>
+    <dd>{{ customer.name }}</dd>
+  </dl>
+
+  <dl>
+    <dt>昵称</dt>
+    <dd>{{ customer.nickName || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>真实姓名</dt>
+    <dd>{{ customer.realName || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>类型</dt>
+    <dd>{{ customerTypeTable[customer.type]?.title }}</dd>
+  </dl>
+
+  <dl>
+    <dt>等级</dt>
+    <dd>
+      <mat-icon>{{ customerLevelTable[customer.level]?.icon }}</mat-icon>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt>性别</dt>
+    <dd>{{ customerGenderTable[customer.gender]?.title }}</dd>
+  </dl>
+
+  <dl>
+    <dt>生日</dt>
+    <dd>{{ customer.birthday | date: 'yyyy-MM-dd' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>城市</dt>
+    <dd>{{ citiesTable[customer.city]?.name || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>职业</dt>
+    <dd>{{ customer.occupation || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>年收入（元）</dt>
+    <dd>{{ customer.annualIncome | currency: 'CNY':'symbol-narrow' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>学历</dt>
+    <dd>{{ customerEducationTable[customer.education]?.title }}</dd>
+  </dl>
+
+  <dl>
+    <dt>婚姻状况</dt>
+    <dd>
+      {{ customerMaritalStatusTable[customer.maritalStatus]?.title }}
+    </dd>
+  </dl>
+
+  <dl>
+    <dt>孩子数量</dt>
+    <dd>{{ customer.numberOfChildren || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>手机号</dt>
+    <dd>{{ customer.phoneNumber || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>微信号</dt>
+    <dd>{{ customer.weChat || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>QQ号</dt>
+    <dd>{{ customer.qq || '--' }}</dd>
+  </dl>
+
+  <dl>
+    <dt>邮箱地址</dt>
+    <dd>{{ customer.email || '--' }}</dd>
+  </dl>
+</article>

@@ -6,6 +6,7 @@ import Utils from '../../common/utils/utils';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { ErrorService } from '../../common/service/error.service';
+import { SaleCustomer } from '../../common/model/sale-customer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,15 @@ export class SaleService {
   getSale(uuid): Observable<Sale> {
     return this.http
       .get(Api.sale.uuid(uuid), Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  finishSub(uuid: string): Observable<SaleCustomer> {
+    const body = {
+      finished: true,
+    };
+    return this.http
+      .patch(Api.saleCustomer.update(uuid), body, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 }

@@ -26,7 +26,7 @@
           客户用户名
         </mat-header-cell>
         <mat-cell class="col-name" *matCellDef="let element">
-          {{ element.name }}
+          <a (click)="handleView(element)">{{ element.name }}</a>
         </mat-cell>
       </ng-container>
 

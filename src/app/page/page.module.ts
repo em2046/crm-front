@@ -25,6 +25,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { SaleListComponent } from './sale/list/sale-list.component';
 import { SaleEditComponent } from './sale/edit/sale-edit.component';
 import { SaleViewComponent } from './sale/view/sale-view.component';
+import { CustomerViewComponent } from './customer/view/customer-view.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { SaleViewComponent } from './sale/view/sale-view.component';
     SaleListComponent,
     SaleEditComponent,
     SaleViewComponent,
+    CustomerViewComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -71,6 +73,7 @@ import { SaleViewComponent } from './sale/view/sale-view.component';
     SaleListComponent,
     SaleEditComponent,
     SaleViewComponent,
+    CustomerViewComponent,
   ],
   imports: [
     CommonModule,
