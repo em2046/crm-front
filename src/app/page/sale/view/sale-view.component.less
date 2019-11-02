@@ -1,0 +1,69 @@
+.description {
+  margin: 20px 0;
+  max-height: 100px;
+}
+
+.details {
+  margin: 20px 0;
+
+  dl {
+    display: flex;
+  }
+
+  dt {
+    width: 100px;
+    text-align: right;
+  }
+
+  dd {
+    margin-left: 20px;
+  }
+}
+
+.date,
+.time {
+  word-break: keep-all;
+}
+
+.date {
+  margin-right: 5px;
+}
+
+.assignee-box {
+  width: 500px;
+}
+
+.task-process {
+  margin: 20px 0;
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  font-size: 14px;
+
+  &:before {
+    position: absolute;
+    display: block;
+    content: '';
+    width: 400px;
+    height: 2px;
+    margin-top: 14px;
+    background-color: #ccc;
+  }
+}
+
+.task-step {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+
+  &.is-current {
+    background-color: #3f51b5;
+    color: #fff;
+  }
+}

@@ -1,0 +1,145 @@
+<article class="page">
+  <header class="page-header">
+    <h2>投诉列表</h2>
+    <section class="button-group">
+      <button mat-flat-button (click)="handleAdd()">
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>新增</span>
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="refreshPage()"
+        [disabled]="getLoading"
+      >
+        <mat-icon *ngIf="!getLoading">refresh</mat-icon>
+        <span>刷新</span>
+        <mat-spinner *ngIf="getLoading" color="primary"></mat-spinner>
+      </button>
+    </section>
+  </header>
+  <div class="table-box">
+    <mat-progress-bar mode="query" *ngIf="getLoading"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" class="list-table" matSort>
+      <ng-container matColumnDef="title">
+        <mat-header-cell class="col-title" mat-sort-header *matHeaderCellDef>
+          标题
+        </mat-header-cell>
+        <mat-cell class="col-title" *matCellDef="let element">
+          {{ element.title }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell
+          class="col-description"
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          描述
+        </mat-header-cell>
+        <mat-cell class="col-description" *matCellDef="let element">
+          {{ element.description }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignee">
+        <mat-header-cell class="col-assignee" mat-sort-header *matHeaderCellDef>
+          处理人
+        </mat-header-cell>
+        <mat-cell class="col-assignee" *matCellDef="let element">
+          {{ element.assignee.realName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell class="col-status" mat-sort-header *matHeaderCellDef>
+          状态
+        </mat-header-cell>
+        <mat-cell class="col-status" *matCellDef="let element">
+          {{ taskStatusTable[element.status].title }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createDate">
+        <mat-header-cell
+          class="col-create-date"
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          创建时间
+        </mat-header-cell>
+        <mat-cell class="col-create-date" *matCellDef="let element">
+          <span class="date">{{
+            element.createDate | date: 'yyyy-MM-dd'
+          }}</span>
+          <span class="time">{{ element.createDate | date: 'HH:mm' }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="updateDate">
+        <mat-header-cell
+          class="col-update-date"
+          mat-sort-header
+          *matHeaderCellDef
+        >
+          更新时间
+        </mat-header-cell>
+        <mat-cell class="col-update-date" *matCellDef="let element">
+          <span class="date">{{
+            element.updateDate | date: 'yyyy-MM-dd'
+          }}</span>
+          <span class="time">{{ element.updateDate | date: 'HH:mm' }}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="operation" [stickyEnd]="stickyEnd">
+        <mat-header-cell
+          class="col-operation"
+          *matHeaderCellDef
+          matRipple
+          (click)="handleToggleSticky()"
+        >
+          <mat-icon *ngIf="!stickyEnd">layers</mat-icon>
+          <mat-icon *ngIf="stickyEnd">layers_clear</mat-icon>
+          <span>操作</span>
+        </mat-header-cell>
+        <mat-cell class="col-operation" *matCellDef="let element">
+          <button mat-flat-button (click)="handleView(element)">
+            <mat-icon>pageview</mat-icon>
+            <span>查看</span>
+          </button>
+          <button mat-flat-button (click)="handleEdit(element)">
+            <mat-icon>edit</mat-icon>
+            <span>编辑</span>
+          </button>
+          <button
+            mat-flat-button
+            (click)="handleDelete(element)"
+            [color]="isWaiting(element.uuid) ? 'warn' : null"
+            [disabled]="isDeleting(element.uuid)"
+          >
+            <mat-icon *ngIf="!isDeleting(element.uuid)">
+              {{ isWaiting(element.uuid) ? 'delete_forever' : 'delete' }}
+            </mat-icon>
+            <span>删除</span>
+            <mat-spinner
+              *ngIf="isDeleting(element.uuid)"
+              color="primary"
+            ></mat-spinner>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+  <mat-paginator
+    [length]="pagination.length"
+    [pageSize]="pagination.pageSize"
+    [pageSizeOptions]="Utils.pageSizeOptions"
+    (page)="handlePageEvent($event)"
+  >
+  </mat-paginator>
+</article>

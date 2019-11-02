@@ -11,6 +11,7 @@ import { KnowledgeSearchComponent } from '../../page/knowledge/search/knowledge-
 import { ComplaintListComponent } from '../../page/complaint/list/complaint-list.component';
 import { LabelListComponent } from '../../page/label/list/label-list.component';
 import { StatisticsComponent } from '../../page/statistics/statistics.component';
+import { SaleListComponent } from '../../page/sale/list/sale-list.component';
 
 @Component({
   selector: 'app-menu',
@@ -119,6 +120,17 @@ export class MenuComponent implements OnInit {
         icon: 'equalizer',
         name: 'statistics',
         page: new Page(StatisticsComponent, {}),
+      }),
+    );
+  }
+
+  handleOpenSale() {
+    this.tabService.mission(
+      new Tab({
+        title: '营销任务',
+        icon: 'trending_up',
+        name: 'sale-list',
+        page: new Page(SaleListComponent, {}),
       }),
     );
   }

@@ -22,6 +22,9 @@ import { LabelEditComponent } from './label/edit/label-edit.component';
 import { QueryGroupComponent } from './label/query-group/query-group.component';
 import { LabelListComponent } from './label/list/label-list.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { SaleListComponent } from './sale/list/sale-list.component';
+import { SaleEditComponent } from './sale/edit/sale-edit.component';
+import { SaleViewComponent } from './sale/view/sale-view.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     QueryGroupComponent,
     LabelListComponent,
     StatisticsComponent,
+    SaleListComponent,
+    SaleEditComponent,
+    SaleViewComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -62,6 +68,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     LabelEditComponent,
     LabelListComponent,
     StatisticsComponent,
+    SaleListComponent,
+    SaleEditComponent,
+    SaleViewComponent,
   ],
   imports: [
     CommonModule,
