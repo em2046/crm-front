@@ -75,6 +75,7 @@ export class EverythingComponent implements OnInit, OnDestroy {
     this.userService.getByToken().subscribe(res => {
       this.user = res;
       sessionStorage.setItem('user', JSON.stringify(res));
+      Utils.updateAuth();
     });
   }
 }

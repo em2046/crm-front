@@ -21,10 +21,21 @@ export default class Utils {
    * 获取认证信息
    */
   private static getHeaders() {
+    let userUuid = '';
+    const userData = sessionStorage.getItem('user');
+    if (userData) {
+      try {
+        userUuid = JSON.parse(userData).uuid;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + Utils.accessToken(),
+        'user-uuid': userUuid,
       }),
     };
   }
