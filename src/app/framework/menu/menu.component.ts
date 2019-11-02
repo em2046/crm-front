@@ -50,7 +50,7 @@ export class MenuComponent implements OnInit {
   handleOpenPermission() {
     this.tabService.mission(
       new Tab({
-        title: '权限管理',
+        title: '权限查看',
         icon: 'vpn_key',
         name: 'permission',
         page: new Page(PermissionListComponent, {}),
