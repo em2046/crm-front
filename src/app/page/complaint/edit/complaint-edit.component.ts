@@ -79,13 +79,20 @@ export class ComplaintEditComponent extends PageEdit<Complaint>
     }
 
     const complaint = this.data.complaint;
-    this.saveLoading = true;
+
     if (this.isEdit) {
+      this.saveLoading = true;
       this.saveEdit(complaint, data);
     } else {
+      if (!this.selectedUsers[0]) {
+        this.alertService.alert('请选择指派');
+        return;
+      }
+
       data.assignee = {
         uuid: this.selectedUsers[0].value,
       };
+      this.saveLoading = true;
       this.saveNew(data);
     }
   }

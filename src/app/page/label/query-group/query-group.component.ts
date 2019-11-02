@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   CustomerEducation,
   CustomerGender,
@@ -11,13 +19,19 @@ import {
   customerEducationTable,
   customerGenderTable,
 } from 'src/app/common/table/customer.table';
+import { Observable } from 'rxjs';
+import { citiesTable } from 'src/app/common/table/cities.table';
+import { CITIES } from 'src/app/common/table/cities';
+import { City } from '../../../common/class/city';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-query-group',
   templateUrl: './query-group.component.html',
   styleUrls: ['./query-group.component.less'],
 })
-export class QueryGroupComponent implements OnInit {
+export class QueryGroupComponent implements OnInit, OnChanges {
   constructor() {}
 
   @Input()
@@ -84,7 +98,7 @@ export class QueryGroupComponent implements OnInit {
     {
       value: 'city',
       title: '城市',
-      dataType: 'custom',
+      dataType: 'city',
       defaultOperator: '=',
       defaultValue: '',
     },
@@ -147,11 +161,29 @@ export class QueryGroupComponent implements OnInit {
 
   typeHash = {};
 
+  city = new FormControl();
+  citiesTable = citiesTable;
+  CITIES: City[] = CITIES;
+  filteredCities: Observable<City[]>;
+  cityTimer?: number = null;
+
   isArray(arr) {
     return Array.isArray(arr);
   }
 
   ngOnInit() {
+    this.filteredCities = this.city.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value && value.name)),
+      map(name => (name ? this._cityFilter(name) : this.CITIES.slice())),
+    );
+
+    this.city.valueChanges.subscribe(res => {
+      if (typeof res === 'object') {
+        this.data.rule[2] = res.code || '';
+      }
+    });
+
     this.initTypeHash();
   }
 
@@ -205,5 +237,67 @@ export class QueryGroupComponent implements OnInit {
 
     this.data.rule[1] = type.defaultOperator;
     this.data.rule[2] = type.defaultValue;
+  }
+
+  private _cityFilter(name: string): City[] {
+    const filterValue = name.toLowerCase();
+
+    return this.CITIES.filter(city => {
+      const cityName = city.name.toLowerCase();
+      const pinyin = city.pinyin.toLowerCase();
+      const pinyinFirstLetter = city.pinyinFirstLetter.toLowerCase();
+      return (
+        cityName.indexOf(filterValue) === 0 ||
+        pinyin.indexOf(filterValue) === 0 ||
+        pinyinFirstLetter.indexOf(filterValue) === 0
+      );
+    });
+  }
+
+  private findCity(cityName: string): City {
+    const foundCityName = this.CITIES.find(city => {
+      return city.name === cityName;
+    });
+    const foundCityShortName = this.CITIES.find(city => {
+      return cityName.indexOf(city.shortName) === 0;
+    });
+    return foundCityName || foundCityShortName;
+  }
+
+  handleCityClosed() {
+    clearTimeout(this.cityTimer);
+    this.cityTimer = setTimeout(() => {
+      const cityName = this.city.value;
+      if (typeof cityName !== 'string') {
+        return;
+      }
+
+      const foundCity = this.findCity(cityName);
+      if (foundCity) {
+        this.city.setValue(foundCity);
+        return;
+      }
+
+      this.city.setValue({});
+    }, 100);
+  }
+
+  cityDisplay(city?: City): string | undefined {
+    return city ? city.name : undefined;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const propName in changes) {
+      if (propName === 'data') {
+        const newData = changes.data.currentValue;
+
+        if (newData.type === 'RULE') {
+          if (newData.rule[0] === 'city') {
+            const cityData = this.citiesTable[newData.rule[2]];
+            this.city.setValue(cityData);
+          }
+        }
+      }
+    }
   }
 }

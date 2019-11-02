@@ -1,0 +1,108 @@
+<article class="page">
+  <h2>{{ sale.title }}</h2>
+  <section class="description">
+    {{ sale.description }}
+  </section>
+  <div class="task-process">
+    <div
+      class="task-step"
+      [class.is-current]="TaskStatus.CREATED === sale.status"
+    >
+      {{ taskStatusTable[TaskStatus.CREATED]?.title }}
+    </div>
+    <div
+      class="task-step"
+      [class.is-current]="TaskStatus.ASSIGNED === sale.status"
+    >
+      {{ taskStatusTable[TaskStatus.ASSIGNED]?.title }}
+    </div>
+    <div
+      class="task-step"
+      [class.is-current]="TaskStatus.FINISHED === sale.status"
+    >
+      {{ taskStatusTable[TaskStatus.FINISHED]?.title }}
+    </div>
+  </div>
+  <div class="assignee-box" *ngIf="sale.status === TaskStatus.CREATED">
+    <app-chips-autocomplete
+      #chipsAutoAssign
+      [max]="1"
+      label="指派"
+      icon="arrow_forward"
+      placeholder="User"
+      [(selectedOptions)]="selectedUsers"
+      [allOptions]="allUsers"
+    ></app-chips-autocomplete>
+
+    <button mat-flat-button color="primary" (click)="handleAssign()">
+      <mat-icon>forward</mat-icon>
+      指派
+    </button>
+  </div>
+  <div *ngIf="sale.status === TaskStatus.ASSIGNED">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="handleFinish()"
+      [disabled]="finishProgress !== 1"
+    >
+      <mat-icon>done</mat-icon>
+      完成
+    </button>
+    <div *ngIf="finishProgress !== 1">
+      请先完成全部子任务
+    </div>
+  </div>
+  <div *ngIf="sale.status === TaskStatus.FINISHED">
+    <p>此任务已经处理完成</p>
+  </div>
+  <div class="details">
+    <dl>
+      <dt>处理人：</dt>
+      <dd>{{ sale.assignee?.realName }}</dd>
+    </dl>
+    <dl>
+      <dt>状态：</dt>
+      <dd>{{ taskStatusTable[sale.status]?.title }}</dd>
+    </dl>
+    <dl>
+      <dt>创建时间：</dt>
+      <dd>
+        <span class="date">{{ sale.createDate | date: 'yyyy-MM-dd' }}</span>
+        <span class="time">{{ sale.createDate | date: 'HH:mm' }}</span>
+      </dd>
+    </dl>
+    <dl>
+      <dt>更新时间：</dt>
+      <dd>
+        <span class="date">{{ sale.updateDate | date: 'yyyy-MM-dd' }}</span>
+        <span class="time">{{ sale.updateDate | date: 'HH:mm' }}</span>
+      </dd>
+    </dl>
+  </div>
+
+  <h3>客户列表</h3>
+  <div class="finish-progress">
+    <mat-progress-spinner
+      mode="determinate"
+      [value]="finishProgress * 100"
+    ></mat-progress-spinner>
+    <div class="finish-progress-text">{{ finishProgress | percent }}</div>
+  </div>
+
+  <div class="customer-list">
+    <div class="customer-item" *ngFor="let saleCustomer of sale.saleCustomers">
+      <a (click)="handleCustomerView(saleCustomer.customer)">{{
+        saleCustomer.customer.name
+      }}</a>
+      <div *ngIf="saleCustomer.finished" class="customer-finished">
+        已完成
+      </div>
+      <div *ngIf="!saleCustomer.finished" class="customer-finish">
+        <button (click)="handleFinishSub(saleCustomer)">
+          完成
+        </button>
+      </div>
+    </div>
+  </div>
+</article>

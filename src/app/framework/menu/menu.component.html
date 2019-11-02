@@ -1,4 +1,13 @@
 <mat-nav-list>
+  <mat-list-item (click)="handleOpenStatistics()">
+    <mat-icon mat-list-icon>equalizer</mat-icon>
+    <p mat-line>数据统计</p>
+  </mat-list-item>
+</mat-nav-list>
+
+<mat-divider></mat-divider>
+
+<mat-nav-list>
   <h3 mat-subheader>客服工作台</h3>
 
   <mat-list-item (click)="handleOpenComplaint()">
@@ -6,7 +15,7 @@
     <p mat-line>客户投诉</p>
   </mat-list-item>
 
-  <mat-list-item>
+  <mat-list-item (click)="handleOpenSale()">
     <mat-icon mat-list-icon>trending_up</mat-icon>
     <p mat-line>营销任务</p>
   </mat-list-item>
@@ -61,6 +70,6 @@
 
   <mat-list-item (click)="handleOpenPermission()">
     <mat-icon mat-list-icon>vpn_key</mat-icon>
-    <p mat-line>权限管理</p>
+    <p mat-line>权限查看</p>
   </mat-list-item>
 </mat-nav-list>

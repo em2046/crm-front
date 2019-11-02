@@ -19,6 +19,9 @@ export class ErrorService {
           case 401:
             this.alertService.alert({ message: '身份验证失败', login: true });
             break;
+          case 403:
+            this.alertService.alert({ message: '没有对应的权限', login: true });
+            break;
           case 500:
             this.alertService.alert('服务器错误');
             break;

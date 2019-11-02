@@ -43,8 +43,24 @@ export default class Api {
     finish: uuid => host + '/complaint/' + uuid + '/finish',
   };
 
+  static sale = {
+    base: host + '/sale',
+    uuid: uuid => host + '/sale/' + uuid,
+    update: uuid => host + '/sale/' + uuid + '/update',
+    assign: uuid => host + '/sale/' + uuid + '/assign',
+    finish: uuid => host + '/sale/' + uuid + '/finish',
+  };
+
+  static saleCustomer = {
+    update: uuid => host + '/sale-customer/' + uuid + '/update',
+  };
+
   static label = {
     base: host + '/label',
     uuid: uuid => host + '/label/' + uuid,
+  };
+
+  static statistics = {
+    base: host + '/statistics',
   };
 }

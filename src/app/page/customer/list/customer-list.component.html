@@ -1,6 +1,6 @@
 <article class="page">
   <header class="page-header">
-    <h2>用户列表</h2>
+    <h2>客户列表</h2>
     <section class="button-group">
       <button mat-flat-button (click)="handleAdd()">
         <mat-icon>add_circle_outline</mat-icon>
@@ -26,7 +26,7 @@
           客户用户名
         </mat-header-cell>
         <mat-cell class="col-name" *matCellDef="let element">
-          {{ element.name }}
+          <a (click)="handleView(element)">{{ element.name }}</a>
         </mat-cell>
       </ng-container>
 

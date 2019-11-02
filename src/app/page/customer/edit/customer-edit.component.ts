@@ -27,14 +27,8 @@ import { citiesTable } from 'src/app/common/table/cities.table';
 import { CITIES } from '../../../common/table/cities';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-
-interface City {
-  code: string;
-  name: string;
-  shortName: string;
-  pinyin: string;
-  pinyinFirstLetter: string;
-}
+import { City } from '../../../common/class/city';
+import { PageData } from '../../../common/class/page-data';
 
 export interface User {
   name: string;
@@ -66,7 +60,7 @@ const emptyCustomerData = {
   styleUrls: ['../../common/edit.less', './customer-edit.component.less'],
 })
 export class CustomerEditComponent extends PageEdit<Customer>
-  implements OnInit {
+  implements OnInit, PageData {
   constructor(
     public service: CustomerService,
     private formBuilder: FormBuilder,

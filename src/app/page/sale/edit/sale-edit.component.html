@@ -6,7 +6,7 @@
   >
     <mat-form-field appearance="outline" *ngIf="isEdit">
       <mat-label>编号</mat-label>
-      <input matInput [value]="complaint.uuid || ''" disabled />
+      <input matInput [value]="sale.uuid || ''" disabled />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -39,6 +39,17 @@
       placeholder="User"
       [(selectedOptions)]="selectedUsers"
       [allOptions]="allUsers"
+    ></app-chips-autocomplete>
+
+    <app-chips-autocomplete
+      *ngIf="!isEdit"
+      #chipsAutoLabel
+      [max]="1"
+      label="标签"
+      icon="loyalty"
+      placeholder="Label"
+      [(selectedOptions)]="selectedLabels"
+      [allOptions]="allLabels"
     ></app-chips-autocomplete>
 
     <section>

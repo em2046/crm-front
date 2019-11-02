@@ -21,6 +21,11 @@ import { ComplaintViewComponent } from './complaint/view/complaint-view.componen
 import { LabelEditComponent } from './label/edit/label-edit.component';
 import { QueryGroupComponent } from './label/query-group/query-group.component';
 import { LabelListComponent } from './label/list/label-list.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { SaleListComponent } from './sale/list/sale-list.component';
+import { SaleEditComponent } from './sale/edit/sale-edit.component';
+import { SaleViewComponent } from './sale/view/sale-view.component';
+import { CustomerViewComponent } from './customer/view/customer-view.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +46,11 @@ import { LabelListComponent } from './label/list/label-list.component';
     LabelEditComponent,
     QueryGroupComponent,
     LabelListComponent,
+    StatisticsComponent,
+    SaleListComponent,
+    SaleEditComponent,
+    SaleViewComponent,
+    CustomerViewComponent,
   ],
   entryComponents: [
     UserListComponent,
@@ -59,6 +69,11 @@ import { LabelListComponent } from './label/list/label-list.component';
     ComplaintViewComponent,
     LabelEditComponent,
     LabelListComponent,
+    StatisticsComponent,
+    SaleListComponent,
+    SaleEditComponent,
+    SaleViewComponent,
+    CustomerViewComponent,
   ],
   imports: [
     CommonModule,

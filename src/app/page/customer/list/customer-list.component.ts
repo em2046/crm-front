@@ -19,6 +19,7 @@ import { citiesTable } from '../../../common/table/cities.table';
 import { CustomerEditComponent } from '../edit/customer-edit.component';
 import { AlertService } from '../../../common/service/alert.service';
 import { PageData } from '../../../common/class/page-data';
+import { CustomerViewComponent } from '../view/customer-view.component';
 
 @Component({
   selector: 'app-customer-list',
@@ -123,5 +124,18 @@ export class CustomerListComponent extends PageList<Customer>
 
   refreshPage() {
     this.ngOnInit();
+  }
+
+  handleView(customer: Customer) {
+    this.tabService.mission(
+      new Tab({
+        title: '客户查看',
+        name: `customer-view#${customer.uuid}`,
+        page: new Page(CustomerViewComponent, {
+          type: 'VIEW',
+          customer,
+        }),
+      }),
+    );
   }
 }
