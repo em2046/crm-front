@@ -58,6 +58,7 @@ export default class Api {
   static label = {
     base: host + '/label',
     uuid: uuid => host + '/label/' + uuid,
+    query: host + '/label/query',
   };
 
   static statistics = {

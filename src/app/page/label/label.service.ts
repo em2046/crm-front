@@ -6,6 +6,7 @@ import { ErrorService } from '../../common/service/error.service';
 import Utils from '../../common/utils/utils';
 import Api from '../../common/utils/api';
 import { catchError } from 'rxjs/operators';
+import { Customer } from '../../common/model/customer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +44,12 @@ export class LabelService {
   update(uuid, label): Observable<Label> {
     return this.http
       .patch<Label>(Api.label.uuid(uuid), label, Utils.httpOptions)
+      .pipe(catchError(this.errorService.handleError()));
+  }
+
+  query(ruleJson: any): Observable<Customer[]> {
+    return this.http
+      .post<Customer[]>(Api.label.query, ruleJson, Utils.httpOptions)
       .pipe(catchError(this.errorService.handleError()));
   }
 }

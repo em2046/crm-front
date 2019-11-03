@@ -11,6 +11,7 @@ import { Page } from 'src/app/common/class/page';
 import { LabelEditComponent } from '../edit/label-edit.component';
 import { PageData } from '../../../common/class/page-data';
 import { AlertService } from '../../../common/service/alert.service';
+import { LabelViewComponent } from '../view/label-view.component';
 
 @Component({
   selector: 'app-label-list',
@@ -79,6 +80,19 @@ export class LabelListComponent extends PageList<Label>
         name: `label-edit#${label.uuid}`,
         page: new Page(LabelEditComponent, {
           type: 'EDIT',
+          label,
+        }),
+      }),
+    );
+  }
+
+  handleView(label: Label) {
+    this.tabService.mission(
+      new Tab({
+        title: '标签查看',
+        name: `label-view#${label.uuid}`,
+        page: new Page(LabelViewComponent, {
+          type: 'VIEW',
           label,
         }),
       }),

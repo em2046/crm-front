@@ -31,7 +31,7 @@
       icon="arrow_forward"
       placeholder="User"
       [(selectedOptions)]="selectedUsers"
-      [allOptions]="allUsers"
+      [allOptions]="allStaff"
     ></app-chips-autocomplete>
 
     <button mat-flat-button color="primary" (click)="handleAssign()">
@@ -44,12 +44,12 @@
       mat-flat-button
       color="primary"
       (click)="handleFinish()"
-      [disabled]="finishProgress !== 1"
+      [disabled]="finishProgress !== 1 && sale.saleCustomers?.length !== 0"
     >
       <mat-icon>done</mat-icon>
       完成
     </button>
-    <div *ngIf="finishProgress !== 1">
+    <div *ngIf="finishProgress !== 1 && sale.saleCustomers?.length !== 0">
       请先完成全部子任务
     </div>
   </div>
@@ -82,6 +82,9 @@
   </div>
 
   <h3>客户列表</h3>
+  <div class="customer-empty" *ngIf="sale.saleCustomers?.length === 0">
+    无相关客户数据
+  </div>
   <div class="finish-progress">
     <mat-progress-spinner
       mode="determinate"

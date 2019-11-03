@@ -31,7 +31,7 @@
           名称
         </mat-header-cell>
         <mat-cell class="col-title" *matCellDef="let element">
-          {{ element.title }}
+          <a (click)="handleView(element)">{{ element.title }}</a>
         </mat-cell>
       </ng-container>
 

@@ -34,6 +34,7 @@ export class ComplaintEditComponent extends PageEdit<Complaint>
 
   selectedUsers: Option[] = [];
   allUsers: Option[] = [];
+  allSupervisor: Option[] = [];
 
   constructor(
     public userService: UserService,
@@ -119,6 +120,19 @@ export class ComplaintEditComponent extends PageEdit<Complaint>
 
   private getUsers() {
     this.userService.getAll().subscribe(res => {
+      this.allSupervisor = res
+        .filter(u => {
+          return u.roles.find(r => {
+            return r.name === 'supervisor';
+          });
+        })
+        .map(r => {
+          return {
+            value: r.uuid,
+            title: r.realName,
+          };
+        });
+
       this.allUsers = res.map(r => {
         return {
           value: r.uuid,

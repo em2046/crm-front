@@ -15,6 +15,7 @@ import { Tab } from '../../../common/class/tab';
 import { Page } from '../../../common/class/page';
 import { CustomerViewComponent } from '../../customer/view/customer-view.component';
 import { TabService } from '../../../framework/tab.service';
+import { AlertService } from '../../../common/service/alert.service';
 
 @Component({
   selector: 'app-sale-view',
@@ -26,6 +27,7 @@ export class SaleViewComponent implements OnInit {
     public service: SaleService,
     public userService: UserService,
     public tabService: TabService,
+    private readonly alertService: AlertService,
   ) {}
 
   @ViewChild('chipsAutoAssign', { static: false })
@@ -33,6 +35,7 @@ export class SaleViewComponent implements OnInit {
 
   selectedUsers: Option[] = [];
   allUsers: Option[] = [];
+  allStaff: Option[] = [];
 
   TaskStatus = TaskStatus;
   taskStatusTable = taskStatusTable;
@@ -44,6 +47,7 @@ export class SaleViewComponent implements OnInit {
 
   handleAssign() {
     if (!this.selectedUsers.length) {
+      this.alertService.snack('请选择指派');
       return;
     }
 
@@ -81,6 +85,19 @@ export class SaleViewComponent implements OnInit {
 
   private getUsers() {
     this.userService.getAll().subscribe(res => {
+      this.allStaff = res
+        .filter(u => {
+          return u.roles.find(r => {
+            return r.name === 'staff';
+          });
+        })
+        .map(r => {
+          return {
+            value: r.uuid,
+            title: r.realName,
+          };
+        });
+
       this.allUsers = res.map(r => {
         return {
           value: r.uuid,

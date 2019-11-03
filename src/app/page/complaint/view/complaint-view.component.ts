@@ -9,6 +9,7 @@ import {
   Option,
 } from '../../../components/chips-autocomplete/chips-autocomplete.component';
 import { UserService } from '../../../common/service/user.service';
+import { AlertService } from '../../../common/service/alert.service';
 
 @Component({
   selector: 'app-complaint-view',
@@ -19,6 +20,7 @@ export class ComplaintViewComponent implements OnInit {
   constructor(
     public service: ComplaintService,
     public userService: UserService,
+    private readonly alertService: AlertService,
   ) {}
 
   @ViewChild('chipsAutoAssign', { static: false })
@@ -26,6 +28,7 @@ export class ComplaintViewComponent implements OnInit {
 
   selectedUsers: Option[] = [];
   allUsers: Option[] = [];
+  allStaff: Option[] = [];
 
   TaskStatus = TaskStatus;
   taskStatusTable = taskStatusTable;
@@ -36,6 +39,7 @@ export class ComplaintViewComponent implements OnInit {
 
   handleAssign() {
     if (!this.selectedUsers.length) {
+      this.alertService.snack('请选择指派');
       return;
     }
 
@@ -74,6 +78,19 @@ export class ComplaintViewComponent implements OnInit {
 
   private getUsers() {
     this.userService.getAll().subscribe(res => {
+      this.allStaff = res
+        .filter(u => {
+          return u.roles.find(r => {
+            return r.name === 'staff';
+          });
+        })
+        .map(r => {
+          return {
+            value: r.uuid,
+            title: r.realName,
+          };
+        });
+
       this.allUsers = res.map(r => {
         return {
           value: r.uuid,

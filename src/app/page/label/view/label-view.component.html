@@ -1,0 +1,16 @@
+<article class="page">
+  <dl>
+    <dt>名称</dt>
+    <dd>{{ label.title }}</dd>
+  </dl>
+
+  <h3>客户列表</h3>
+  <div class="customer-empty" *ngIf="customerList?.length === 0">
+    无相关客户数据
+  </div>
+  <div class="customer-list">
+    <div class="customer-item" *ngFor="let customer of customerList">
+      <a (click)="handleCustomerView(customer)">{{ customer.name }}</a>
+    </div>
+  </div>
+</article>

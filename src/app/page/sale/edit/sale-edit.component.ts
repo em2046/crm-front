@@ -59,6 +59,7 @@ export class SaleEditComponent extends PageEdit<Sale> implements OnInit {
 
   selectedUsers: Option[] = [];
   allUsers: Option[] = [];
+  allSupervisor: Option[] = [];
 
   selectedLabels: Option[] = [];
   allLabels: Option[] = [];
@@ -135,6 +136,19 @@ export class SaleEditComponent extends PageEdit<Sale> implements OnInit {
 
   private getUsers() {
     this.userService.getAll().subscribe(res => {
+      this.allSupervisor = res
+        .filter(u => {
+          return u.roles.find(r => {
+            return r.name === 'supervisor';
+          });
+        })
+        .map(r => {
+          return {
+            value: r.uuid,
+            title: r.realName,
+          };
+        });
+
       this.allUsers = res.map(r => {
         return {
           value: r.uuid,
