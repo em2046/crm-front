@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --deployUrl=//cfs.em2046.com/",
+    "build": "ng build --prod",
     "format": "prettier --write \"src/**/*.{ts,html,less}\"",
     "test": "ng test",
     "lint": "ng lint",
